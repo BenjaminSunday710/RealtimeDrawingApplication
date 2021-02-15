@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="RealtimeDrawingApplicationProject.SharedUserWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RealtimeDrawingApplicationProject"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="400">
+    <DockPanel Background="LightGoldenrodYellow">
+        <CheckBox Content="Igben Nehemiah"  DockPanel.Dock="Top" Margin="10"
+                  FontSize="15"/>
+        <CheckBox Content="Egbe Endurance" DockPanel.Dock="Top" 
+                  Margin="10"  FontSize="15"/>
+        <CheckBox Content="Sunday Benjamin" DockPanel.Dock="Top" 
+                  Margin="10"  FontSize="15"/>
+        <Button Content="Add Shared User" Background="Black" Foreground="White"
+                DockPanel.Dock="Top" HorizontalAlignment="Left"
+                VerticalAlignment="Top" Padding="25,5" Margin="25,30" 
+                FontSize="15" FontWeight="DemiBold" VerticalContentAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"> 
+            
+        </Button>
+    </DockPanel>
+    
+</UserControl>

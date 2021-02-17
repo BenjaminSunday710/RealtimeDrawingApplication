@@ -41,5 +41,25 @@ namespace RealtimeDrawingApplication.Views
             Border border = new Border();
             border.Background = Brushes.Gray;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DisplayPropertyWindow_Click(object sender, RoutedEventArgs e)
+        {
+            PropertyWindowPane.Visibility = Visibility.Visible;
+        }
+
+        private void DisplayPropertyWindowMenu_Click(object sender, RoutedEventArgs e)
+        {
+            PropertyWindowPopUp.IsOpen = !PropertyWindowPopUp.IsOpen;
+        }
+
+        private void PropertyWindowPopUp_LostFocus(object sender, RoutedEventArgs e)
+        {
+            PropertyWindowPopUp.StaysOpen = false;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RealtimeDrawingApplication.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,14 +17,14 @@ using System.Windows.Shapes;
 namespace Application.Views
 {
     /// <summary>
-    /// Interaction logic for ColourList.xaml
+    /// Interaction logic for PropertyWindow.xaml
     /// </summary>
-    public partial class ColourList : UserControl
+    public partial class PropertyWindowControl : UserControl
     {
-        public ColourList()
+        public PropertyWindowControl()
         {
             InitializeComponent();
-            DataContext = new RealtimeDrawingApplication.ViewModels.ColourViewModel();
+            DataContext = new ColourViewModel();
         }
     }
 }

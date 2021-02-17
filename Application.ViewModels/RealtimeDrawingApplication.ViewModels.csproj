@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application.Common\RealtimeDrawingApplication.Common.csproj" />
-    <ProjectReference Include="..\Application.Models\RealtimeDrawingApplication.Models.csproj" />
     <ProjectReference Include="..\RealDrawingApplication.Infrastructure\RealtimeDrawingApplication.Infrastructure.csproj" />
   </ItemGroup>
 

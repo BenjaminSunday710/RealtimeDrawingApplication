@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace RealtimeDrawingApplication.Models
+namespace RealtimeDrawingApplication.Common
 {
     public class Colour
     {

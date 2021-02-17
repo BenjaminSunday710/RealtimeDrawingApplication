@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RealtimeDrawingApplication.Views"
+        xmlns:local1="clr-namespace:Application.Views"
         mc:Ignorable="d"
         Title="Realtime Drawing Application" Height="450" Width="800"
         WindowState="Maximized">
@@ -17,6 +18,8 @@
         </Style>
     </Window.Resources>
     <Grid>
+        
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -26,63 +29,47 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
-        <DockPanel Grid.RowSpan="2" Background="Azure">
+        <DockPanel Grid.RowSpan="2" Background="Transparent">
             <Path Style="{StaticResource IconStyle}"
-                  VerticalAlignment="Top" 
-                  DockPanel.Dock="Top"
-                  MouseDown="Path_MouseDown"
-                  Data="M3,15H21V13H3V15M3,19H21V17H3V19M3,11H21V9H3V11M3,
-                  5V7H21V5H3Z"/>
+                VerticalAlignment="Top" 
+                DockPanel.Dock="Top"
+                MouseDown="Path_MouseDown"
+                Data="M3,15H21V13H3V15M3,19H21V17H3V19M3,11H21V9H3V11M3,
+                5V7H21V5H3Z"/>
             <Path Fill="Black" Width="28" Height="28" 
-                  VerticalAlignment="Top" 
-                  DockPanel.Dock="Top" Margin="5" 
-                  Data="M21,3L3,10.53V11.5L9.84,14.16L12.5,21
-                          H13.46L21,3Z" />
+                VerticalAlignment="Top" 
+                DockPanel.Dock="Top" Margin="5" 
+                Data="M21,3L3,10.53V11.5L9.84,14.16L12.5,21
+                        H13.46L21,3Z" />
             <Path Style="{StaticResource IconStyle}" 
-                  VerticalAlignment="Top" 
-                  DockPanel.Dock="Top" 
-                  Data="M3,3H21V21H3V3M5,5V19H19V5H5Z" />
+                VerticalAlignment="Top" 
+                DockPanel.Dock="Top" 
+                Data="M3,3H21V21H3V3M5,5V19H19V5H5Z" />
             <Path Style="{StaticResource IconStyle}" 
-                  VerticalAlignment="Top" 
-                  DockPanel.Dock="Top"
-                  Data="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,
-                  12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12
-                  A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                VerticalAlignment="Top" 
+                DockPanel.Dock="Top"
+                Data="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,
+                12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12
+                A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
             <Path Style="{StaticResource IconStyle}"
-                  VerticalAlignment="Top"
-                  DockPanel.Dock="Top"  
-                  Data="M12,7.77L18.39,18H5.61L12,7.77M12,4L2,20H22" />
+                VerticalAlignment="Top"
+                DockPanel.Dock="Top"  
+                Data="M12,7.77L18.39,18H5.61L12,7.77M12,4L2,20H22" />
             <Path Style="{StaticResource IconStyle}" 
-                  VerticalAlignment="Top" 
-                  DockPanel.Dock="Top"
-                  Data="M7 21L14.9 3H17L9.1 21H7Z" />
+                VerticalAlignment="Top" 
+                DockPanel.Dock="Top"
+                Data="M7 21L14.9 3H17L9.1 21H7Z" />
             <Path Style="{StaticResource IconStyle}"
-                  VerticalAlignment="Top" DockPanel.Dock="Top" Margin="5" 
-                  Data="M2 4V7H7V19H10V7H15V4H2M21 9H12V12H15V19H18V12H21V9Z" />
+                VerticalAlignment="Top" DockPanel.Dock="Top" Margin="5" 
+                Data="M2 4V7H7V19H10V7H15V4H2M21 9H12V12H15V19H18V12H21V9Z" />
         </DockPanel>
-
         <DockPanel Grid.Column="2" 
                    Grid.Row="0" 
                    Background="White" 
                    HorizontalAlignment="Stretch"
                    DockPanel.Dock="Left"
                    Margin="5">
-            <StackPanel Orientation="Horizontal" 
-                        HorizontalAlignment="Right"
-                        Margin="5,0">
-                <Path Style="{StaticResource IconStyle}"
-                  HorizontalAlignment="Right" 
-                  DockPanel.Dock="Left"
-                  Margin="10,0,0,0"
-                    Data="M15,4A4,4 0 0,0 11,8A4,4  0 0,0 15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4M15,5.9C16.16,5.9 17.1,6.84
-                          17.1,8C17.1,9.16 16.16,10.1 15,10.1A2.1,2.1 0 0,1 12.9,8A2.1,2.1 0 0,1 15,5.9M4,
-                          7V10H1V12H4V15H6V12H9V10H6V7H4M15,
-                          13C12.33,13 7,14.33 7,17V20H23V17C23,
-                          14.33 17.67,13 15,13M15,14.9C17.97,14.9
-                          21.1,16.36 21.1,17V18.1H8.9V17C8.9,16.36
-                          12,14.9 15,14.9Z">
-                </Path>
-                <Path
+            <Path
                   HorizontalAlignment="Right" 
                   DockPanel.Dock="Right" 
                   Data="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12
@@ -92,37 +79,95 @@
                   C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z" Height="28" VerticalAlignment="Top"
                     Style="{StaticResource IconStyle}">
                 </Path>
-            </StackPanel>
+            <Path Style="{StaticResource IconStyle}"
+                  HorizontalAlignment="Right" 
+                  DockPanel.Dock="Right"
+                  Margin="10,0,0,0"
+                    Data="M15,4A4,4 0 0,0 11,8A4,4  0 0,0 15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4M15,5.9C16.16,5.9 17.1,6.84
+                          17.1,8C17.1,9.16 16.16,10.1 15,10.1A2.1,2.1 0 0,1 12.9,8A2.1,2.1 0 0,1 15,5.9M4,
+                          7V10H1V12H4V15H6V12H9V10H6V7H4M15,
+                          13C12.33,13 7,14.33 7,17V20H23V17C23,
+                          14.33 17.67,13 15,13M15,14.9C17.97,14.9
+                          21.1,16.36 21.1,17V18.1H8.9V17C8.9,16.36
+                          12,14.9 15,14.9Z">
+            </Path>
         </DockPanel>
         <Canvas Grid.Row="1"
                 Grid.Column="1"
                 Background="PaleGoldenrod"/>
-        <DockPanel Grid.Column="2" Grid.Row="1" Background="LightGoldenrodYellow">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Property Window" 
+        <DockPanel Grid.Column="2" Grid.Row="1" 
+                   Background="LightGoldenrodYellow">
+                <StackPanel Orientation="Horizontal"
+                        DockPanel.Dock="Top"
+                        HorizontalAlignment="Center" Margin="-67,0">
+                    <TextBlock Text="Property Window" 
                        FontSize="18" FontWeight="DemiBold" 
                        Margin="0,0,1,0"
                            Padding="5,0"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Top"/>
-
-                <Path Fill="Black" Data="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10
-                  L7.41,8.58Z"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"
+                    <Button  BorderBrush="Transparent"
+                         x:Name="DisplayPropertyWindowMenu"
+                         Background="LightGoldenrodYellow"
+                         Click="DisplayPropertyWindowMenu_Click"
+                         VerticalAlignment="Top"
+                         >
+                        <Path Fill="Black" 
+                          Data="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10 L7.41,8.58Z"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
                         DockPanel.Dock="Top"
-                        Margin="0,3"
                         Height="25"
                         Width="25"/>
-            </StackPanel>
+                    </Button>
 
-        </DockPanel>
+                    <Popup x:Name="PropertyWindowPopUp"
+                           Placement="Mouse"
+                           LostFocus="PropertyWindowPopUp_LostFocus">
+                        <StackPanel Orientation="Vertical"
+                                    Background="White">
+                            <Button Content="Project Window"
+                                    HorizontalContentAlignment="Left"
+                                    Padding="4,0,0,0"
+                                    Background="White"
+                                    BorderBrush="Transparent"
+                                    Margin="2,2,0,0"
+                               />
+                            <Button Content="Property Window"
+                                    x:Name="DisplayPropertyWindow"
+                                    Background="White"
+                                    Margin="2,2,0,0"
+                                    Padding="4,0,0,0"
+                                    BorderBrush="Transparent"
+                                    HorizontalContentAlignment="Left"
+                                    Click="DisplayPropertyWindow_Click">
+                            </Button>
+                            <Button Content="Shared User Window"
+                                    Background="White"
+                                    x:Name="DisplaySharedUserWindow"
+                                    Margin="2,2,0,5"
+                                    Padding="4,0,0,0"
+                                    BorderBrush="Transparent"
+                                    HorizontalContentAlignment="Left"/>
+                        </StackPanel>
+                    </Popup>
+                </StackPanel>
+                <ContentControl Content="{Binding CurrentContent}"/>
+                <local1:PropertyWindowControl
+                    Width="200"
+                    x:Name="PropertyWindowPane"
+                    Visibility="visible"  
+                    Margin="0,0,5,5"
+                    DockPanel.Dock="Right"/>
 
-        <local:MenuPaneControl Grid.RowSpan="2"
+            </DockPanel>
+    </Grid>
+
+        <local:MenuPaneControl
+           
             x:Name="MenuPane"
             Visibility="Collapsed"  
            HorizontalAlignment="Left"/>
         
-
     </Grid>
 </Window>

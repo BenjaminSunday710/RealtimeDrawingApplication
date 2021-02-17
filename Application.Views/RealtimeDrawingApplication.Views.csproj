@@ -57,32 +57,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ColourList.xaml.cs">
-      <DependentUpon>ColourList.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CreateAccount.xaml.cs">
       <DependentUpon>CreateAccount.xaml</DependentUpon>
     </Compile>
     <Compile Include="CreateProject.xaml.cs">
       <DependentUpon>CreateProject.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Colour.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="ProjectWindow.xaml.cs">
       <DependentUpon>ProjectWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PropertyWindow.xaml.cs">
-      <DependentUpon>PropertyWindow.xaml</DependentUpon>
+    <Compile Include="PropertyWindowControl.xaml.cs">
+      <DependentUpon>PropertyWindowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="SharedProjectWindow.xaml.cs">
       <DependentUpon>SharedProjectWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ColourViewModel.cs" />
-    <Compile Include="ViewModels\RelayCommand.cs" />
-    <Page Include="ColourList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="SharedUserWindowControl.xaml.cs">
+      <DependentUpon>SharedUserWindowControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="CreateAccount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -111,11 +103,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PropertyWindow.xaml">
+    <Page Include="PropertyWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SharedProjectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SharedUserWindowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -150,9 +146,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Application.ViewModels\RealtimeDrawingApplication.ViewModels.csproj">
-      <Project>{a2dcc400-5c28-4ed2-b3fa-3cab3d79b939}</Project>
-      <Name>RealtimeDrawingApplication.ViewModels</Name>
+    <ProjectReference Include="..\RealtimeDrawingApplication.ViewModel\RealtimeDrawingApplication.ViewModel.csproj">
+      <Project>{b1b9caf2-e938-4ea4-a930-231ae1a0d7b5}</Project>
+      <Name>RealtimeDrawingApplication.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

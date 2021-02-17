@@ -10,28 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RealtimeDrawingApplication.Views
+namespace Application.Views
 {
     /// <summary>
-    /// Interaction logic for PropertyWindow.xaml
+    /// Interaction logic for SharedUserWindowControl.xaml
     /// </summary>
-    public partial class PropertyWindow : Window
+    public partial class SharedUserWindowControl : UserControl
     {
-        public PropertyWindow()
+        public SharedUserWindowControl()
         {
             InitializeComponent();
-        }
-
-        private void FillColourIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-                 
-        }
-
-        private void BorderFillIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
         }
     }
 }

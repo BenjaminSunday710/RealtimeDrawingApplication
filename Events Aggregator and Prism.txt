@@ -1,0 +1,151 @@
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using Prism.Ioc;
+using System.Windows;
+using Prism.Unity;
+using RealtimeDrawingApplication.ViewModels;
+
+namespace RealtimeDrawingApplication
+{
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App : PrismApplication
+    {
+        public App()
+        {
+           
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Application_StartUp(object sender, StartupEventArgs e)
+        {
+            MainWindow mWnd = new MainWindow();
+            mWnd.Title = "Realtime Drawing Application";
+            mWnd.Show();
+        }
+
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.Register<IDatabase, Database>();
+        }
+
+        protected override Window CreateShell()
+        {
+            return Container.Resolve<Views.CreateAccount>();
+        }
+    }
+
+}
+
+using Prism.Commands;
+using Prism.Events;
+using Prism.Mvvm;
+using RealtimeDrawingApplication.Views;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+
+namespace RealtimeDrawingApplication.ViewModels
+{
+    public class CreateAccountViewModel : BindableBase
+    {
+        private string _name;
+        private string _password;
+
+        public string Name { get => _name; set {_name = value; RaisePropertyChanged(); } }
+        public string Password { get => _password; set { _password = value; RaisePropertyChanged(); } }
+        public DelegateCommand Notification { get; set; }
+        public IEventAggregator EventAggregator { get; }
+
+        public CreateAccountViewModel(IEventAggregator eventAggregator)
+        {
+            Notification = new DelegateCommand(ShowMessage);
+            EventAggregator = eventAggregator;
+            EventAggregator.GetEvent<NameChangedEvent>().Subscribe(ChangeNameHandler);
+        }
+
+        void ShowMessage()
+        {
+            MessageBox.Show(string.Format("Name:{0},Password:{1}", Name, Password), "Account Details", MessageBoxButton.OK);
+            var window = new CreateProjectView();
+            window.Show();
+        }
+        
+
+        void ChangeNameHandler()
+        {
+            Name = "Hey dear I have been invoked!";
+            IDatabase database = new Database();
+        }
+    }
+
+    public interface IDatabase
+    {
+
+    }
+
+    public class Database:IDatabase
+    {
+
+    }
+}
+
+using Prism.Commands;
+using Prism.Events;
+using Prism.Mvvm;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+
+namespace RealtimeDrawingApplication.ViewModels
+{
+    public class NameChangedEvent : PubSubEvent { }
+    public class CreateProjectViewModel:BindableBase
+    {
+        private string name;
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value;RaisePropertyChanged(); }
+        }
+        private string email;
+
+        public string Email
+        {
+            get { return email; }
+            set { email = value; RaisePropertyChanged(); }
+        }
+        public CreateProjectViewModel(IEventAggregator eventAggregator)
+        {
+            ShowMessageCommand = new DelegateCommand(ShowMessage);
+            EventAggregator = eventAggregator;
+        }
+        public DelegateCommand ShowMessageCommand { get; set; }
+        public IEventAggregator EventAggregator { get; }
+
+        private void ShowMessage()
+        {
+            EventAggregator.GetEvent<NameChangedEvent>().Publish();
+            MessageBox.Show(string.Format("Name: {0} Email: {1} - Event Sent", Name, Email));
+        }
+
+    }
+}
+
+

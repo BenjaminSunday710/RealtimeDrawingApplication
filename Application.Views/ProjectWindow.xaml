@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RealtimeDrawingApplication.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="200">
     <Grid>
         <DockPanel Background="LightGoldenrodYellow">
-            <ListBox Name="lstProjects" DockPanel.Dock="Left" Background="WhiteSmoke"
-                 Margin="5"/>
+            <ListBox Name="lstProjects" 
+                     DockPanel.Dock="Left" 
+                     Background="WhiteSmoke"
+                     Margin="5"/>
         </DockPanel>
 
     </Grid>

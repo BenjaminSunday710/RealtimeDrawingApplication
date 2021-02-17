@@ -1,38 +1,46 @@
-﻿using Application.Views.ViewModels;
-using RealtimeDrawingApplication.Models;
+﻿using Prism.Commands;
+using Prism.Mvvm;
+using RealtimeDrawingApplication.Common;
+using RealtimeDrawingApplication.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace RealtimeDrawingApplication.ViewModels
+namespace RealtimeDrawingApplication.ViewModel
 {
-    class ColourViewModel:INotifyPropertyChanged
-    {
-        private Colour _selectedItems;
 
-        public IList<Colour> ColourListItems { get; set; }
-        public bool IsOpen { get; set; }
-        public Colour SelectedItem { get=>_selectedItems; set { _selectedItems = value; OnPropertyChanged(SelectedItem.Name); } }
+    public class ColourViewModel:BindableBase 
+    {
+        private Colour _selectedItem;
+        private bool _isOpen;
+
+        public ObservableCollection<Colour> ColourListItems { get; set; }
+        public bool IsOpen { get => _isOpen; set { _isOpen = value; RaisePropertyChanged(); } }
+        public Colour SelectedItem { get => _selectedItem; set { _selectedItem = value; RaisePropertyChanged(); } }
+
 
         public ColourViewModel()
         {
             ColourListItems = LoadColourList();
-            PopUpOpenCommand = new RelayCommand(IsPopUpOpenAction, () => true);
+            PopUpOpenCommand = new DelegateCommand(IsPopUpOpenAction);
         }
 
-        public RelayCommand PopUpOpenCommand { get; set; }
+        public DelegateCommand PopUpOpenCommand { get; set; }
 
         void IsPopUpOpenAction()
         {
             IsOpen = !IsOpen;
         }
 
-        public List<Colour> LoadColourList()
+        public ObservableCollection<Colour> LoadColourList()
         {
-            List<Colour> colours = new List<Colour> {
+            ObservableCollection<Colour> colours = new ObservableCollection<Colour>{
                 new Colour {Name="Red", Brush=Brushes.Red },
                 new Colour {Name="Green", Brush=Brushes.Green },
                 new Colour {Name="Yellow", Brush=Brushes.Yellow },
@@ -69,12 +77,6 @@ namespace RealtimeDrawingApplication.ViewModels
                 new Colour{Name="Cyan",Brush=Brushes.Cyan}
             };
             return colours;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

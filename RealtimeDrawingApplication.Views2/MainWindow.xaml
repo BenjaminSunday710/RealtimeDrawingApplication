@@ -182,7 +182,7 @@
                     x:Name="PropertyWindowPane"
                     Visibility="visible"  
                     Margin="0,0,5,5"
-                    DockPanel.Dock="Right"/-->>
+                    DockPanel.Dock="Right"/-->
 
             </DockPanel>
     </Grid>

@@ -1,7 +1,7 @@
-﻿<Application x:Class="RealtimeDrawingApplication.Views.App"
+﻿<Application x:Class="RealtimeDrawingApplication.Views2.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:RealtimeDrawingApplication.Views"
+             xmlns:local="clr-namespace:RealtimeDrawingApplication.Views2"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

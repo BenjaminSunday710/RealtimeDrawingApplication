@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RealtimeDrawingApplicationProject.Properties
+namespace RealtimeDrawingApplication.Views2.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace RealtimeDrawingApplicationProject.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RealtimeDrawingApplicationProject.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RealtimeDrawingApplication.Views2.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

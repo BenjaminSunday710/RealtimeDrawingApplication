@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RealtimeDrawingApplication.Views.Properties
+namespace RealtimeDrawingApplication.Views2.Properties
 {
 
 

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1340
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtimeDrawingApplication.Views", "Application.Views\RealtimeDrawingApplication.Views.csproj", "{7939CFAC-DEF8-4888-ADB7-4427A3A259B2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtimeDrawingApplication.Model", "RealtimeDrawingApplication.Model\RealtimeDrawingApplication.Model.csproj", "{CC8B517E-762A-4B30-BD4B-7FFFB8C9EB7C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtimeDrawingApplication.Infrastructure", "RealtimeDrawingApplication.Infrastructure\RealtimeDrawingApplication.Infrastructure.csproj", "{744FAD6E-C8E9-44EC-9139-D4E456B8DDB1}"
@@ -13,16 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtimeDrawingApplication.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtimeDrawingApplication.Common", "RealtimeDrawingApplication.Common\RealtimeDrawingApplication.Common.csproj", "{9F42A386-1FA5-415D-9CE1-3E5FC626BB6C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtimeDrawingApplication.Views", "RealtimeDrawingApplication.Views2\RealtimeDrawingApplication.Views.csproj", "{80E05825-6438-4223-BA94-6C6388F56CC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7939CFAC-DEF8-4888-ADB7-4427A3A259B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7939CFAC-DEF8-4888-ADB7-4427A3A259B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7939CFAC-DEF8-4888-ADB7-4427A3A259B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7939CFAC-DEF8-4888-ADB7-4427A3A259B2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CC8B517E-762A-4B30-BD4B-7FFFB8C9EB7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CC8B517E-762A-4B30-BD4B-7FFFB8C9EB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC8B517E-762A-4B30-BD4B-7FFFB8C9EB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{9F42A386-1FA5-415D-9CE1-3E5FC626BB6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F42A386-1FA5-415D-9CE1-3E5FC626BB6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F42A386-1FA5-415D-9CE1-3E5FC626BB6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80E05825-6438-4223-BA94-6C6388F56CC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80E05825-6438-4223-BA94-6C6388F56CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80E05825-6438-4223-BA94-6C6388F56CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80E05825-6438-4223-BA94-6C6388F56CC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

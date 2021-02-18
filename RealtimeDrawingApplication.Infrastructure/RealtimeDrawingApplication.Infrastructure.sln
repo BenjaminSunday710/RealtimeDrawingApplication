@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1340
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealtimeDrawingApplication.Common", "RealtimeDrawingApplication.Common.csproj", "{D859ECEE-6A9B-4BDD-830F-966133BB2234}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealtimeDrawingApplication.Infrastructure", "RealtimeDrawingApplication.Infrastructure.csproj", "{744FAD6E-C8E9-44EC-9139-D4E456B8DDB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D859ECEE-6A9B-4BDD-830F-966133BB2234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D859ECEE-6A9B-4BDD-830F-966133BB2234}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D859ECEE-6A9B-4BDD-830F-966133BB2234}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D859ECEE-6A9B-4BDD-830F-966133BB2234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{744FAD6E-C8E9-44EC-9139-D4E456B8DDB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{744FAD6E-C8E9-44EC-9139-D4E456B8DDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{744FAD6E-C8E9-44EC-9139-D4E456B8DDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{744FAD6E-C8E9-44EC-9139-D4E456B8DDB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {085747D4-D2DA-4022-BE4F-8E7ED710501F}
+		SolutionGuid = {68B4F52F-6CD0-43B6-9D1B-4E258B906963}
 	EndGlobalSection
 EndGlobal

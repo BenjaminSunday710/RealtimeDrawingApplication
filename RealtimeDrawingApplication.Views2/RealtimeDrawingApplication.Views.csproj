@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7939CFAC-DEF8-4888-ADB7-4427A3A259B2}</ProjectGuid>
+    <ProjectGuid>{80E05825-6438-4223-BA94-6C6388F56CC8}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Application.Views</RootNamespace>
-    <AssemblyName>Application.Views</AssemblyName>
+    <RootNamespace>RealtimeDrawingApplication.Views2</RootNamespace>
+    <AssemblyName>RealtimeDrawingApplication.Views2</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -37,8 +37,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -57,15 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CreateAccount.xaml.cs">
-      <DependentUpon>CreateAccount.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CreateProject.xaml.cs">
-      <DependentUpon>CreateProject.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ProjectWindow.xaml.cs">
-      <DependentUpon>ProjectWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PropertyWindowControl.xaml.cs">
       <DependentUpon>PropertyWindowControl.xaml</DependentUpon>
     </Compile>
@@ -76,14 +65,10 @@
       <DependentUpon>SharedUserWindowControl.xaml</DependentUpon>
     </Compile>
     <Page Include="CreateAccount.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="CreateProject.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -91,34 +76,46 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="CreateAccount.xaml.cs">
+      <DependentUpon>CreateAccount.xaml</DependentUpon>
     </Compile>
-    <Page Include="MenuPaneControl.xaml">
-      <SubType>Designer</SubType>
+    <Compile Include="CreateProject.xaml.cs">
+      <DependentUpon>CreateProject.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MenuPaneControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ProjectWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PropertyWindowControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SharedProjectWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SharedUserWindowControl.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MenuPaneControl.xaml.cs">
       <DependentUpon>MenuPaneControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectWindow.xaml.cs">
+      <DependentUpon>ProjectWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -144,12 +141,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RealtimeDrawingApplication.ViewModel\RealtimeDrawingApplication.ViewModel.csproj">
-      <Project>{b1b9caf2-e938-4ea4-a930-231ae1a0d7b5}</Project>
-      <Name>RealtimeDrawingApplication.ViewModel</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

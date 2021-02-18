@@ -6,16 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace RealtimeDrawingApplication.Views
+namespace RealtimeDrawingApplication.Views2
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : System.Windows.Application
+    public partial class App : Application
     {
-        public App()
-        {
-
-        }
     }
 }

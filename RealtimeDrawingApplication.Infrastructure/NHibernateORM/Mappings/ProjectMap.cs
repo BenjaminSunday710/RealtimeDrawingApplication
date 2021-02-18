@@ -15,7 +15,7 @@ namespace RealtimeDrawingApplication.Infrastructure.Mappings
             Id(x => x.Id);
             Map(x => x.Name);
             References(x => x.ProjectCreator);
-            HasMany(x => x.SharedUsers).Inverse().Cascade.All();
+            HasMany(x => x.ProjectSharedUsers).Inverse().Cascade.All();
             HasMany(x => x.DrawingComponents).Inverse().Cascade.All();
         }
     }

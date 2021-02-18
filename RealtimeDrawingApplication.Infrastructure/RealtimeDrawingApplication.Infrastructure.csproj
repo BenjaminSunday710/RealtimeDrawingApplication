@@ -62,10 +62,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mappings\DrawingComponentMap.cs" />
-    <Compile Include="Mappings\ProjectMap.cs" />
-    <Compile Include="Mappings\ProjectSharedUsersMap.cs" />
-    <Compile Include="Mappings\UserMap.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="NHibernateORM\DatabaseType\SqLiteSessionFactoryCreator.cs" />
+    <Compile Include="NHibernateORM\IDatabaseType.cs" />
+    <Compile Include="NHibernateORM\Mappings\DrawingComponentMap.cs" />
+    <Compile Include="NHibernateORM\Mappings\ProjectMap.cs" />
+    <Compile Include="NHibernateORM\Mappings\ProjectSharedUsersMap.cs" />
+    <Compile Include="NHibernateORM\Mappings\UserMap.cs" />
+    <Compile Include="NHibernateORM\NHibernateRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +80,9 @@
       <Project>{CC8B517E-762A-4B30-BD4B-7FFFB8C9EB7C}</Project>
       <Name>RealtimeDrawingApplication.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NHibernateORM\Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

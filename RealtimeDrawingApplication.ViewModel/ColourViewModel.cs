@@ -1,4 +1,5 @@
 ﻿using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using RealtimeDrawingApplication.Common;
 using RealtimeDrawingApplication.Model;
@@ -22,11 +23,13 @@ namespace RealtimeDrawingApplication.ViewModel
 
         public ObservableCollection<Colour> ColourListItems { get; set; }
         public bool IsOpen { get => _isOpen; set { _isOpen = value; RaisePropertyChanged(); } }
-        public Colour SelectedItem { get => _selectedItem; set { _selectedItem = value; RaisePropertyChanged(); } }
+        public Colour SelectedItem { get => _selectedItem; set { _selectedItem = value; SetColour(); RaisePropertyChanged(); } }
+        public IEventAggregator EventAggregator { get; set; }
 
 
         public ColourViewModel()
         {
+            EventAggregator eventAggregator = new EventAggregator();
             ColourListItems = LoadColourList();
             PopUpOpenCommand = new DelegateCommand(IsPopUpOpenAction);
         }
@@ -36,6 +39,11 @@ namespace RealtimeDrawingApplication.ViewModel
         void IsPopUpOpenAction()
         {
             IsOpen = !IsOpen;
+        }
+
+        void SetColour()
+        {
+            EventAggregator.GetEvent<ResetColourEvent>().Publish(_selectedItem);
         }
 
         public ObservableCollection<Colour> LoadColourList()
@@ -80,4 +88,5 @@ namespace RealtimeDrawingApplication.ViewModel
         }
 
     }
+    public class ResetColourEvent : PubSubEvent<Colour> { }
 }

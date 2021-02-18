@@ -25,6 +25,12 @@ namespace Application.Views
         {
             InitializeComponent();
             DataContext = new ColourViewModel();
+
+        }
+
+        private void ListView_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
+        {
+
         }
     }
 }

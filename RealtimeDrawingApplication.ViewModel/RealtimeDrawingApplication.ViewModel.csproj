@@ -59,10 +59,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColourViewModel.cs" />
+    <Compile Include="ProjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelayCommand.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RealtimeDrawingApplication.Common\RealtimeDrawingApplication.Common.csproj">
+      <Project>{9F42A386-1FA5-415D-9CE1-3E5FC626BB6C}</Project>
+      <Name>RealtimeDrawingApplication.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RealtimeDrawingApplication.Model\RealtimeDrawingApplication.Model.csproj">
       <Project>{CC8B517E-762A-4B30-BD4B-7FFFB8C9EB7C}</Project>
       <Name>RealtimeDrawingApplication.Model</Name>

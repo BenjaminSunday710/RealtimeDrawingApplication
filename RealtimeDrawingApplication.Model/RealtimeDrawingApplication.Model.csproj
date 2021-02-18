@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Colour.cs" />
     <Compile Include="DrawingComponent.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="ProjectSharedUsers.cs" />

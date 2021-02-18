@@ -7,12 +7,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="200">
     <Grid>
-        <DockPanel Background="LightGoldenrodYellow">
-            <ListBox Name="lstProjects" 
-                     DockPanel.Dock="Left" 
-                     Background="WhiteSmoke"
-                     Margin="5"/>
-        </DockPanel>
+        <StackPanel Background="LightGoldenrodYellow">
+            <ListBox ItemsSource="{Binding ListItems}"
+                         SelectedItem="{Binding SelectedItem}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Width="20"
+                                         Height="20"
+                                         Margin="3,0"
+                                         Fill="Blue"/>
+                            <TextBlock Text="{Binding Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
 
     </Grid>
 </UserControl>

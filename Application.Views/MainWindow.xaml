@@ -126,7 +126,31 @@
                            LostFocus="PropertyWindowPopUp_LostFocus">
                         <StackPanel Orientation="Vertical"
                                     Background="White">
-                            <Button Content="Project Window"
+                            <RadioButton Content="Project Window"
+                                         IsChecked="{Binding IsProjectWindow}"
+                                    HorizontalContentAlignment="Left"
+                                    Padding="4,0,0,0"
+                                    Background="White"
+                                    BorderBrush="Transparent"
+                                    Margin="2,2,0,0"/>
+                            <RadioButton
+                                Content="Property Window"
+                                IsChecked="{Binding IsPropertyWindow}"
+                                    x:Name="DisplayPropertyWindow"
+                                    Background="White"
+                                    Margin="2,2,0,0"
+                                    Padding="4,0,0,0"
+                                    BorderBrush="Transparent"
+                                    HorizontalContentAlignment="Left"/>
+                            <RadioButton Content="Shared User Window"
+                                    IsChecked="{Binding IsSharedUserWindow}"
+                                    Background="White"
+                                    x:Name="DisplaySharedUserWindow"
+                                    Margin="2,2,0,5"
+                                    Padding="4,0,0,0"
+                                    BorderBrush="Transparent"
+                                    HorizontalContentAlignment="Left"/>
+                            <!--<Button Content="Project Window"
                                     HorizontalContentAlignment="Left"
                                     Padding="4,0,0,0"
                                     Background="White"
@@ -148,17 +172,17 @@
                                     Margin="2,2,0,5"
                                     Padding="4,0,0,0"
                                     BorderBrush="Transparent"
-                                    HorizontalContentAlignment="Left"/>
+                                    HorizontalContentAlignment="Left"/>-->
                         </StackPanel>
                     </Popup>
                 </StackPanel>
                 <ContentControl Content="{Binding CurrentContent}"/>
-                <local1:PropertyWindowControl
+                <!--<local1:PropertyWindowControl
                     Width="200"
                     x:Name="PropertyWindowPane"
                     Visibility="visible"  
                     Margin="0,0,5,5"
-                    DockPanel.Dock="Right"/>
+                    DockPanel.Dock="Right"/-->>
 
             </DockPanel>
     </Grid>

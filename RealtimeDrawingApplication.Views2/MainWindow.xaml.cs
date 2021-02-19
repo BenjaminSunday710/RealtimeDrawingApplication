@@ -1,4 +1,5 @@
 ﻿using Application.Views;
+using RealtimeDrawingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,7 +45,16 @@ namespace RealtimeDrawingApplication.Views
         public MainWindow()
         {
             InitializeComponent();
+            //ViewModelExtract();
             DataContext = this;
+        }
+
+        public void ViewModelExtract()
+        {
+            var viewModel = new PropertySharedUsersProjectWindowsDisplay();
+            viewModel.RoutedPages.Add(nameof(PropertyWindowControl), new PropertyWindowControl());
+            viewModel.RoutedPages.Add(nameof(ProjectWindow), new ProjectWindow());
+            viewModel.RoutedPages.Add(nameof(SharedUserWindowControl), new SharedUserWindowControl());
         }
 
         public bool IsPropertyWindow { get => _isPropertyWindow; set { _isPropertyWindow = value; UpdateLayoutControl(); OnPropertyChanged(); } }

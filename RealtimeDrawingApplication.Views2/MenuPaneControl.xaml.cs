@@ -25,12 +25,6 @@ namespace RealtimeDrawingApplication.Views
             InitializeComponent();
         }
 
-        private void TblDisplayCreateAccount_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            CreateAccount createAccountDialog = new CreateAccount();
-            createAccountDialog.ShowDialog();
-        }
-
         private void TblDisplayCreateProject_MouseDown(object sender, MouseButtonEventArgs e)
         {
             CreateProject createProjectDialog = new CreateProject();

@@ -148,29 +148,6 @@
                                     Padding="4,0,0,0"
                                     BorderBrush="Transparent"
                                     HorizontalContentAlignment="Left"/>
-                            <!--<Button Content="Project Window"
-                                    HorizontalContentAlignment="Left"
-                                    Padding="4,0,0,0"
-                                    Background="White"
-                                    BorderBrush="Transparent"
-                                    Margin="2,2,0,0"
-                               />
-                            <Button Content="Property Window"
-                                    x:Name="DisplayPropertyWindow"
-                                    Background="White"
-                                    Margin="2,2,0,0"
-                                    Padding="4,0,0,0"
-                                    BorderBrush="Transparent"
-                                    HorizontalContentAlignment="Left"
-                                    Click="DisplayPropertyWindow_Click">
-                            </Button>
-                            <Button Content="Shared User Window"
-                                    Background="White"
-                                    x:Name="DisplaySharedUserWindow"
-                                    Margin="2,2,0,5"
-                                    Padding="4,0,0,0"
-                                    BorderBrush="Transparent"
-                                    HorizontalContentAlignment="Left"/>-->
                         </StackPanel>
                     </Popup>
                 </StackPanel>
@@ -179,7 +156,6 @@
     </Grid>
 
         <local:MenuPaneControl
-           
             x:Name="MenuPane"
             Visibility="Collapsed"  
            HorizontalAlignment="Left"/>

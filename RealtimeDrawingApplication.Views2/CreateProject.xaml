@@ -26,9 +26,8 @@
         </Style>
     </Window.Resources>
     
-    <Grid>
+    <Grid Background="PaleGoldenrod">
     <Grid.RowDefinitions>
-        <RowDefinition Height="auto"/>
         <RowDefinition Height="auto"/>
         <RowDefinition Height="auto"/>
     </Grid.RowDefinitions>
@@ -37,36 +36,33 @@
         <ColumnDefinition Width="2*"/>
     </Grid.ColumnDefinitions>
         <TextBlock Text="Project Name" Style="{StaticResource TextBlockStyle}"/>
-    <TextBlock Text="Shared User Emails" Grid.Row="1" 
-               Style="{StaticResource TextBlockStyle}"/>
-    <TextBlock Text="Separate Emails with Semicolon" Grid.Row="1" Grid.Column="1" 
-               TextAlignment="Center" 
-               VerticalAlignment="Center" 
-               Margin="15,68,15,5" FontWeight="DemiBold" FontSize="15"/>
+
         <Button  Grid.Row="2" Grid.ColumnSpan="2"
-             Width="400"
-             Height="38"
+             Width="500"
+             Height="45"
              VerticalContentAlignment="Stretch"
              HorizontalContentAlignment="Stretch"
              BorderBrush="Transparent"
              Margin="10,20">
-            <Border CornerRadius="10" 
-                    BorderThickness="1"
-                    BorderBrush="Green"
-                    Background="PaleGoldenrod">
-                <TextBlock Text="Create" 
+            <Border CornerRadius="10" BorderThickness="2"
+                    Height="40" Width="490">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                        <GradientStop Color="Gray" Offset="0"/>
+                        <GradientStop Color="LightGoldenrodYellow" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <TextBlock Text="Create" Foreground="Black"
                            HorizontalAlignment="Center"
-                           FontWeight="DemiBold"
+                           FontWeight="Bold"
                            FontSize="20"
                            VerticalAlignment="Center"/>
             </Border>
-            
+
         </Button>
 
         <TextBox Grid.Column="1"  
                  Style="{StaticResource TextboxStyle}"/>
 
-        <TextBox Grid.Column="1" Grid.Row="1"  
-                 Style="{StaticResource TextboxStyle}"/>
     </Grid>
 </Window>

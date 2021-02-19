@@ -61,6 +61,7 @@
     <Compile Include="ColourViewModel.cs" />
     <Compile Include="ProjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertySharedUsersProjectWindowsDisplay.cs" />
     <Compile Include="RelayCommand.cs" />
   </ItemGroup>
   <ItemGroup>

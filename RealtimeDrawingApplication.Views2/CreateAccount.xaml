@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RealtimeDrawingApplication.Views"
         mc:Ignorable="d"
-        Title="CreateAccount" Height="550" Width="500"
+        Height="550" Width="500"
         WindowState="Normal"
         WindowStartupLocation="CenterScreen"
         WindowStyle="ToolWindow">
@@ -27,7 +27,7 @@
             <Setter Property="Height" Value="25"/>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid Background="PaleGoldenrod">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -55,13 +55,19 @@
                 FontSize="18" Foreground="Black"
                 BorderBrush="Transparent"
                 Background="Transparent">
-            <Border CornerRadius="10"
-                    Background="PaleGoldenrod"
-                    BorderThickness="1"
-                    BorderBrush="Green">
-                <TextBlock Text="Create"
+            <Border CornerRadius="10" BorderThickness="2"
+                   >
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                        <GradientStop Color="Gray" Offset="0"/>
+                        <GradientStop Color="LightGoldenrodYellow" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <TextBlock Text="Create" Foreground="Black"
                            HorizontalAlignment="Center"
-                           FontWeight="DemiBold"/>
+                           FontWeight="Bold"
+                           FontSize="20"
+                           VerticalAlignment="Center"/>
             </Border>
         </Button>
         <Button Grid.Row="3" Grid.Column="1"
@@ -91,7 +97,8 @@
         <PasswordBox Grid.Column="1" Grid.Row="2" 
                      Margin="15" 
                      Height="35"
-                     VerticalAlignment="Center"/>
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"/>
         <PasswordBox Grid.Column="1" Grid.Row="4" Margin="15"
                      Height="35"
                      VerticalAlignment="Center"/>

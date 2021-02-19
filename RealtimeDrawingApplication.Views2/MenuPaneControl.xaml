@@ -22,10 +22,6 @@
             <DockPanel Background="WhiteSmoke">
                 <StackPanel VerticalAlignment="Stretch"
                         DockPanel.Dock="Top">
-                    <TextBlock Text="Create Account" 
-                               x:Name="tblDisplayCreateAccount"
-                               Style="{StaticResource TextBlockStyle}"
-                               MouseDown="TblDisplayCreateAccount_MouseDown"/>
                     <TextBlock Text="Create Project" 
                                x:Name="tblDisplayCreateProject"
                                Style="{StaticResource TextBlockStyle}"

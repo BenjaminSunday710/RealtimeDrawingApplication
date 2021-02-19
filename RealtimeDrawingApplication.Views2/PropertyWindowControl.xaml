@@ -106,17 +106,21 @@
                     Orientation="Horizontal">
                 <Border Width="25" Height="24"
                         x:Name="FillColour"
-                    Background="Blue"
+                    Background="{Binding SelectedFill.BrushValue}"
                         VerticalAlignment="Center"
                     Margin="2,2,0.5,2"
                     />
                 <TextBlock 
                   Width="80" Height="25"
+                    FontSize="14"
+                    FontWeight="DemiBold"
                   Margin="0,2"
-                    x:Name="FillColourName">
+                  x:Name="FillColourName"
+                  Text="{Binding SelectedFill.Name}"
+                  TextAlignment="Center">
                 </TextBlock>
                 <Button Style="{StaticResource ButtonStyle}"
-                        Command="{ Binding PopUpOpenCommand}">
+                        Command="{ Binding PopUpOpenFillCommand}">
                     <Path Fill="Black" 
                       x:Name="FillColourIcon"
                       Data="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10
@@ -137,18 +141,21 @@
                 BorderBrush="Black"
                 Background="White">
             <StackPanel 
-                    Height="30" Width="140"
+                    Height="30" Width="141"
                     Orientation="Horizontal">
                 <Border Width="25" Height="24"
                         x:Name="BorderFillBrush"
-                    Background="Red"
+                    Background="{Binding SelectedBorder.BrushValue}"
                     VerticalAlignment="Center"
                     Margin="2,2,0.5,2"
                     />
-                <TextBlock 
+                <TextBlock Text="{Binding SelectedBorder.Name}"
+                           FontSize="14"
+                           FontWeight="DemiBold"
                     x:Name="BorderFillColourName"
-                  Width="80" Height="25"
-                  Margin="0,2,0,0" VerticalAlignment="Top">
+                    Width="80" Height="25"
+                    Margin="0,2,0,0" VerticalAlignment="Top"
+                    TextAlignment="Center">
                 </TextBlock>
                 <Button  Style="{StaticResource ButtonStyle}"
                          Command="{Binding PopUpOpenCommand}">
@@ -163,30 +170,52 @@
                         Width="23"/>
                 </Button>
                 
-                <Popup IsOpen="{Binding IsOpen}"
-                       Placement="Mouse"
+                <Popup IsOpen="{Binding IsOpenFill}"
+                       Placement="MousePoint"
                        StaysOpen="True"
                        PopupAnimation="Scroll">
                     <ListBox ItemsSource="{Binding ColourListItems}"
-                         SelectedItem="{Binding SelectedItem}">
+                         SelectedItem="{Binding SelectedFill}"
+                             Height="100" Width="110">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Rectangle Width="14"
                                          Height="14"
                                          Margin="2,2,0.5,2"
-                                         Fill="{Binding Brush}"/>
-                                    <TextBlock Text="{Binding Name}"/>
+                                         Fill="{Binding BrushValue}"/>
+                                    <TextBlock Text="{Binding Name}"
+                                               Margin="3,0,0,0"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-
-
-                    <!--<ListBox ItemsSource="{Binding ColourListItems }"
-                     SelectedItem="SelectedItem">
-                    </ListBox>-->
                 </Popup>
+
+                <Popup IsOpen="{Binding IsOpen}"
+                       Placement="MousePoint"
+                       StaysOpen="True"
+                       PopupAnimation="Scroll">
+                    <ListBox ItemsSource="{Binding ColourListItems}"
+                         SelectedItem="{Binding SelectedBorder}"
+                             Height="100" Width="110">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Width="14"
+                                         Height="14"
+                                         Margin="2,2,0.5,2"
+                                         Fill="{Binding BrushValue}"/>
+                                    <TextBlock Text="{Binding Name}"
+                                                Margin="3,0,0,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Popup>
+
+
+
             </StackPanel>
         </Border>
     </Grid>

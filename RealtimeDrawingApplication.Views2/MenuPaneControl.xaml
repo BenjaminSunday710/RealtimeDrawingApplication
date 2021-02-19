@@ -18,7 +18,7 @@
         <Border BorderBrush="LightGray"
                 Background="WhiteSmoke"
             BorderThickness="0.7"
-            Padding="5,5,5,5">
+            Padding="5,5,55,5">
             <DockPanel Background="WhiteSmoke">
                 <StackPanel VerticalAlignment="Stretch"
                         DockPanel.Dock="Top">

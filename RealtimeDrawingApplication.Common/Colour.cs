@@ -10,6 +10,6 @@ namespace RealtimeDrawingApplication.Common
     public class Colour
     {
         public string Name { get; set; }
-        public SolidColorBrush Brush { get; set; }
+        public SolidColorBrush BrushValue { get; set; }
     }
 }

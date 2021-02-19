@@ -27,12 +27,20 @@ namespace RealtimeDrawingApplication.Views
         private bool _isPropertyWindow;
         private bool _isSharedUserWindow;
         private bool _isProjectsWindow;
+        private string _windowTitle = "Property Window";
 
         public FrameworkElement CurrentContent
         {
             get { return currentContent; }
             set { currentContent = value; OnPropertyChanged(); }
         }
+
+        public string WindowTitle
+        {
+            get { return _windowTitle; }
+            set { _windowTitle = value; OnPropertyChanged(); }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,24 +48,27 @@ namespace RealtimeDrawingApplication.Views
         }
 
         public bool IsPropertyWindow { get => _isPropertyWindow; set { _isPropertyWindow = value; UpdateLayoutControl(); OnPropertyChanged(); } }
-        public bool IsSharedUserWindow { get => _isSharedUserWindow; set { _isSharedUserWindow = value; UpdateLayoutControl(); } }
-        public bool IsProjectsWindow { get => _isProjectsWindow; set { _isProjectsWindow = value; UpdateLayoutControl(); } }
+        public bool IsSharedUserWindow { get => _isSharedUserWindow; set { _isSharedUserWindow = value; UpdateLayoutControl(); OnPropertyChanged(); } }
+        public bool IsProjectsWindow { get => _isProjectsWindow; set { _isProjectsWindow = value; UpdateLayoutControl(); OnPropertyChanged(); } }
 
         private void UpdateLayoutControl()
         {
-            if (_isPropertyWindow)
+            if (_isProjectsWindow)
             {
-                CurrentContent = new PropertyWindowControl();
+                CurrentContent = new ProjectWindow();
+                WindowTitle = "Project Window";
             }
 
             else if (_isSharedUserWindow)
             {
                 CurrentContent = new SharedUserWindowControl();
+                WindowTitle = "Shared User Window";
             }
 
-            else if (_isProjectsWindow)
+            else
             {
-                CurrentContent = new ProjectWindow();
+                CurrentContent = new PropertyWindowControl();
+                WindowTitle = "Property Window";
             }
         }
 

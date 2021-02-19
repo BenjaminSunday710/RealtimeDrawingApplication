@@ -100,7 +100,7 @@
                 <StackPanel Orientation="Horizontal"
                         DockPanel.Dock="Top"
                         HorizontalAlignment="Center" Margin="-67,0">
-                    <TextBlock Text="Property Window" 
+                    <TextBlock Text="{Binding WindowTitle}" 
                        FontSize="18" FontWeight="DemiBold" 
                        Margin="0,0,1,0"
                            Padding="5,0"
@@ -127,7 +127,7 @@
                         <StackPanel Orientation="Vertical"
                                     Background="White">
                             <RadioButton Content="Project Window"
-                                         IsChecked="{Binding IsProjectWindow}"
+                                         IsChecked="{Binding IsProjectsWindow}"
                                     HorizontalContentAlignment="Left"
                                     Padding="4,0,0,0"
                                     Background="White"
@@ -136,7 +136,6 @@
                             <RadioButton
                                 Content="Property Window"
                                 IsChecked="{Binding IsPropertyWindow}"
-                                    x:Name="DisplayPropertyWindow"
                                     Background="White"
                                     Margin="2,2,0,0"
                                     Padding="4,0,0,0"
@@ -145,7 +144,6 @@
                             <RadioButton Content="Shared User Window"
                                     IsChecked="{Binding IsSharedUserWindow}"
                                     Background="White"
-                                    x:Name="DisplaySharedUserWindow"
                                     Margin="2,2,0,5"
                                     Padding="4,0,0,0"
                                     BorderBrush="Transparent"
@@ -177,13 +175,6 @@
                     </Popup>
                 </StackPanel>
                 <ContentControl Content="{Binding CurrentContent}"/>
-                <!--<local1:PropertyWindowControl
-                    Width="200"
-                    x:Name="PropertyWindowPane"
-                    Visibility="visible"  
-                    Margin="0,0,5,5"
-                    DockPanel.Dock="Right"/-->
-
             </DockPanel>
     </Grid>
 

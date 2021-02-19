@@ -6,20 +6,34 @@
              xmlns:local="clr-namespace:Application.Views"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="200">
-    <StackPanel Background="PaleGoldenrod">
+    <StackPanel Background="LightGoldenrodYellow">
+        <Border Padding="5"
+                BorderBrush="PaleGoldenrod"
+                BorderThickness="1"
+                CornerRadius="5"
+                    HorizontalAlignment="Right"
+                Margin="5,10,30,10">
+            <StackPanel Orientation="Horizontal">
+                <Path Fill="DarkGreen"
+                  Margin="5,0"
+              Data="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,
+              0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+                <TextBlock Text="Add Shared User"
+                       FontSize="13"
+                       VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
         <CheckBox Content="Igben Nehemiah" 
+                  FontSize="14"
                   IsChecked="True"
-                  Margin="10,25,0,15"/>
+                  Margin="15,5,0,15"/>
         <CheckBox Content="Egbe Endurance" 
+                  FontSize="14"
                   IsChecked="True"
-                  Margin="10,0,0,15"/>
+                  Margin="15,0,0,15"/>
         <CheckBox Content="Sunday Benjamin" 
+                  FontSize="14"
                   IsChecked="True"
-                  Margin="10,0,0,15"/>
-        <Button Content="Add Shared User"
-                Background="Gray"
-                Width="150"
-                Height="22"
-                Margin="0,20,5,12"/>
+                  Margin="15,0,0,15"/>
     </StackPanel>
 </UserControl>

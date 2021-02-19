@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel Background="LightGoldenrodYellow">
             <ListBox ItemsSource="{Binding ListItems}"
-                         SelectedItem="{Binding SelectedItem}">
+                     SelectedItem="{Binding SelectedItem}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">

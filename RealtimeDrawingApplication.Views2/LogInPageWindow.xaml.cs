@@ -10,19 +10,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace RealtimeDrawingApplication.Views2
 {
     /// <summary>
-    /// Interaction logic for LogInPage.xaml
+    /// Interaction logic for LogInPageWindow.xaml
     /// </summary>
-    public partial class LogInPage : UserControl
+    public partial class LogInPageWindow : Window
     {
-        public LogInPage()
+        public LogInPageWindow()
         {
             InitializeComponent();
+        }
+
+        private void BtnCreateAccountDisplay_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new Views.CreateAccount();
+            this.Visibility = Visibility.Collapsed;
+            window.ShowDialog();
+           
         }
     }
 }

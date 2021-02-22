@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RealtimeDrawingApplication.ViewModel.Proxies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,11 +23,14 @@ namespace RealtimeDrawingApplication.Views
         public CreateProject()
         {
             InitializeComponent();
+            var createProjectDataContext = new ProjectProxy();
+            DataContext = createProjectDataContext;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnCreateProject_Click(object sender, RoutedEventArgs e)
         {
-
+            var project = new ProjectProxy();
+            project.Name = txtProjectName.Text;
         }
     }
 }

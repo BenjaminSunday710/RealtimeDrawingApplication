@@ -22,6 +22,10 @@
             <DockPanel Background="WhiteSmoke">
                 <StackPanel VerticalAlignment="Stretch"
                         DockPanel.Dock="Top">
+                    <TextBlock Text="UserName" 
+                               x:Name="tblUserName"
+                               Style="{StaticResource TextBlockStyle}"
+                               TextDecorations="Underline"/>
                     <TextBlock Text="Create Project" 
                                x:Name="tblDisplayCreateProject"
                                Style="{StaticResource TextBlockStyle}"

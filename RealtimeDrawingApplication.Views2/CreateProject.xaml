@@ -37,13 +37,14 @@
     </Grid.ColumnDefinitions>
         <TextBlock Text="Project Name" Style="{StaticResource TextBlockStyle}"/>
 
-        <Button  Grid.Row="2" Grid.ColumnSpan="2"
+        <Button x:Name="btnCreateProject"  Grid.Row="2" Grid.ColumnSpan="2"
              Width="500"
              Height="45"
              VerticalContentAlignment="Stretch"
              HorizontalContentAlignment="Stretch"
              BorderBrush="Transparent"
-             Margin="10,20">
+             Margin="10,20"
+                Click="BtnCreateProject_Click">
             <Border CornerRadius="10" BorderThickness="2"
                     Height="40" Width="490">
                 <Border.Background>
@@ -61,7 +62,7 @@
 
         </Button>
 
-        <TextBox Grid.Column="1"  
+        <TextBox Grid.Column="1" x:Name="txtProjectName" 
                  Style="{StaticResource TextboxStyle}"/>
 
     </Grid>

@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Events;
+using Prism.Ioc;
 using Prism.Mvvm;
 using RealtimeDrawingApplication.Common;
 using RealtimeDrawingApplication.Model;
@@ -15,10 +16,14 @@ using System.Windows.Media;
 
 namespace RealtimeDrawingApplication.ViewModel
 {
-
-    public class ColourViewModel:BindableBase 
+    public class GenericServiceLocator
     {
-        private Colour _selectedFill=new Colour() { Name="Red", BrushValue=Brushes.Red};
+        public static IContainerProvider Container { get; set; }
+    }
+
+    public class ColourViewModel : BindableBase
+    {
+        private Colour _selectedFill = new Colour() { Name = "Red", BrushValue = Brushes.Red };
         private Colour _selectedBorder = new Colour() { Name = "Red", BrushValue = Brushes.Red };
         private bool _isOpen;
         private bool _isOpenFill;
@@ -27,13 +32,13 @@ namespace RealtimeDrawingApplication.ViewModel
         public bool IsOpen { get => _isOpen; set { _isOpen = value; RaisePropertyChanged(); } }
         public bool IsOpenFill { get => _isOpenFill; set { _isOpenFill = value; RaisePropertyChanged(); } }
         public Colour SelectedFill { get => _selectedFill; set { _selectedFill = value; SetColourFill(); RaisePropertyChanged(); } }
-        public Colour SelectedBorder     { get => _selectedBorder; set { _selectedBorder = value; SetColourBorder(); RaisePropertyChanged(); } }
+        public Colour SelectedBorder { get => _selectedBorder; set { _selectedBorder = value; SetColourBorder(); RaisePropertyChanged(); } }
         public IEventAggregator EventAggregator { get; set; }
 
 
         public ColourViewModel()
         {
-            EventAggregator = new EventAggregator();
+            EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
             ColourListItems = LoadColourList();
             PopUpOpenCommand = new DelegateCommand(IsPopUpOpenAction);
             PopUpOpenFillCommand = new DelegateCommand(IsPopUpOpenFillAction);
@@ -54,11 +59,19 @@ namespace RealtimeDrawingApplication.ViewModel
 
         void SetColourFill()
         {
-            EventAggregator.GetEvent<ResetColourEvent>().Publish(_selectedFill);
+            EventAggregator.GetEvent<ResetPropertyEvent>().Publish(new PropertyWindowEventModel
+            {
+                PropertyType=PropertyType.Fill,
+                Value=_selectedFill
+            });
         }
         void SetColourBorder()
         {
-            EventAggregator.GetEvent<ResetColourEvent>().Publish(_selectedBorder);
+            EventAggregator.GetEvent<ResetPropertyEvent>().Publish(new PropertyWindowEventModel
+            {
+                PropertyType = PropertyType.Fill,
+                Value = _selectedFill
+            });
         }
 
         public ObservableCollection<Colour> LoadColourList()
@@ -105,5 +118,13 @@ namespace RealtimeDrawingApplication.ViewModel
         }
 
     }
-    public class ResetColourEvent : PubSubEvent<Colour> { }
+    //public class ResetColourEvent : PubSubEvent<Colour> { }
+    public class ResetPropertyEvent : PubSubEvent<PropertyWindowEventModel> { }
+
+    public class PropertyWindowEventModel
+    {
+        public PropertyType PropertyType { get; set; }
+        public object Value { get; set; }
+    }
+    public enum PropertyType { Border, Fill, Width, Height, FontSize, Title }
 }

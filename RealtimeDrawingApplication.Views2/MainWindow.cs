@@ -1,5 +1,6 @@
 ﻿using Application.Views;
 using RealtimeDrawingApplication.ViewModel;
+using RealtimeDrawingApplication.ViewModel.DrawingViewModel;
 using RealtimeDrawingApplication.Views2;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,38 @@ namespace RealtimeDrawingApplication.Views
             _routedPages.Add(nameof(PropertyWindowControl), new PropertyWindowControl());
             _routedPages.Add(nameof(ProjectWindow), new ProjectWindow());
             _routedPages.Add(nameof(SharedUserWindowControl), new SharedUserWindowControl());
+        }
+
+        private void Path_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            FrameworkElement component = null;
+            if (sender is Rectangle rectangle)
+            {
+                //component =new ShapeComponent(ShapeService.GetDefaultShapeGeometry(ControlEnum.Rectangle));
+                component = DrawingComponentService.GetDefaultComponent(ComponentEnum.Rectangle);
+            }
+            else if (sender is Ellipse ellipse)
+            {
+                //component = new ShapeComponent(ShapeService.GetDefaultShapeGeometry(ControlEnum.Ellipse));
+                component = DrawingComponentService.GetDefaultComponent(ComponentEnum.Ellipse);
+            }
+            else if (sender is Path path)
+            {
+                //component = new ShapeComponent(ShapeService.GetDefaultShapeGeometry(ControlEnum.Triangle));
+                component = DrawingComponentService.GetDefaultComponent(ComponentEnum.Triangle);
+            }
+            else if (sender is TextBlock textBlock)
+            {
+                //component = new ShapeComponent(ShapeService.GetDefaultShapeGeometry(ControlEnum.Triangle));
+                component = DrawingComponentService.GetDefaultComponent(ComponentEnum.TextBox);
+            }
+
+            if (component != null)
+            {
+                //e.MouseDevice.OverrideCursor = Cursors.Hand;
+                DataObject dataObject = new DataObject("toolboxitem", component);
+                DragDrop.DoDragDrop(component as FrameworkElement, dataObject, DragDropEffects.Copy);
+            }
         }
 
         private void Path_MouseDown(object sender, MouseButtonEventArgs e)

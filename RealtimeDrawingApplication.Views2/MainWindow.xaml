@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:RealtimeDrawingApplication.Views"
         xmlns:local1="clr-namespace:Application.Views"
         xmlns:local2="clr-namespace:RealtimeDrawingApplication.Views2"
+        xmlns:drawingviewmodel="clr-namespace:RealtimeDrawingApplication.ViewModel.DrawingViewModel;assembly=RealtimeDrawingApplication.ViewModel"
         mc:Ignorable="d"
         Title="Realtime Drawing Application" Height="450" Width="800"
         WindowState="Maximized"
@@ -13,67 +14,78 @@
     <Window.Resources>
         <Style  x:Key="IconStyle" TargetType="Path">
             <Setter Property="Fill" Value="Black"/>
-            <Setter Property="Width" Value="28"/>
-            <Setter Property="Height" Value="28"/>
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="35"/>
+            <Setter Property="Height" Value="35"/>
             <Setter Property="Fill" Value="Black"/>
         </Style>
     </Window.Resources>
     <Grid>
-        
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0.36*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="0.2*"/>
-        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.36*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="0.2*"/>
+            </Grid.RowDefinitions>
             <TextBlock Grid.Column="1" Text="Project Title"
                        VerticalAlignment="Center"
                        FontSize="25"
                        Margin="15,0,0,0"
                        FontWeight="DemiBold">
-                
             </TextBlock>
-            <DockPanel Grid.RowSpan="2" Background="Transparent">
-            <Path Style="{StaticResource IconStyle}"
-                VerticalAlignment="Top" 
-                DockPanel.Dock="Top"
-                MouseDown="Path_MouseDown"
-                Data="M3,15H21V13H3V15M3,19H21V17H3V19M3,11H21V9H3V11M3,
-                5V7H21V5H3Z"/>
-            <Path Fill="Black" Width="28" Height="28" 
-                VerticalAlignment="Top" 
-                DockPanel.Dock="Top" Margin="5" 
-                Data="M21,3L3,10.53V11.5L9.84,14.16L12.5,21
+
+            <DockPanel Grid.RowSpan="2" 
+                       Background="Transparent" Height="371" 
+                       VerticalAlignment="Top">
+                <StackPanel>
+                    <Path Style="{StaticResource IconStyle}"
+                          VerticalAlignment="Top" 
+                          DockPanel.Dock="Top"
+                          MouseDown="Path_MouseDown"
+                          Data="M3,15H21V13H3V15M3,19H21V17H3V19M3,
+                          11H21V9H3V11M3,5V7H21V5H3Z"
+                          Margin="10,20,5,5"/>
+
+                    <Path Fill="Black" Width="30" Height="30" 
+                          VerticalAlignment="Top" 
+                          DockPanel.Dock="Top" Margin="5" 
+                          Data="M21,3L3,10.53V11.5L9.84,14.16L12.5,21
                         H13.46L21,3Z" />
-            <Path Style="{StaticResource IconStyle}" 
-                VerticalAlignment="Top" 
-                DockPanel.Dock="Top" 
-                Data="M3,3H21V21H3V3M5,5V19H19V5H5Z" />
-            <Path Style="{StaticResource IconStyle}" 
-                VerticalAlignment="Top" 
-                DockPanel.Dock="Top"
-                Data="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,
-                12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12
-                A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-            <Path Style="{StaticResource IconStyle}"
-                VerticalAlignment="Top"
-                DockPanel.Dock="Top"  
-                Data="M12,7.77L18.39,18H5.61L12,7.77M12,4L2,20H22" />
-            <Path Style="{StaticResource IconStyle}" 
-                VerticalAlignment="Top" 
-                DockPanel.Dock="Top"
-                Data="M7 21L14.9 3H17L9.1 21H7Z" />
-            <Path Style="{StaticResource IconStyle}"
-                VerticalAlignment="Top" DockPanel.Dock="Top" Margin="5" 
-                Data="M2 4V7H7V19H10V7H15V4H2M21 9H12V12H15V19H18V12H21V9Z" />
+
+                    <Ellipse Width="50"
+                             Height="50"
+                             Fill="Red"
+                             Margin="10,15,10,10"
+                             MouseLeftButtonDown="Path_MouseLeftButtonDown"/>
+
+                    <Rectangle Width="50"
+                               Height="50"
+                               Fill="Blue"
+                               Margin="10,15,10,10"
+                               MouseLeftButtonDown="Path_MouseLeftButtonDown"/>
+
+                    <Path Fill="Purple"
+                          Data="M25,0 L50,50 L0,50Z"
+                          Margin="10,15,10,10"
+                          MouseLeftButtonDown="Path_MouseLeftButtonDown"/>
+
+                    <TextBlock FontSize="20"
+                               FontWeight="DemiBold"
+                               Margin="10,15,10,10"
+                               HorizontalAlignment="Center"
+                               MouseLeftButtonDown="Path_MouseLeftButtonDown">
+                               <Run Text="T" FontSize="30"/>
+                               <Run Text="T" FontSize="20"/>
+                    </TextBlock>
+                </StackPanel>
             </DockPanel>
+
             <DockPanel Grid.Column="2" 
-                   Grid.Row="0" 
+  
                    Background="White" 
                    HorizontalAlignment="Stretch"
                    DockPanel.Dock="Left"
@@ -88,10 +100,11 @@
                   C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z" Height="28" VerticalAlignment="Top"
                     Style="{StaticResource IconStyle}">
                 </Path>
-            <Path Style="{StaticResource IconStyle}"
-                  HorizontalAlignment="Right" 
-                  DockPanel.Dock="Right"
-                  Margin="10,0,0,0"
+
+                <Path Style="{StaticResource IconStyle}"
+                    HorizontalAlignment="Right" 
+                    DockPanel.Dock="Right"
+                    Margin="10,0,0,0"
                     Data="M15,4A4,4 0 0,0 11,8A4,4  0 0,0 15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4M15,5.9C16.16,5.9 17.1,6.84
                           17.1,8C17.1,9.16 16.16,10.1 15,10.1A2.1,2.1 0 0,1 12.9,8A2.1,2.1 0 0,1 15,5.9M4,
                           7V10H1V12H4V15H6V12H9V10H6V7H4M15,
@@ -99,16 +112,19 @@
                           14.33 17.67,13 15,13M15,14.9C17.97,14.9
                           21.1,16.36 21.1,17V18.1H8.9V17C8.9,16.36
                           12,14.9 15,14.9Z">
-            </Path>
-        </DockPanel>
-        <Canvas Grid.Row="1"
+                </Path>
+            </DockPanel>
+
+            <drawingviewmodel:CustomCanvas Grid.Row="1"
                 Grid.Column="1"
                 Background="PaleGoldenrod"/>
-        <DockPanel Grid.Column="2" Grid.Row="1" 
-                   Background="LightGoldenrodYellow">
+
+            <DockPanel Grid.Column="2" Grid.Row="1" 
+                       Background="LightGoldenrodYellow" 
+                       VerticalAlignment="Stretch">
                 <StackPanel Orientation="Horizontal"
                         DockPanel.Dock="Top"
-                        HorizontalAlignment="Center" Margin="-67,0">
+                        HorizontalAlignment="Center" Margin="0,0">
                     <TextBlock Text="{Binding WindowTitle}" 
                        FontSize="18" FontWeight="DemiBold" 
                        Margin="0,0,1,0"
@@ -163,12 +179,12 @@
                 <ContentControl Content="{Binding CurrentContent}"
                                 HorizontalContentAlignment="Center"/>
             </DockPanel>
-    </Grid>
+        </Grid>
 
         <local:MenuPaneControl
             x:Name="MenuPane"
             Visibility="Collapsed"  
            HorizontalAlignment="Left"/>
-        
+
     </Grid>
 </Window>

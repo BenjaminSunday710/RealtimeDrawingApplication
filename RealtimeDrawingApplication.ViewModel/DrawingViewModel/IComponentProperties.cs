@@ -7,17 +7,17 @@ using System.Windows.Media;
 
 namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
 {
-    public enum ControlEnum { Triangle, Rectangle, Circle, TextBox}
+    public enum ComponentEnum { Triangle, Rectangle, Ellipse, Line, TextBox}
 
     public interface IComponentProperties
     {
-        ControlEnum ControlType { get; set; }
+        ComponentEnum ComponentType { get; set; }
         string Title { get; set; }
         double Width { get; set; }
         double Height { get; set; }
-        Brushes ShapeBorder { get; set; }
-        Brushes ShapeFill { get; set; }
-        int X { get; set; }
-        int Y { get; set; }
+        SolidColorBrush ShapeBorder { get; set; }
+        SolidColorBrush ShapeFill { get; set; }
+        double X { get; set; }
+        double Y { get; set; }
     }
 }

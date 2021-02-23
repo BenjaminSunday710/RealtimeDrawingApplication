@@ -1,9 +1,10 @@
-﻿<Application x:Class="RealtimeDrawingApplication.Views2.App"
+﻿<behaviors:PrismApplication
+    xmlns:behaviors="http://prismlibrary.com/"
+    x:Class="RealtimeDrawingApplication.Views2.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:RealtimeDrawingApplication.Views2"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
+             xmlns:local="clr-namespace:RealtimeDrawingApplication.Views2">
+    <behaviors:PrismApplication.Resources>
          
-    </Application.Resources>
-</Application>
+    </behaviors:PrismApplication.Resources>
+</behaviors:PrismApplication>

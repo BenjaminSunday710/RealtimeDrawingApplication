@@ -65,11 +65,14 @@
     <Compile Include="DrawingViewModel\CustomCanvas.cs" />
     <Compile Include="DrawingViewModel\DrawingComponentService.cs" />
     <Compile Include="DrawingViewModel\IComponentProperties.cs" />
+    <Compile Include="DrawingViewModel\LineComponent.cs" />
     <Compile Include="DrawingViewModel\ShapeComponent.cs" />
     <Compile Include="DrawingViewModel\TextBoxComponent.cs" />
     <Compile Include="ProjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertySharedUsersProjectWindowsDisplay.cs" />
+    <Compile Include="PropertyWindowControlViewModel.cs" />
+    <Compile Include="PropertyWindowEventModel.cs" />
     <Compile Include="Proxies\DrawingComponentProxy.cs" />
     <Compile Include="Proxies\ProjectProxy.cs" />
     <Compile Include="Proxies\ProjectSharedUserProxy.cs" />

@@ -18,7 +18,7 @@ namespace RealtimeDrawingApplication.Infrastructure.Mappings
             Map(x => x.Width);
             Map(x => x.Height);
             Map(x => x.Title);
-            Map(x => x.FontSize);
+            Map(x => x.BorderThickness);
             Map(x => x.ComponentType);
             Map(x => x.Fill);
             Map(x => x.Border);

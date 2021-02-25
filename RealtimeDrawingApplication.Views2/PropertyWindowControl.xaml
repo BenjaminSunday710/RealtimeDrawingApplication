@@ -61,8 +61,10 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <Grid Background="LightGoldenrodYellow">
+    <Grid Background="LightGoldenrodYellow" Margin="0,0,-39,0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -74,30 +76,48 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="X" Style="{StaticResource TextBlockStyle}"/>
-        <TextBlock Text="Y" Grid.Row="1" Style="{StaticResource TextBlockStyle}"/>
-        <TextBlock Text="Width" Grid.Row="2" Style="{StaticResource TextBlockStyle}"/>
-        <TextBlock Text="Height" Grid.Row="3" Style="{StaticResource TextBlockStyle}"/>
-        <TextBlock Text="Fill" Grid.Row="4" Style="{StaticResource TextBlockStyle}"/>
-        <TextBlock Text="Border" Grid.Row="5" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Text="Title" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Text="X" Grid.Row="1" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Text="Y" Grid.Row="2" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Text="Width" Grid.Row="3" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Text="Height" Grid.Row="4" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Grid.Row="5" Style="{StaticResource TextBlockStyle}" Height="40">
+           Border <LineBreak/> Thickness
+        </TextBlock>
+        <TextBlock Text="Fill" Grid.Row="6" Style="{StaticResource TextBlockStyle}"/>
+        <TextBlock Text="Border" Grid.Row="7" Style="{StaticResource TextBlockStyle}"/>
 
 
         <TextBox Grid.Column="1"
                  Width="130" Height="30"
+                 Text="{Binding Title}"
                 Style="{StaticResource TextboxStyle}"/>
         <TextBox Grid.Column="1" Grid.Row="1"
                  Width="130" Height="30"
+                 Text="{Binding X}"
                 Style="{StaticResource TextboxStyle}"/>
         <TextBox Grid.Column="1" Grid.Row="2"
                  Width="130" Height="30"
+                 Text="{Binding Y}"
                 Style="{StaticResource TextboxStyle}"/>
 
         <TextBox Grid.Column="1" Grid.Row="3"  
                   Width="130" Height="30"
+                 Text="{Binding Width}"
+                 Style="{StaticResource TextboxStyle}"/>
+        
+        <TextBox Grid.Column="1" Grid.Row="4"  
+                  Width="130" Height="30"
+                  Text="{Binding Height}"
+                 Style="{StaticResource TextboxStyle}"/>
+        
+        <TextBox Grid.Column="1" Grid.Row="5"  
+                  Width="130" Height="30"
+                  Text="{Binding BorderThickness}"
                  Style="{StaticResource TextboxStyle}"/>
 
         <Border Width="140" Height="32"
-                Grid.Column="1" Grid.Row="4"
+                Grid.Column="1" Grid.Row="6"
                 BorderThickness="1"
                 BorderBrush="Black"
                 Background="White">
@@ -136,7 +156,7 @@
         </Border>
 
         <Border Width="140" Height="32"
-                Grid.Column="1" Grid.Row="5"
+                Grid.Column="1" Grid.Row="7"
                 BorderThickness="1"
                 BorderBrush="Black"
                 Background="White">

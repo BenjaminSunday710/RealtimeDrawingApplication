@@ -1,76 +1,16 @@
-﻿using Prism.Commands;
-using Prism.Events;
-using Prism.Ioc;
-using Prism.Mvvm;
-using RealtimeDrawingApplication.Common;
-using RealtimeDrawingApplication.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace RealtimeDrawingApplication.ViewModel
+namespace RealtimeDrawingApplication.Common
 {
-    public class ColourViewModel : BindableBase
+    public class ColourService
     {
-        private Colour _selectedFill = new Colour() { Name = "Red", BrushValue = Brushes.Red };
-        private Colour _selectedBorder = new Colour() { Name = "Red", BrushValue = Brushes.Red };
-        private bool _isOpen;
-        private bool _isOpenFill;
-
-        public ObservableCollection<Colour> ColourListItems { get; set; }
-        public bool IsOpen { get => _isOpen; set { _isOpen = value; RaisePropertyChanged(); } }
-        public bool IsOpenFill { get => _isOpenFill; set { _isOpenFill = value; RaisePropertyChanged(); } }
-        public Colour SelectedFill { get => _selectedFill; set { _selectedFill = value; SetColourFill(); RaisePropertyChanged(); } }
-        public Colour SelectedBorder { get => _selectedBorder; set { _selectedBorder = value; SetColourBorder(); RaisePropertyChanged(); } }
-        public IEventAggregator EventAggregator { get; set; }
-
-
-        public ColourViewModel()
-        {
-            EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
-            ColourListItems = LoadColourList();
-            PopUpOpenCommand = new DelegateCommand(IsPopUpOpenAction);
-            PopUpOpenFillCommand = new DelegateCommand(IsPopUpOpenFillAction);
-        }
-
-        public DelegateCommand PopUpOpenCommand { get; set; }
-        public DelegateCommand PopUpOpenFillCommand { get; set; }
-
-        void IsPopUpOpenAction()
-        {
-            IsOpen = !IsOpen;
-        }
-
-        void IsPopUpOpenFillAction()
-        {
-            IsOpenFill = !IsOpenFill;
-        }
-
-        void SetColourFill()
-        {
-            EventAggregator.GetEvent<ResetPropertyEvent>().Publish(new PropertyWindowEventModel
-            {
-                PropertyType=PropertyType.Fill,
-                Value=_selectedFill
-            });
-        }
-
-        void SetColourBorder()
-        {
-            EventAggregator.GetEvent<ResetPropertyEvent>().Publish(new PropertyWindowEventModel
-            {
-                PropertyType = PropertyType.Fill,
-                Value = _selectedFill
-            });
-        }
-
-        public ObservableCollection<Colour> LoadColourList()
+        public static ObservableCollection<Colour> LoadColourList()
         {
             ObservableCollection<Colour> colours = new ObservableCollection<Colour>{
                 new Colour {Name="Red", BrushValue=Brushes.Red },
@@ -112,9 +52,5 @@ namespace RealtimeDrawingApplication.ViewModel
             };
             return colours;
         }
-
     }
-    //public class ResetColourEvent : PubSubEvent<Colour> { }
-    public class SetPropertyEvent : PubSubEvent<PropertyWindowEventModel> { }
-    public class ResetPropertyEvent : PubSubEvent<PropertyWindowEventModel> { }
 }

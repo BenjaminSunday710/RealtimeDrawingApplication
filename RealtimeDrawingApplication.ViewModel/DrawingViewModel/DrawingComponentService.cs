@@ -16,9 +16,9 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
             {
                 return new TextBoxComponent();
             }
-            else
+            else 
             {
-                return new ShapeComponent(GetDefaultShapeGeometry(component));
+                return (new ShapeComponent(GetDefaultShapeGeometry(component), component).GetComponent()) as FrameworkElement;
             }
         }
 

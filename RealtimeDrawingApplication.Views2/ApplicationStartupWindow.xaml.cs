@@ -1,12 +1,10 @@
 ﻿using Application.Views;
 using RealtimeDrawingApplication.ViewModel;
 using RealtimeDrawingApplication.ViewModel.DrawingViewModel;
-using RealtimeDrawingApplication.Views2;
+using RealtimeDrawingApplication.Views;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,24 +14,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RealtimeDrawingApplication.Views
+namespace RealtimeDrawingApplication.Views2
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ApplicationStartupWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window/*,INotifyPropertyChanged*/
+    public partial class ApplicationStartupWindow : Window
     {
-        private Dictionary<string, FrameworkElement> _routedPages;
-
-        public MainWindow()
+        public ApplicationStartupWindow()
         {
             InitializeComponent();
             PopulateRoutedPages();
             DataContext = new PropertySharedUsersProjectWindowsDisplay(_routedPages);
         }
+
+        private Dictionary<string, FrameworkElement> _routedPages;
 
         void PopulateRoutedPages()
         {
@@ -48,23 +45,23 @@ namespace RealtimeDrawingApplication.Views
             FrameworkElement component = null;
             if (sender is Rectangle rectangle)
             {
-                //component =new ShapeComponent(ShapeService.GetDefaultShapeGeometry(ControlEnum.Rectangle));
                 component = DrawingComponentService.GetDefaultComponent(ComponentEnum.Rectangle);
             }
             else if (sender is Ellipse ellipse)
             {
-                //component = new ShapeComponent(ShapeService.GetDefaultShapeGeometry(ControlEnum.Ellipse));
                 component = DrawingComponentService.GetDefaultComponent(ComponentEnum.Ellipse);
             }
             else if (sender is Path path)
             {
-                //component = new ShapeComponent(ShapeService.GetDefaultShapeGeometry(ControlEnum.Triangle));
                 component = DrawingComponentService.GetDefaultComponent(ComponentEnum.Triangle);
             }
             else if (sender is TextBlock textBlock)
             {
-                //component = new ShapeComponent(ShapeService.GetDefaultShapeGeometry(ControlEnum.Triangle));
                 component = DrawingComponentService.GetDefaultComponent(ComponentEnum.TextBox);
+            }
+            else if (sender is Line line)
+            {
+                component = DrawingComponentService.GetDefaultComponent(ComponentEnum.Line);
             }
 
             if (component != null)

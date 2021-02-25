@@ -1,49 +1,109 @@
 ﻿using Prism.Events;
 using Prism.Ioc;
 using RealtimeDrawingApplication.Common;
+using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
 {
-    public class ShapeComponent : Shape, IComponentProperties
+    public class ShapeComponent : Grid,IComponentProperties, INotifyPropertyChanged
     {
-        public ShapeComponent(Geometry geometry)
+        private double _x;
+        private double _y;
+        private bool _showBorder;
+        public ShapeComponent(Geometry geometry, ComponentEnum componentEnum)
         {
             Geometry = geometry;
-            Fill = Brushes.Red;
-            Width = 50;
-            Height = 50;
-            var eventAggregator=GenericServiceLocator.Container.Resolve<IEventAggregator>();
-            eventAggregator.GetEvent<ResetPropertyEvent>().Subscribe(e => ChangeProperty(e));
+            ComponentEnum = componentEnum;
+            Id = Guid.NewGuid();
+            Height = 60;
+            Width = 60;
+            Shape = this;
         }
-
-        private void ChangeProperty(PropertyWindowEventModel e)
+        public ShapeComponent Shape { get; set; }
+        public object GetComponent()
         {
-            switch (e.PropertyType)
+            Shape.Children.Clear();
+            var border = new Border();
+            border.Padding = new Thickness(5);
+            var shape = new Path() { Data = Geometry };
+            shape.Stretch = Stretch.Fill;
+            shape.Fill = Brushes.Gray;
+            shape.Height = Height-10;
+            shape.Width = Width-10;
+            shape.HorizontalAlignment = HorizontalAlignment.Center;
+            shape.VerticalAlignment = VerticalAlignment.Center;
+            border.Child = shape;
+            Shape.Children.Add(border);
+            if (ShowBorder)
             {
-                case PropertyType.Border:
-                    ShapeBorder = ((Colour)e.Value).BrushValue;
-                    break;
-                case PropertyType.Fill:
-                    Fill = ((Colour)e.Value).BrushValue;
-                    break;
-                case PropertyType.Width:
-                    break;
-                case PropertyType.Height:
-                    break;
-                default:
-                    break;
+                border.BorderBrush = Brushes.Red;
+                border.BorderThickness = new Thickness(1);
+                Shape.Children.Add(new Border
+                {
+                    HorizontalAlignment=HorizontalAlignment.Left,
+                    VerticalAlignment=VerticalAlignment.Top,
+                    Width=5,
+                    Height=5,
+                    Background=Brushes.Purple
+                });
+                Shape.Children.Add(new Border
+                {
+                    HorizontalAlignment=HorizontalAlignment.Right,
+                    VerticalAlignment=VerticalAlignment.Top,
+                    Width=5,
+                    Height=5,
+                    Background=Brushes.Purple
+                });
+                Shape.Children.Add(new Border
+                {
+                    HorizontalAlignment=HorizontalAlignment.Left,
+                    VerticalAlignment=VerticalAlignment.Bottom,
+                    Width=5,
+                    Height=5,
+                    Background=Brushes.Purple
+                });
+                Shape.Children.Add(new Border
+                {
+                    HorizontalAlignment=HorizontalAlignment.Right,
+                    VerticalAlignment=VerticalAlignment.Bottom,
+                    Width=5,
+                    Height=5,
+                    Background=Brushes.Purple
+                });
             }
+            return Shape;
         }
 
-        protected override Geometry DefiningGeometry => Geometry;
-        public Geometry Geometry { get; }
+        public bool ShowBorder { get => _showBorder; set { _showBorder = value; OnPropertyChanged(); } }
+
+        public Geometry Geometry { get; set; }
+        public ComponentEnum ComponentEnum { get; }
         public string Title { get; set; }
-        public ComponentEnum ComponentType{ get; set; }
-        public SolidColorBrush ShapeBorder{ get; set; }
-        public SolidColorBrush ShapeFill{ get; set; }
-        public double X{ get; set; }
-        public double Y{ get; set; }
+        //public double Width { get; set; }
+        //public double Height { get; set; }
+        public ComponentEnum ComponentType { get; set; }
+        public SolidColorBrush ShapeBorder { get; set; }
+        public SolidColorBrush ShapeFill { get; set; }
+        public double X { get => _x; set { _x = value; OnPropertyChanged(); } }
+        public double Y { get => _y; set { _y = value; OnPropertyChanged(); } }
+        public double BorderThickness { get; set; }
+        public Guid Id { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            UpdateDrawing();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void UpdateDrawing()
+        {
+
+        }
     }
 }

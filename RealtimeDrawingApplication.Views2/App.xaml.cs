@@ -1,5 +1,6 @@
 ﻿using Prism.Ioc;
 using Prism.Unity;
+using RealtimeDrawingApplication.Common;
 using RealtimeDrawingApplication.ViewModel;
 using RealtimeDrawingApplication.ViewModel.DrawingViewModel;
 using RealtimeDrawingApplication.Views;
@@ -15,12 +16,13 @@ namespace RealtimeDrawingApplication.Views2
         protected override Window CreateShell()
         {
             GenericServiceLocator.Container = Container;
-            return Container.Resolve<MainWindow>();
+            return Container.Resolve<ApplicationStartupWindow>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
 
         }
+
     }
 }

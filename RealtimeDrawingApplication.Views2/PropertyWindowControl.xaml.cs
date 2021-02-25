@@ -27,7 +27,7 @@ namespace Application.Views
         public PropertyWindowControl()
         {
             InitializeComponent();
-            DataContext = new ColourViewModel();
+            DataContext = new PropertyWindowControlViewModel();
         }
 
         private void ListView_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
@@ -35,15 +35,4 @@ namespace Application.Views
 
         }
     }
-
-    public class GenericServiceLocator
-    {
-        public GenericServiceLocator()
-        {
-        }
-
-
-        public static IContainerProvider Container { get; set; }
-    }
-
 }

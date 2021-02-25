@@ -98,10 +98,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationStartupWindow.xaml.cs">
+      <DependentUpon>ApplicationStartupWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LogInPageWindow.xaml.cs">
       <DependentUpon>LogInPageWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.cs" />
     <Compile Include="PropertyWindowControl.xaml.cs">
       <DependentUpon>PropertyWindowControl.xaml</DependentUpon>
     </Compile>
@@ -111,6 +113,10 @@
     <Compile Include="SharedUserWindowControl.xaml.cs">
       <DependentUpon>SharedUserWindowControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="ApplicationStartupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CreateAccount.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -132,10 +138,6 @@
     <Page Include="LogInPageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="MenuPaneControl.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -7,7 +7,7 @@ namespace RealtimeDrawingApplication.Model
     {
         public virtual int Id { get; set; }
         public virtual string Title { get; set; }
-        public virtual int FontSize { get; set; }
+        public virtual int BorderThickness { get; set; }
         public virtual double Width { get; set; }
         public virtual double Height { get; set; }
         public virtual double X { get; set; }

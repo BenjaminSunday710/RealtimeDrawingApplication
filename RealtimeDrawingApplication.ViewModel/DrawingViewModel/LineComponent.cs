@@ -15,20 +15,25 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
     {
         private double _x;
         private double _y;
-        public LineComponent(Geometry geometry)
+        private double _angle;
+
+        public LineComponent(LineGeometry geometry)
         {
+            Geometry = geometry;
             Id = Guid.NewGuid();
+            Stroke = Brushes.Gray;
+            StrokeThickness = 3;
         }
 
         private void ChangeProperty(PropertyWindowEventModel e)
         {
             switch (e.PropertyType)
             {
-                case PropertyType.Border:
-                    ShapeBorder = ((Colour)e.Value).BrushValue;
+                case PropertyType.BorderFill:
+                    ShapeBorder = (SolidColorBrush)e.Value;
                     break;
                 case PropertyType.Fill:
-                    Stroke = ((Colour)e.Value).BrushValue;
+                    Stroke = (SolidColorBrush)e.Value;
                     ShapeFill = (SolidColorBrush)Stroke;
                     break;
                 case PropertyType.Width:
@@ -50,6 +55,9 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
                 case PropertyType.Y:
                     Y = (double)e.Value;
                     break;
+                case PropertyType.Angle:
+                    Angle = (double)e.Value;
+                    break;
                 default:
                     break;
             }
@@ -62,6 +70,7 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         public double BorderThickness { get; set; }
         public double X { get => _x; set { _x = value; OnPropertyChanged(); } }
         public double Y { get => _y; set { _y = value; OnPropertyChanged(); } }
+        public double Angle { get => _angle; set { _angle = value; OnPropertyChanged(); } }
         public Guid Id { get; set; }
         public bool ShowBorder { get; set; }
         public new double Width { get; set; }

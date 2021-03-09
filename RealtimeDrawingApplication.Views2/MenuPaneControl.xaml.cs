@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RealtimeDrawingApplication.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,23 +24,7 @@ namespace RealtimeDrawingApplication.Views
         public MenuPaneControl()
         {
             InitializeComponent();
-        }
-
-        private void TblDisplayCreateProject_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            CreateProject createProjectDialog = new CreateProject();
-            createProjectDialog.ShowDialog();
-        }
-
-        private void TblDisplayShareProject_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            SharedProjectWindow sharedProjectDialog = new SharedProjectWindow();
-            sharedProjectDialog.ShowDialog();
-        }
-
-        private void TblDisplayClose_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.Visibility = Visibility.Collapsed;
+            //DataContext = new MenuPaneViewModel(new CreateProject(), new SharedProjectWindow());
         }
     }
 }

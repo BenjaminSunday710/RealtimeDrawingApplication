@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RealtimeDrawingApplication.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
 {
     public enum ComponentEnum { Triangle, Rectangle, Ellipse, Line, TextBox}
 
-    public interface IComponentProperties
+    public interface IComponentProperties        
     {
         Guid Id { get; set; }
         ComponentEnum ComponentType { get; set; }
@@ -21,8 +22,10 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         SolidColorBrush ShapeFill { get; set; }
         double X { get; set; }
         double Y { get; set; }
+        double Angle { get; set; }
         double BorderThickness { get; set; }
         bool ShowBorder { get; set; }
         object GetComponent();
+        
     }
 }

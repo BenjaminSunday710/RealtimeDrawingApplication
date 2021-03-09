@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Application.Views;
+using RealtimeDrawingApplication.Common;
+using RealtimeDrawingApplication.ViewModel;
+using RealtimeDrawingApplication.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,16 +23,27 @@ namespace RealtimeDrawingApplication.Views2
     /// </summary>
     public partial class LogInPageWindow : Window
     {
+        //private Dictionary<string, Type> _routedPagesByType;
+
         public LogInPageWindow()
         {
             InitializeComponent();
+            DataContext = new LoginViewModel();
+            LoadAllWindows();
+            
         }
 
-        private void BtnCreateAccountDisplay_Click(object sender, RoutedEventArgs e)
+        void LoadAllWindows()
         {
-            var window = new Views.CreateAccount();
-            this.Visibility = Visibility.Collapsed;
-            window.ShowDialog();
+            CommonUtility.RoutedPages.Add(nameof(PropertyWindowControl),typeof(PropertyWindowControl));
+            CommonUtility.RoutedPages.Add(nameof(ProjectWindow), typeof(ProjectWindow));
+            CommonUtility.RoutedPages.Add(nameof(ProjectSharedUserWindowControl), typeof(ProjectSharedUserWindowControl));
+            CommonUtility.RoutedPages.Add(nameof(SharedProjectWindow), typeof(SharedProjectWindow));
+            CommonUtility.RoutedPages.Add(nameof(CreateAccount), typeof(CreateAccount));
+            CommonUtility.RoutedPages.Add(nameof(CreateProject), typeof(CreateProject));
+            CommonUtility.RoutedPages.Add(nameof(LogInPageWindow), typeof(LogInPageWindow));
+            CommonUtility.RoutedPages.Add(nameof(MenuPaneControl), typeof(MenuPaneControl));
+            CommonUtility.RoutedPages.Add(nameof(ApplicationStartupWindow), typeof(ApplicationStartupWindow));
            
         }
     }

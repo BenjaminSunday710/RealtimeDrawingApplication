@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
 {
@@ -15,6 +16,10 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
             if (component == ComponentEnum.TextBox)
             {
                 return new TextBoxComponent();
+            }
+            else if (component == ComponentEnum.Line)
+            {
+                return new LineComponent(GetDefaultLineGeometry());
             }
             else 
             {
@@ -31,12 +36,15 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
                 case ComponentEnum.Rectangle:
                     return Geometry.Parse("M0,0 L50,0 L50,50 L0,50Z");
                 case ComponentEnum.Triangle:
-                    return Geometry.Parse("M25,0 L50,50 L0,50Z");
-                case ComponentEnum.Line:
-                    return Geometry.Parse("M0,0 L50,50");
+                    return Geometry.Parse("M25,0 L50,50 L0,50Z"); 
                 default:
                     return Geometry.Parse("M25,0 L50,50 L0,50Z");
             }
+        }
+
+        public static LineGeometry GetDefaultLineGeometry()
+        {
+            return new LineGeometry(new Point(3, 50), new Point(50, 3));
         }
     }
 }

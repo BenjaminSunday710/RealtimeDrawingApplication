@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace RealtimeDrawingApplication.Infrastructure.Mappings
 {
-    public class ProjectSharedUsersMap:ClassMap<ProjectSharedUsers>
+    public class ProjectSharedUsersMap:ClassMap<ProjectSharedUsersModel>
     {
         public ProjectSharedUsersMap()
         {
             Id(x => x.Id);
-            References(x => x.ProjectCreator);
+            References(x => x.SharedUser);
             References(x => x.Project);
             Map(x => x.IsAllowed);
             Map(x => x.IsEditable);

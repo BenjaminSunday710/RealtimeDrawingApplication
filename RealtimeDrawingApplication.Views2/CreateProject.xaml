@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RealtimeDrawingApplication.Views"
         mc:Ignorable="d"
-        Title="CreateProject" Height="350" Width="650">
+        Title="CreateProject" Height="300" Width="650"
+        WindowStyle="None">
     <Window.Resources>
         <Style x:Key="TextboxStyle" TargetType="TextBox">
             <Setter Property="Height" Value="35"/>
@@ -21,49 +22,84 @@
             <Setter Property="Margin" Value="20"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="TextAlignment" Value="Center"/>
-            <Setter Property="Height" Value="25"/>
+            <Setter Property="Height" Value="27"/>
             <Setter Property="Foreground" Value="Black"/>
         </Style>
     </Window.Resources>
-    
-    <Grid Background="PaleGoldenrod">
-    <Grid.RowDefinitions>
-        <RowDefinition Height="auto"/>
-        <RowDefinition Height="auto"/>
-    </Grid.RowDefinitions>
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="2*"/>
-    </Grid.ColumnDefinitions>
-        <TextBlock Text="Project Name" Style="{StaticResource TextBlockStyle}"/>
 
-        <Button x:Name="btnCreateProject"  Grid.Row="2" Grid.ColumnSpan="2"
-             Width="500"
-             Height="45"
+    <Grid Background="PaleGoldenrod">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.ColumnSpan="2" 
+                    Background="LightGoldenrodYellow">
+
+            <TextBlock Text="Create Project"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" 
+                       FontSize="25"
+                       Margin="30,0,0,0"
+                       FontWeight="DemiBold" 
+                       Grid.ColumnSpan="2"/>
+
+            <Button Width="32" Height="32"
+                    Command="{Binding CloseProjectViewCommand}"
+                    Margin="0,5,5,4" 
+                    BorderBrush="Transparent"
+                    VerticalContentAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    HorizontalAlignment="Right">
+                <Path Fill="Red" 
+                  Data="M19,3H16.3H7.7H5A2,2 0 0,0 3,5V7.7
+                  V16.4V19A2,2 0 0,0 5,21H7.7H16.4H19A2,2 0 0,0 21,19V16.3
+                  V7.7V5A2,2 0 0,0 19,3M15.6,17L12,13.4L8.4,17L7,15.6
+                  L10.6,12L7,8.4L8.4,7L12,10.6L15.6,7L17,8.4L13.4,12
+                  L17,15.6L15.6,17Z" 
+                  RenderTransformOrigin="0.949,0.895"
+                  Stretch="Fill"
+                 />
+            </Button>
+           
+            
+        </DockPanel>
+
+        <TextBlock Text="Project Name" Grid.Row="1"
+                   Style="{StaticResource TextBlockStyle}"/>
+        <TextBox Grid.Column="1" Grid.Row="1"
+                 x:Name="txtProjectName" 
+                 Style="{StaticResource TextboxStyle}"
+                 Text="{Binding Name}"/>
+
+        <Button x:Name="btnCreateProject"  Grid.Row="2" Grid.Column="1"
+             Width="170"
+             Height="35"
              VerticalContentAlignment="Stretch"
              HorizontalContentAlignment="Stretch"
              BorderBrush="Transparent"
              Margin="10,20"
-                Click="BtnCreateProject_Click">
-            <Border CornerRadius="10" BorderThickness="2"
-                    Height="40" Width="490">
+             Command="{Binding CreateProjectCommand}">
+            <Border CornerRadius="10" BorderThickness="0">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                         <GradientStop Color="Gray" Offset="0"/>
                         <GradientStop Color="LightGoldenrodYellow" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <TextBlock Text="Create" Foreground="Black"
+                <TextBlock Text="Save" 
                            HorizontalAlignment="Center"
-                           FontWeight="Bold"
-                           FontSize="20"
+                           FontWeight="DemiBold"
+                           FontSize="25"
                            VerticalAlignment="Center"/>
             </Border>
 
         </Button>
 
-        <TextBox Grid.Column="1" x:Name="txtProjectName" 
-                 Style="{StaticResource TextboxStyle}"/>
 
     </Grid>
 </Window>

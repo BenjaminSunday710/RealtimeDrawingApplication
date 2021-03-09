@@ -16,7 +16,7 @@ namespace RealtimeDrawingApplication.Views2
         protected override Window CreateShell()
         {
             GenericServiceLocator.Container = Container;
-            return Container.Resolve<ApplicationStartupWindow>();
+            return Container.Resolve<LogInPageWindow>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

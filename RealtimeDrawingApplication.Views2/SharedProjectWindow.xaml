@@ -5,37 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RealtimeDrawingApplication.Views"
         mc:Ignorable="d"
-        Title="Shared Project Window" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-
-        <TextBlock Text="Shared User Emails" FontSize="20"
+        Title="Shared Project Window" Height="253.704" Width="450"
+        WindowStartupLocation="CenterScreen">
+    <StackPanel>
+        
+        <TextBlock Text="Shared User Email" FontSize="20"
                    FontWeight="DemiBold" 
                    VerticalAlignment="Center" 
                    HorizontalAlignment="Center"
-                   Margin="5,10"/>
-        <TextBlock Text="Separate Shared Users with semi colon"
-                   VerticalAlignment="Bottom" TextAlignment="Center"
-                   Grid.Column="1" 
-                   HorizontalAlignment="Center"
-                   FontSize="18"
-                   FontWeight="DemiBold" />
-        <TextBox Grid.Column="1" VerticalAlignment="Center" Margin="35"
-                 Padding="10"/>
-        <Button Grid.Row="1" Grid.ColumnSpan="2"
-                Height="38" Width="450"
+                   Margin="5,15"/>
+        <TextBox VerticalAlignment="Center" 
+                 Width="300"
+                 Height="30"
+                 Margin="0,10"
+                 HorizontalAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 HorizontalContentAlignment="Left"
+                 Padding="10"
+                 Text="{Binding SharedUserEmail}"/>
+        <Button Height="30" Width="150"
                 VerticalContentAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
+                HorizontalAlignment="Center"
                 BorderBrush="Transparent"
-                Margin="30">
-            <Border CornerRadius="10" 
+                Margin="0,10"
+                Command="{Binding ShareCommand}">
+            <Border CornerRadius="5" 
                     Background="PaleGoldenrod"
                     BorderThickness="1"
                     BorderBrush="Green">
@@ -47,5 +42,5 @@
                            VerticalAlignment="Center"/>
             </Border>
         </Button>
-    </Grid>
+    </StackPanel>
 </Window>

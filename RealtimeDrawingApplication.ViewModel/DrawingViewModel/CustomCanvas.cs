@@ -12,6 +12,7 @@ using System.Windows.Media;
 using Prism.Ioc;
 using RealtimeDrawingApplication.Common;
 using System.Collections.ObjectModel;
+using RealtimeDrawingApplication.Model;
 
 namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
 {
@@ -19,74 +20,82 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
     {
         private double xValue;
         private double yValue;
-        //private double height;
-        //private double width;
+        private DrawingComponentProxy _drawingComponentProxy;
+        private ProjectModel _currentProject;
 
         public IEventAggregator EventAggregator { get; set; }
 
-        public CustomCanvas()
+        public CustomCanvas() : base()
         {
-            Background = Brushes.LightGoldenrodYellow;
+            Background = Brushes.WhiteSmoke;
             AllowDrop = true;
             EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
             EventAggregator.GetEvent<ResetPropertyEvent>().Subscribe(SetupViewProperties);
+            EventAggregator.GetEvent<GetProjectInstanceEvent>().Subscribe(GetProjectInstance);
+            EventAggregator.GetEvent<SaveProjectEvent>().Subscribe(SaveDrawingComponents);
+            EventAggregator.GetEvent<FetchDrawingComponentsEvent>().Subscribe(DrawComponents);
         }
 
-        public ObservableCollection<Colour> ColourListItems => new ObservableCollection<Colour>{
-                new Colour {Name="Red", BrushValue=Brushes.Red },
-                new Colour {Name="Green", BrushValue=Brushes.Green },
-                new Colour {Name="Yellow", BrushValue=Brushes.Yellow },
-                new Colour {Name="Blue", BrushValue=Brushes.Blue },
-                new Colour {Name="Black", BrushValue=Brushes.Black },
-                new Colour {Name="White", BrushValue=Brushes.White },
-                new Colour {Name="Brown", BrushValue=Brushes.Brown },
-                new Colour {Name="Pink", BrushValue=Brushes.Pink },
-                new Colour {Name="PaleGoldenRod", BrushValue=Brushes.PaleGoldenrod },
-                new Colour {Name="Violet", BrushValue=Brushes.Violet },
-                new Colour {Name="Purple", BrushValue=Brushes.Purple },
-                new Colour {Name="Indigo", BrushValue=Brushes.Indigo },
-                new Colour {Name="IndianRed", BrushValue=Brushes.IndianRed },
-                new Colour {Name="HoneyDew", BrushValue=Brushes.Honeydew },
-                new Colour {Name="Khaki", BrushValue=Brushes.Khaki },
-                new Colour {Name="LightBlue ", BrushValue=Brushes.LightBlue },
-                new Colour {Name="Transparent", BrushValue=Brushes.Transparent },
-                new Colour {Name="Tomato", BrushValue=Brushes.Tomato },
-                new Colour {Name="SpringGreen", BrushValue=Brushes.SpringGreen },
-                new Colour {Name="Gold", BrushValue=Brushes.Gold },
-                new Colour {Name="ForestGreen", BrushValue=Brushes.ForestGreen },
-                new Colour {Name="GhostWhite", BrushValue=Brushes.GhostWhite },
-                new Colour {Name="Gray", BrushValue=Brushes.Gray },
-                new Colour {Name="DimGray", BrushValue=Brushes.DimGray },
-                new Colour {Name="DeepPink", BrushValue=Brushes.DeepPink },
-                new Colour {Name="PaleVioletRed", BrushValue=Brushes.PaleVioletRed },
-                new Colour {Name="Olive", BrushValue=Brushes.Olive },
-                new Colour {Name="Orange", BrushValue=Brushes.Orange },
-                new Colour {Name="Orchid", BrushValue=Brushes.Orchid },
-                new Colour {Name="OldLace", BrushValue=Brushes.OldLace },
-                new Colour {Name="Chocolate", BrushValue=Brushes.Chocolate },
-                new Colour {Name="CornflowerBlue", BrushValue=Brushes.CornflowerBlue },
-                new Colour {Name="Cornsilk", BrushValue=Brushes.Cornsilk },
-                new Colour{Name="Cyan",BrushValue=Brushes.Cyan},
-                new Colour{Name="Chartreuse",BrushValue=Brushes.Chartreuse},
-                new Colour{Name="DarkMagenta",BrushValue=Brushes.DarkMagenta}
-            };
+        public ObservableCollection<string> ColourList = new Colour().ColourList;
+
+        //public ObservableCollection<Colour> ColourListItems => new ObservableCollection<Colour>{
+        //        new Colour {Name="Red", BrushValue=Brushes.Red },
+        //        new Colour {Name="Green", BrushValue=Brushes.Green },
+        //        new Colour {Name="Yellow", BrushValue=Brushes.Yellow },
+        //        new Colour {Name="Blue", BrushValue=Brushes.Blue },
+        //        new Colour {Name="Black", BrushValue=Brushes.Black },
+        //        new Colour {Name="White", BrushValue=Brushes.White },
+        //        new Colour {Name="Brown", BrushValue=Brushes.Brown },
+        //        new Colour {Name="Pink", BrushValue=Brushes.Pink },
+        //        new Colour {Name="PaleGoldenRod", BrushValue=Brushes.PaleGoldenrod },
+        //        new Colour {Name="Violet", BrushValue=Brushes.Violet },
+        //        new Colour {Name="Purple", BrushValue=Brushes.Purple },
+        //        new Colour {Name="Indigo", BrushValue=Brushes.Indigo },
+        //        new Colour {Name="IndianRed", BrushValue=Brushes.IndianRed },
+        //        new Colour {Name="HoneyDew", BrushValue=Brushes.Honeydew },
+        //        new Colour {Name="Khaki", BrushValue=Brushes.Khaki },
+        //        new Colour {Name="LightBlue ", BrushValue=Brushes.LightBlue },
+        //        new Colour {Name="Transparent", BrushValue=Brushes.Transparent },
+        //        new Colour {Name="Tomato", BrushValue=Brushes.Tomato },
+        //        new Colour {Name="SpringGreen", BrushValue=Brushes.SpringGreen },
+        //        new Colour {Name="Gold", BrushValue=Brushes.Gold },
+        //        new Colour {Name="ForestGreen", BrushValue=Brushes.ForestGreen },
+        //        new Colour {Name="GhostWhite", BrushValue=Brushes.GhostWhite },
+        //        new Colour {Name="Gray", BrushValue=Brushes.Gray },
+        //        new Colour {Name="DimGray", BrushValue=Brushes.DimGray },
+        //        new Colour {Name="DeepPink", BrushValue=Brushes.DeepPink },
+        //        new Colour {Name="PaleVioletRed", BrushValue=Brushes.PaleVioletRed },
+        //        new Colour {Name="Olive", BrushValue=Brushes.Olive },
+        //        new Colour {Name="Orange", BrushValue=Brushes.Orange },
+        //        new Colour {Name="Orchid", BrushValue=Brushes.Orchid },
+        //        new Colour {Name="OldLace", BrushValue=Brushes.OldLace },
+        //        new Colour {Name="Chocolate", BrushValue=Brushes.Chocolate },
+        //        new Colour {Name="CornflowerBlue", BrushValue=Brushes.CornflowerBlue },
+        //        new Colour {Name="Cornsilk", BrushValue=Brushes.Cornsilk },
+        //        new Colour{Name="Cyan",BrushValue=Brushes.Cyan},
+        //        new Colour{Name="Chartreuse",BrushValue=Brushes.Chartreuse},
+        //        new Colour{Name="DarkMagenta",BrushValue=Brushes.DarkMagenta}
+        //    };
         void SetupViewProperties(PropertyWindowEventModel propertyWindowEventModel)
         {
+
             if (propertyWindowEventModel != null)
             {
                 FrameworkElement _component = null;
+
                 foreach (FrameworkElement item in Children)
                 {
                     var _item = (IComponentProperties)item;
+
                     if (_item!=null && _item.Id == propertyWindowEventModel.PropertyId)
                     {
                         switch (propertyWindowEventModel.PropertyType)
                         {
-                            case PropertyType.Border:
-                                _item.ShapeBorder = ColourListItems.FirstOrDefault(x => x.BrushValue == (propertyWindowEventModel.Value as Brush)).BrushValue;
+                            case PropertyType.BorderFill:
+                                _item.ShapeBorder = (SolidColorBrush)propertyWindowEventModel.Value;
                                 break;
                             case PropertyType.Fill:
-                                _item.ShapeFill = ColourListItems.FirstOrDefault(x => x.BrushValue == (propertyWindowEventModel.Value as Brush)).BrushValue;
+                                _item.ShapeFill = (SolidColorBrush)propertyWindowEventModel.Value;
                                 break;
                             case PropertyType.Width:
                                 _item.Width = (double)propertyWindowEventModel.Value;
@@ -98,7 +107,7 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
                                 _item.Title = (string)propertyWindowEventModel.Value;
                                 break;
                             case PropertyType.BorderThickness:
-                                _item.BorderThickness = (int)propertyWindowEventModel.Value;
+                                _item.BorderThickness = (double)propertyWindowEventModel.Value;
                                 break;
                             case PropertyType.X:
                                 _item.X = (double)propertyWindowEventModel.Value;
@@ -113,30 +122,73 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
                         }
                         _component = _item as FrameworkElement;
                     }
-
                 }
+
+                //while converting to FrameWorkElement and later Reconvert to IComponentProperties
+                //Also how do GetComponent() works
                 if (_component != null)
                 {
-                    var __component = (_component as IComponentProperties);
+                    var __component = _component as IComponentProperties;
                     _component = __component.GetComponent() as FrameworkElement;
                 }
             }
         }
 
-        //private void AddItem(ProjectProxy obj)
-        //{
-        //    var fetchDBComponents = new List<IComponentProperties>();
-        //    Children.Clear();
-        //    foreach (var item in fetchDBComponents)
-        //    {
-        //        var Component = DrawingComponentService.GetDefaultComponent(item.ComponentType);
-        //        Component.Width = item.Width;
-        //        Component.Height = item.Height;
-        //        SetLeft(Component, item.X);
-        //        SetTop(Component, item.Y);
-        //        Children.Add(Component);
-        //    }
-        //}
+        void GetProjectInstance(string projectName)
+        {
+            _currentProject = DatabaseServices.Repository<ProjectModel>.Database.GetProject(projectName);
+            this.Children.Clear();
+        }
+
+        //It is save Project that will trigger this action
+        public void SaveDrawingComponents(string projectName)
+        {
+            if (projectName == null)
+            {
+                MessageBox.Show("Project cannot be saved! Create Project","Notification",MessageBoxButton.OK,MessageBoxImage.Information);
+                return;
+            }
+
+            foreach (var item in this.Children)
+            {
+                _drawingComponentProxy = new DrawingComponentProxy();
+                var getItem = (IComponentProperties)item;
+                _drawingComponentProxy.X = getItem.X;
+                _drawingComponentProxy.Y = getItem.Y;
+                _drawingComponentProxy.Angle = getItem.Angle;
+                _drawingComponentProxy.Title = getItem.Title;
+                _drawingComponentProxy.Height = getItem.Height;
+                _drawingComponentProxy.Width = getItem.Width;
+                _drawingComponentProxy.Border = getItem.ShapeBorder.ToString();
+                _drawingComponentProxy.Fill = getItem.ShapeFill.ToString();
+                _drawingComponentProxy.ComponentType = getItem.ComponentType.ToString();
+                _drawingComponentProxy.Project = _currentProject;
+
+                DatabaseServices.DrawingComponentModelService.SaveToDatabase(_drawingComponentProxy);
+            }
+            MessageBox.Show("Project Saved", "Notification", MessageBoxButton.OK, MessageBoxImage.Hand);
+        }
+
+        void DrawComponents(List<DrawingComponentProxy> drawingComponents)
+        {
+            this.Children.Clear();
+            
+            foreach (var drawingComponent in drawingComponents)
+            {
+                var fetchedDBComponent = drawingComponent as IComponentProperties;
+                fetchedDBComponent.X = drawingComponent.X;
+                fetchedDBComponent.Y = drawingComponent.Y;
+                fetchedDBComponent.Angle = drawingComponent.Angle;
+                fetchedDBComponent.Title = drawingComponent.Title;
+                fetchedDBComponent.Width = drawingComponent.Width;
+                fetchedDBComponent.Height = drawingComponent.Height;
+                fetchedDBComponent.ShapeFill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(drawingComponent.Fill));
+                fetchedDBComponent.ShapeBorder = new SolidColorBrush((Color)ColorConverter.ConvertFromString(drawingComponent.Border));
+                fetchedDBComponent.BorderThickness = drawingComponent.BorderThickness;
+
+                this.Children.Add(fetchedDBComponent as FrameworkElement);
+            }
+        }
 
         protected override void OnDrop(DragEventArgs e)
         {
@@ -150,19 +202,47 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
 
             if (item is IComponentProperties component)
             {
-                CurrentlySelectedItem.PropertyId =component.Id;
+                CurrentlySelectedItem.PropertyId = component.Id;
                 CurrentlySelectedItem.ComponentType = component.ComponentType;
                 CurrentlySelectedItem.PropertyType = PropertyType.X;
-                CurrentlySelectedItem.Value =xValue;
+                CurrentlySelectedItem.Value = xValue;
                 EventAggregator.GetEvent<SetPropertyEvent>().Publish(CurrentlySelectedItem);
+
                 CurrentlySelectedItem.PropertyType = PropertyType.Y;
                 CurrentlySelectedItem.Value = yValue;
+                EventAggregator.GetEvent<SetPropertyEvent>().Publish(CurrentlySelectedItem);
+
+                CurrentlySelectedItem.PropertyType = PropertyType.Angle;
+                CurrentlySelectedItem.Value = component.Angle;
+                EventAggregator.GetEvent<SetPropertyEvent>().Publish(CurrentlySelectedItem);
+
+                CurrentlySelectedItem.PropertyType = PropertyType.Height;
+                CurrentlySelectedItem.Value = component.Height;
+                EventAggregator.GetEvent<SetPropertyEvent>().Publish(CurrentlySelectedItem);
+
+                CurrentlySelectedItem.PropertyType = PropertyType.Width;
+                CurrentlySelectedItem.Value = component.Width;
+                EventAggregator.GetEvent<SetPropertyEvent>().Publish(CurrentlySelectedItem);
+
+                CurrentlySelectedItem.PropertyType = PropertyType.Fill;
+                CurrentlySelectedItem.Value = component.ShapeFill;
+                EventAggregator.GetEvent<SetPropertyEvent>().Publish(CurrentlySelectedItem);
+
+                CurrentlySelectedItem.PropertyType = PropertyType.BorderFill;
+                CurrentlySelectedItem.Value = component.ShapeBorder;
+                EventAggregator.GetEvent<SetPropertyEvent>().Publish(CurrentlySelectedItem);
+
+                CurrentlySelectedItem.PropertyType = PropertyType.BorderThickness;
+                CurrentlySelectedItem.Value = component.BorderThickness;
+                EventAggregator.GetEvent<SetPropertyEvent>().Publish(CurrentlySelectedItem);
+
+                CurrentlySelectedItem.PropertyType = PropertyType.Title;
+                CurrentlySelectedItem.Value = component.Title;
                 EventAggregator.GetEvent<SetPropertyEvent>().Publish(CurrentlySelectedItem);
             }
         }
 
         public FrameworkElement SelectedComponent { get; set; }
-        public IComponentProperties ClickedComponent { get; set; }
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
@@ -191,6 +271,7 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         }
 
         public PropertyWindowEventModel CurrentlySelectedItem { get; set; } = new PropertyWindowEventModel();
+
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             SelectedComponent = e.Source as FrameworkElement;
@@ -231,6 +312,7 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
                 return GetParent(frameworkElement.Parent as FrameworkElement);
             }
         }
+
         private void ResetPreviousComponent()
         {
             FrameworkElement _component=null;
@@ -257,108 +339,11 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
             base.OnMouseLeftButtonUp(e);
         }
 
-        //void SetX()
-        //{
-        //    EventAggregator.GetEvent<DefaultPropertyWindowEvent>().Publish(new PropertyWindowEventModel
-        //    {
-        //        PropertyType = PropertyType.X,
-        //        Value = xValue
-        //    });
-        //}
-
-        //void SetY()
-        //{
-        //    EventAggregator.GetEvent<DefaultPropertyWindowEvent>().Publish(new PropertyWindowEventModel
-        //    {
-        //        PropertyType = PropertyType.Y,
-        //        Value = yValue
-        //    });
-        //}
-
-        //void SetWidth()
-        //{
-        //    EventAggregator.GetEvent<DefaultPropertyWindowEvent>().Publish(new PropertyWindowEventModel
-        //    {
-        //        PropertyType = PropertyType.Width,
-        //        Value = width
-        //    });
-        //}
-
-        //void SetHeight()
-        //{
-        //    EventAggregator.GetEvent<DefaultPropertyWindowEvent>().Publish(new PropertyWindowEventModel
-        //    {
-        //        PropertyType = PropertyType.Height,
-        //        Value = height
-        //    });
-        //}
-
-        //public void UpdateComponent(PropertyWindowEventModel e)
-        //{
-        //    if (SelectedComponent is IComponentProperties component)
-        //    {
-        //        switch(e.PropertyType)
-        //        {
-        //            case PropertyType.Height:
-        //                component.Height = (double)e.Value;
-        //                break;
-        //            case PropertyType.Width:
-        //                component.Width = (double)e.Value;
-        //                break;
-        //            case PropertyType.Title:
-        //                component.Title = (string)e.Value;
-        //                break;
-        //            case PropertyType.Fill:
-        //                component.ShapeFill = ((Colour)e.Value).BrushValue;
-        //                break;
-        //            case PropertyType.Border:
-        //                component.ShapeBorder=((Colour)e.Value).BrushValue;
-        //                break;
-        //            case PropertyType.BorderThickness:
-        //                component.BorderThickness = (int)e.Value;
-        //                break;
-        //        }
-        //    }
-        //}
-
-        private void OnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        void ClickedComponentResetProperties(PropertyWindowEventModel e)
-        {
-            switch (e.PropertyType)
-            {
-                case PropertyType.Height:
-                    ClickedComponent.Height = (double)e.Value;
-                    break;
-                case PropertyType.Width:
-                    ClickedComponent.Width = (double)e.Value;
-                    break;
-                case PropertyType.Title:
-                    ClickedComponent.Title = (string)e.Value;
-                    break;
-                case PropertyType.Fill:
-                    ClickedComponent.ShapeFill = ((Colour)e.Value).BrushValue;
-                    break;
-                case PropertyType.Border:
-                    ClickedComponent.ShapeBorder = ((Colour)e.Value).BrushValue;
-                    break;
-                case PropertyType.BorderThickness:
-                    ClickedComponent.BorderThickness = (int)e.Value;
-                    break;
-                case PropertyType.X:
-                    ClickedComponent.ShapeBorder = ((Colour)e.Value).BrushValue;
-                    break;
-                case PropertyType.Y:
-                    ClickedComponent.BorderThickness = (int)e.Value;
-                    break;
-                default:
-                    break;
-            }
-        }
     }
 
-    public class DefaultPropertyWindowEvent : PubSubEvent<List<PropertyWindowEventModel>> { }
+    public class ResetPropertyEvent : PubSubEvent<PropertyWindowEventModel> { }
+   
+
+    public class SetPropertyEvent : PubSubEvent<PropertyWindowEventModel> { }
+    
 }

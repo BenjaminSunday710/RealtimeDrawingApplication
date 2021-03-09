@@ -5,16 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RealtimeDrawingApplication.Views"
         mc:Ignorable="d"
-        Height="550" Width="500"
+        Height="520" Width="700"
         WindowState="Normal"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="ToolWindow">
+        WindowStyle="None">
     <Window.Resources>
         <Style x:Key="TextboxStyle" TargetType="TextBox">
             <Setter Property="Height" Value="35"/>
+            <Setter Property="Width" Value="350"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="Margin" Value="15"/>
+            <Setter Property="Margin" Value="20"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
         <Style x:Key="TextBlockStyle" TargetType="TextBlock">
@@ -35,27 +37,95 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Fullname" 
+        <DockPanel Grid.ColumnSpan="2" Height="60"
+            Background="LightGoldenrodYellow">
+            <TextBlock Text="Create Account" Grid.ColumnSpan="2" 
+                       FontSize="25" HorizontalAlignment="Center"
+                       FontWeight="Bold" Height="60"
+                       Width="300"
+                       TextAlignment="Center"
+                       Margin="0,10"/>
+        </DockPanel>
+       
+        <TextBlock Text="First Name" Grid.Row="1" 
                    Style="{StaticResource TextBlockStyle}"/>
-        <TextBlock Text="Email" Grid.Row="1"  
+        <TextBlock Text="Last Name" Grid.Row="2" 
                    Style="{StaticResource TextBlockStyle}"/>
-        <TextBlock Text="Password" Grid.Row="2"  
+        <TextBlock Text="Email" Grid.Row="3"  
                    Style="{StaticResource TextBlockStyle}"/>
-        <TextBlock Text="Confirm Password" Grid.Row="4"  
+        <TextBlock Text="Password" Grid.Row="4"  
                    Style="{StaticResource TextBlockStyle}"/>
-        <Button Grid.Row="5" Grid.ColumnSpan="2"
+        <TextBlock Text="Confirm Password" Grid.Row="5"  
+                   Style="{StaticResource TextBlockStyle}"/>
+
+        <TextBox Grid.Column="1" Grid.Row="1"
+                 Text="{Binding FirstName}"
+                 Style="{StaticResource TextboxStyle}"/>
+
+        <TextBox Grid.Column="1" Grid.Row="2" 
+                  Text="{Binding LastName}"
+                 Style="{StaticResource TextboxStyle}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" 
+                  Text="{Binding Email}"
+                 Style="{StaticResource TextboxStyle}"/>
+        <PasswordBox Grid.Column="1" Grid.Row="4" 
+                     Margin="20,0,0,0" 
+                     Height="35"
+                     Width="350"
+                     VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     HorizontalAlignment="Left"
+                     x:Name="PasswordBox"/>
+        <PasswordBox Grid.Column="1" Grid.Row="5"
+                     Margin="20,0,0,0"
+                     Height="35"
+                     VerticalAlignment="Center"
+                     Width="350"
+                     HorizontalAlignment="Left"/>
+        
+        <Button  Grid.Column="1" Grid.Row="4"
+                  Width="40" Height="30"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Stretch"
+                 Margin="0,0,50,0">
+            <Path Width="40" Height="30"
+             
+             
+             
+            Fill="Black" Data="M12,9A3,3 0 0,1 15,12
+              A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9
+              M12,4.5C16.86,4.5 21.22,7.5 23,12C20.61,18.08 
+              13.75,21.06 7.67,18.67C4.62,17.47 2.2,15.06 1,12
+              C2.78,7.5 7.14,4.5 12,4.5M3.18,12C5.56,16.87 11.45,
+              18.89 16.32,16.5C18.28,15.54 19.86,13.96 20.82,12C18.44,
+              7.13 12.55,5.11 7.68,7.5C5.72,
+              8.46 4.14,10.04 3.18,12M9,22H7V24H9V22M13,
+              22H11V24H13V22M17,22H15V24H17V22Z" />
+
+        </Button>
+
+        <Button Grid.Row="6" Grid.Column="1"
                 VerticalAlignment="Center"
-                Margin="25" VerticalContentAlignment="Stretch"
+                HorizontalAlignment="left"
+                Margin="10,5,0,10" VerticalContentAlignment="Stretch"
                 HorizontalContentAlignment="Stretch" 
                 FontSize="18" Foreground="Black"
                 BorderBrush="Transparent"
-                Background="Transparent">
-            <Border CornerRadius="10" BorderThickness="2"
+                Background="Transparent"
+                Width="180"
+                Height="40"
+                Command="{Binding CreateAccountCommand}"
+                CommandParameter="{Binding ElementName=PasswordBox}">
+            <Border CornerRadius="5" BorderThickness="2"
                    >
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
@@ -63,45 +133,44 @@
                         <GradientStop Color="LightGoldenrodYellow" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
-                <TextBlock Text="Create" Foreground="Black"
+                <TextBlock Text="Create" Foreground="Green"
                            HorizontalAlignment="Center"
                            FontWeight="Bold"
-                           FontSize="20"
+                           FontSize="25"
                            VerticalAlignment="Center"/>
             </Border>
         </Button>
-        <Button Grid.Row="3" Grid.Column="1"
-                Width="200" Height="40"
-                VerticalAlignment="Center" Margin="20,15,25,15"
-                VerticalContentAlignment="Stretch"
+
+        <Button Grid.Row="6" Grid.Column="2"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                Margin="0,5,30,10" VerticalContentAlignment="Stretch"
                 HorizontalContentAlignment="Stretch" 
-                FontSize="18" Foreground="Black"
-                Padding="0,6,0,0"
+                FontSize="18" Foreground="Red"
                 BorderBrush="Transparent"
-                Background="Transparent">
-            <Border CornerRadius="10"
-                    Background="PaleGoldenrod"
-                    BorderThickness="1"
-                    BorderBrush="Green">
-                <TextBlock Text="Show Password"
+                Background="Transparent"
+                Width="150"
+                Height="40">
+            <Border CornerRadius="10" 
+                    BorderThickness="2" >
+            <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                        <GradientStop Color="Gray" Offset="0"/>
+                        <GradientStop Color="LightGoldenrodYellow" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <TextBlock Text="Close" Foreground="Red"
                            HorizontalAlignment="Center"
-                           FontWeight="DemiBold"/>
+                           FontWeight="DemiBold"
+                           FontSize="25"
+                           TextAlignment="Center"
+                           VerticalAlignment="Center"/>
             </Border>
         </Button>
 
-        <TextBox Grid.Column="1" 
-                 Style="{StaticResource TextboxStyle}"/>
 
-        <TextBox Grid.Column="1" Grid.Row="1"  
-                 Style="{StaticResource TextboxStyle}"/>
-        <PasswordBox Grid.Column="1" Grid.Row="2" 
-                     Margin="15" 
-                     Height="35"
-                     VerticalAlignment="Center"
-                     VerticalContentAlignment="Center"/>
-        <PasswordBox Grid.Column="1" Grid.Row="4" Margin="15"
-                     Height="35"
-                     VerticalAlignment="Center"/>
+
+
 
     </Grid>
         

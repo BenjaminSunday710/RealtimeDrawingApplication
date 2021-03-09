@@ -26,19 +26,24 @@ namespace RealtimeDrawingApplication.Views2
         public ApplicationStartupWindow()
         {
             InitializeComponent();
-            PopulateRoutedPages();
-            DataContext = new PropertySharedUsersProjectWindowsDisplay(_routedPages);
+            //PopulateRoutedPages();
+            //DataContext = new MainWindowViewModel(_routedPages);
         }
 
-        private Dictionary<string, FrameworkElement> _routedPages;
+        //private Dictionary<string, FrameworkElement> _routedPages;
 
-        void PopulateRoutedPages()
-        {
-            _routedPages = new Dictionary<string, FrameworkElement>();
-            _routedPages.Add(nameof(PropertyWindowControl), new PropertyWindowControl());
-            _routedPages.Add(nameof(ProjectWindow), new ProjectWindow());
-            _routedPages.Add(nameof(SharedUserWindowControl), new SharedUserWindowControl());
-        }
+        //void PopulateRoutedPages()
+        //{
+        //    _routedPages = new Dictionary<string, FrameworkElement>();
+        //    _routedPages.Add(nameof(PropertyWindowControl), new PropertyWindowControl());
+        //    _routedPages.Add(nameof(ProjectWindow), new ProjectWindow());
+        //    _routedPages.Add(nameof(SharedUserWindowControl), new SharedUserWindowControl());
+        //    _routedPages.Add(nameof(SharedProjectWindow),new SharedProjectWindow());
+        //    _routedPages.Add(nameof(CreateAccount), new CreateAccount());
+        //    _routedPages.Add(nameof(CreateProject), new CreateProject());
+        //    _routedPages.Add(nameof(LogInPageWindow), new LogInPageWindow());
+        //    _routedPages.Add(nameof(MenuPaneControl), new MenuPaneControl());
+        //}
 
         private void Path_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -72,22 +77,22 @@ namespace RealtimeDrawingApplication.Views2
             }
         }
 
-        private void Path_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MenuPane.Visibility = Visibility.Visible;
-        }
+        //private void Path_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    MenuPane.Visibility = Visibility.Visible;
+        //}
 
-        private void AddProjectIconBorder_MouseEnter(object sender, MouseEventArgs e)
-        {
-            Border border = new Border();
-            border.Background = Brushes.Gray;
-        }
+        //private void AddProjectIconBorder_MouseEnter(object sender, MouseEventArgs e)
+        //{
+        //    Border border = new Border();
+        //    border.Background = Brushes.Gray;
+        //}
 
-        private void ShareProjectIconBorder_MouseEnter(object sender, MouseEventArgs e)
-        {
-            Border border = new Border();
-            border.Background = Brushes.Gray;
-        }
+        //private void ShareProjectIconBorder_MouseEnter(object sender, MouseEventArgs e)
+        //{
+        //    Border border = new Border();
+        //    border.Background = Brushes.Gray;
+        //}
 
         private void DisplayPropertyWindowMenu_Click(object sender, RoutedEventArgs e)
         {
@@ -99,10 +104,10 @@ namespace RealtimeDrawingApplication.Views2
             PropertyWindowPopUp.StaysOpen = false;
         }
 
-        private void LoadLoginPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            LogInPageWindow logInPageWindow = new LogInPageWindow();
-            logInPageWindow.ShowDialog();
-        }
+        //private void LoadLoginPage_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    LogInPageWindow logInPageWindow = new LogInPageWindow();
+        //    logInPageWindow.ShowDialog();
+        //}
     }
 }

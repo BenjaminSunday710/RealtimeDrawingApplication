@@ -1,4 +1,6 @@
 ﻿using NHibernate;
+using NHibernate.Criterion;
+using RealtimeDrawingApplication.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +76,69 @@ namespace RealtimeDrawingApplication.Infrastructure.NHibernateORM
                     transaction.Commit();
                 }
             }
+        }
+
+        public UserModel GetUser(string email)
+        {
+            UserModel user;
+
+            using (var session=SessionFactory.OpenSession())
+            {
+                user = session.Query<UserModel>().FirstOrDefault(x => x.Email == email);
+            }
+
+            return user;
+        }
+
+        public ProjectModel GetProject(string name)
+        {
+            ProjectModel project;
+
+            using (var session = SessionFactory.OpenSession())
+            {
+                project = session.Query<ProjectModel>().FirstOrDefault(x => x.Name == name);
+            }
+
+            return project;
+        }
+
+        public List<DrawingComponentModel> GetDrawingComponents(string projectName)
+        {
+            List<DrawingComponentModel> drawingComponents = new List<DrawingComponentModel>();
+
+            using (var session=SessionFactory.OpenSession())
+            {
+                var project = session.Query<ProjectModel>().FirstOrDefault(x => x.Name == projectName);
+                drawingComponents = session.Query<DrawingComponentModel>().Where(x => x.Project == project).ToList();
+            }
+
+            return drawingComponents;
+        }
+
+        public List<ProjectSharedUsersModel> GetProjectSharedUsers(string projectName)
+        {
+            List<ProjectSharedUsersModel> projectSharedUsers = new List<ProjectSharedUsersModel>();
+
+            using (var session = SessionFactory.OpenSession())
+            {
+                var project = session.Query<ProjectModel>().FirstOrDefault(x => x.Name == projectName);
+                projectSharedUsers = session.Query<ProjectSharedUsersModel>().Where(x => x.Project == project).ToList();
+            }
+
+            return projectSharedUsers;
+        }
+
+        public List<ProjectModel> GetProjects(string userEmail)
+        {
+            List<ProjectModel> projects = new List<ProjectModel>();
+
+            using (var session = SessionFactory.OpenSession())
+            {
+                var user = session.Query<UserModel>().FirstOrDefault(x => x.Email == userEmail);
+                projects = session.Query<ProjectModel>().Where(x => x.ProjectCreator == user).ToList();
+            }
+
+            return projects;
         }
     }
 }

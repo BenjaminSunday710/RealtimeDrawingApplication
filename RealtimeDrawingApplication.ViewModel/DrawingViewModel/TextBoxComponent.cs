@@ -30,11 +30,11 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         {
             switch (e.PropertyType)
             {
-                case PropertyType.Border:
-                    ShapeBorder = ((Colour)e.Value).BrushValue;
+                case PropertyType.BorderFill:
+                    ShapeBorder = (SolidColorBrush)e.Value;
                     break;
                 case PropertyType.Fill:
-                    Foreground = ((Colour)e.Value).BrushValue;
+                    Foreground = (SolidColorBrush)e.Value;
                     ShapeFill = (SolidColorBrush)Foreground;
                     break;
                 case PropertyType.Width:
@@ -55,6 +55,9 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
                 case PropertyType.Y:
                     Y = (double)e.Value;
                     break;
+                case PropertyType.Angle:
+                    Angle = (double)e.Value;
+                    break;
                 default:
                     break;
             }
@@ -67,6 +70,7 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         public new double BorderThickness { get; set; }
         public double X { get => _x; set { _x = value; OnPropertyChanged(); } }
         public double Y { get => _y; set { _y = value; OnPropertyChanged(); } }
+        public double Angle { get; set; }
         public Guid Id { get; set; }
         public bool ShowBorder { get; set; }
 

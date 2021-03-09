@@ -12,7 +12,7 @@ namespace RealtimeDrawingApplication.ViewModel
     {
         private FrameworkElement currentContent;
         private bool _isPropertyWindow;
-        private bool _isSharedUserWindow;
+        private bool _isProjectSharedUserWindow;
         private bool _isProjectsWindow;
         private string _windowTitle = "Property Window";
         private Dictionary<string, FrameworkElement> _routedPages;
@@ -26,7 +26,7 @@ namespace RealtimeDrawingApplication.ViewModel
 
         //public Dictionary<string, FrameworkElement> RoutedPages { get; }
         public bool IsPropertyWindow { get => _isPropertyWindow; set { _isPropertyWindow = value; UpdateLayoutControl(); RaisePropertyChanged(); } }
-        public bool IsSharedUserWindow { get => _isSharedUserWindow; set { _isSharedUserWindow = value; UpdateLayoutControl(); RaisePropertyChanged(); } }
+        public bool IsProjectSharedUserWindow { get => _isProjectSharedUserWindow; set { _isProjectSharedUserWindow = value; UpdateLayoutControl(); RaisePropertyChanged(); } }
         public bool IsProjectsWindow { get => _isProjectsWindow; set { _isProjectsWindow = value; UpdateLayoutControl(); RaisePropertyChanged(); } }
         public FrameworkElement CurrentContent
         {
@@ -51,11 +51,11 @@ namespace RealtimeDrawingApplication.ViewModel
                 }
             }
 
-            else if (_isSharedUserWindow)
+            else if (_isProjectSharedUserWindow)
             {
-                if (_routedPages.ContainsKey("SharedUserWindowControl"))
+                if (_routedPages.ContainsKey("ProjectSharedUserWindowControl"))
                 {
-                    CurrentContent = _routedPages["SharedUserWindowControl"];
+                    CurrentContent = _routedPages["ProjectSharedUserWindowControl"];
                     WindowTitle = "Shared User Window";
                 }
             }

@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace RealtimeDrawingApplication.Infrastructure.Mappings
 {
-    public class UserMap:ClassMap<User>
+    public class UserMap:ClassMap<UserModel>
     {
         public UserMap()
         {
             Id(x => x.Id);
-            Map(x => x.FullName);
+            Map(x => x.FirstName);
+            Map(x => x.LastName);
             Map(x => x.Email);
             Map(x => x.Password);
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RealtimeDrawingApplication.Infrastructure.Mappings
 {
-    public class ProjectMap:ClassMap<Project>
+    public class ProjectMap:ClassMap<ProjectModel>
     {
         public ProjectMap()
         {

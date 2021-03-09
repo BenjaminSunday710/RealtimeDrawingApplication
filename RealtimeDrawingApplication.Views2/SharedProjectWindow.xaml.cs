@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RealtimeDrawingApplication.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace RealtimeDrawingApplication.Views
         public SharedProjectWindow()
         {
             InitializeComponent();
+            //DataContext = new ProjectSharedUsersViewModel();
         }
     }
 }

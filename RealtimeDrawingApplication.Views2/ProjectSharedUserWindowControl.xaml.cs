@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RealtimeDrawingApplication.ViewModel;
+using RealtimeDrawingApplication.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +20,13 @@ namespace Application.Views
     /// <summary>
     /// Interaction logic for SharedUserWindowControl.xaml
     /// </summary>
-    public partial class SharedUserWindowControl : UserControl
+    public partial class ProjectSharedUserWindowControl : UserControl
     {
-        public SharedUserWindowControl()
+        public ProjectSharedUserWindowControl()
         {
             InitializeComponent();
+            DataContext = new ProjectSharedUsersViewModel();
         }
+
     }
 }

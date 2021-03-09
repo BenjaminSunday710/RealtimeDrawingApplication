@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace RealtimeDrawingApplication.Infrastructure.Mappings
 {
-    public class DrawingComponentMap:ClassMap<DrawingComponent>
+    public class DrawingComponentMap:ClassMap<DrawingComponentModel>
     {
         public DrawingComponentMap()
         {
             Id(x => x.Id);
             Map(x => x.X);
             Map(x => x.Y);
+            Map(x => x.Angle);
             Map(x => x.Width);
             Map(x => x.Height);
             Map(x => x.Title);
@@ -22,6 +23,7 @@ namespace RealtimeDrawingApplication.Infrastructure.Mappings
             Map(x => x.ComponentType);
             Map(x => x.Fill);
             Map(x => x.Border);
+            References(x => x.Project);
         }
     }
 }

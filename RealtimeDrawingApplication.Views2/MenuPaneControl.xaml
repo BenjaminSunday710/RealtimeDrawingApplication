@@ -5,57 +5,70 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RealtimeDrawingApplication.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="300">
+             d:DesignHeight="450" d:DesignWidth="200">
     <UserControl.Resources>
-        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="FontSize" Value="15"/>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="2,0,0,25"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Background" Value="LightGoldenrodYellow"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <Border BorderBrush="LightGray"
-                Background="WhiteSmoke"
-            BorderThickness="0.7"
-            Padding="5,5,55,5">
-            <DockPanel Background="WhiteSmoke">
-                <StackPanel VerticalAlignment="Stretch"
-                        DockPanel.Dock="Top">
-                    <TextBlock Text="UserName" 
-                               x:Name="tblUserName"
-                               Style="{StaticResource TextBlockStyle}"
-                               TextDecorations="Underline"/>
-                    <TextBlock Text="Create Project" 
-                               x:Name="tblDisplayCreateProject"
-                               Style="{StaticResource TextBlockStyle}"
-                               MouseDown="TblDisplayCreateProject_MouseDown"/>
-                    <TextBlock Text="Share Project"
-                               x:Name="tblDisplayShareProject"
-                                Style="{StaticResource TextBlockStyle}"
-                               MouseDown="TblDisplayShareProject_MouseDown" />
-                    <TextBlock Text="Open Project" 
-                               x:Name="tblDisplayOpenProject"
-                               Style="{StaticResource TextBlockStyle}"/>
-                    <TextBlock Text="Save Project" 
-                               x:Name="tblDisplaySaveProject"
-                               Style="{StaticResource TextBlockStyle}"/>
-                    <TextBlock Text="Delete Project" 
-                               x:Name="tblDisplayDeleteProject"
-                               Style="{StaticResource TextBlockStyle}"/>
-                    <TextBlock Text="Export" Style="{StaticResource TextBlockStyle}"/>
-                    <TextBlock Text="Import" Style="{StaticResource TextBlockStyle}"/>
-                </StackPanel>
 
-                <TextBlock Text="Close" 
-                           x:Name="tblDisplayClose"
-                           Foreground="Red" 
-                           Style="{StaticResource TextBlockStyle}"
-                           VerticalAlignment="Bottom"
-                           MouseDown="TblDisplayClose_MouseDown"/>
-            </DockPanel>
+    <StackPanel VerticalAlignment="Stretch"
+                    Background="LightGoldenrodYellow"
+                    HorizontalAlignment="Stretch">
+        
+        <TextBlock Text="{Binding UserName, FallbackValue=User Name}" 
+                        x:Name="tblUserName"
+                        HorizontalAlignment="Left"
+                        Margin="2,0,0,25"
+                        TextDecorations="Underline"/>
 
-        </Border>
+            <TextBlock Text="{Binding UserEmail,FallbackValue=User Email}" 
+                        x:Name="tblUserEmail"
+                        HorizontalAlignment="Left"
+                        Margin="2,0,0,25"
+                        TextDecorations="Underline"/>
 
-    </Grid>
+            <Button Content="Create Project"
+                    Style="{StaticResource ButtonStyle}"
+                     Command="{Binding CreateProjectCommand}"/>
+            <Button Content="Share Project"
+                    Style="{StaticResource ButtonStyle}"
+                     Command="{Binding ShareProjectCommand}"/>
+            <Button Content="Open Project"
+                    Style="{StaticResource ButtonStyle}"
+                     Command="{Binding OpenProjectCommand}"/>
+            <Button Content="Save Project"
+                    Style="{StaticResource ButtonStyle}"
+                     Command="{Binding SaveProjectCommand}"/>
+            <Button Content="Delete Project"
+                    Style="{StaticResource ButtonStyle}"
+                     Command="{Binding DeleteProjectCommand}"/>
+            <Button Content="Import "
+                    Style="{StaticResource ButtonStyle}"
+                     Command="{Binding ImportProjectCommand}"/>
+            <Button Content="Export"
+                    Style="{StaticResource ButtonStyle}"
+                     Command="{Binding ExportProjectCommand}"/>
+            <Button Content="Close"
+                    Command="{Binding CloseCommand}"
+                    BorderBrush="Transparent"
+                    FontWeight="DemiBold"
+                    Background="LightGoldenrodYellow"
+                    Foreground="Red"
+                    HorizontalContentAlignment="Left"
+                    Margin="2,0,0,0"
+                    FontSize="14"
+                    VerticalAlignment="Bottom"
+                    />
+        </StackPanel>
+
+
+    
+
 </UserControl>

@@ -5,24 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RealtimeDrawingApplication.Views2"
         mc:Ignorable="d"
-        Title="Login Page" Height="450" Width="650"
+        Title="Login Page" Height="300" Width="650"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None">
     <Grid Background="PaleGoldenrod">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Login Page"
-                   FontSize="28" FontWeight="DemiBold"
-                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" 
+                   Grid.ColumnSpan="2"
+                   Text="Login Page"
+                   FontSize="28" 
+                   FontWeight="DemiBold"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center"
+                   Margin="10"
+                   Height="40"/>
 
         <TextBlock Grid.Row="1" Text="Email"
-                   FontSize="15" HorizontalAlignment="Left"
+                   FontSize="15" 
+                   HorizontalAlignment="Left"
                    Margin="70, 0,0,0"
                    VerticalAlignment="Center"
                    FontWeight="DemiBold"/>
@@ -31,19 +41,66 @@
                    Margin="70, 2,2,2"
                    FontWeight="DemiBold"
                    VerticalAlignment="Center"/>
-        <TextBox Grid.Row="1" HorizontalAlignment="Right"
-                 Margin="0,0,145,0" Foreground="White"
-                 Width="350" VerticalAlignment="Center"
-                 Height="40" VerticalContentAlignment="Stretch"/>
-        <PasswordBox Grid.Row="2" HorizontalAlignment="Right"
-                 Margin="0,0,145,0" Foreground="White"
-                 Width="350" VerticalAlignment="Center"
-                 Height="40" VerticalContentAlignment="Center"/>
-        <Button Grid.Row="3" Height="45" Width="200" 
+        <TextBox Grid.Row="1"
+                 Grid.Column="1"
+                 HorizontalAlignment="Right"
+                 Margin="10,0,60,0" 
+                 Width="350" 
+                 VerticalAlignment="Center"
+                 Height="30" 
+                 VerticalContentAlignment="Center"
+                 Text="{Binding Email}"/>
+
+
+        <PasswordBox Grid.Row="2" 
+                     HorizontalAlignment="Center"
+                     x:Name="password"
+                     Margin="232,32,110,35" 
+                     Width="300" 
+                     VerticalAlignment="Center"
+                     Height="30" 
+                     VerticalContentAlignment="Center"
+                     />
+        <TextBlock x:Name="tblShowPassword"
+                   Grid.Column="1"
+                   Height="30"
+                   Width="350"
+                   Grid.Row="2"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Right"
+                   Margin="0,0,60,0"
+                   Visibility="{Binding IsVisible}"
+                   Text="{Binding Password}"/>
+        <Button   Grid.Row="2"
+                  Width="40" 
+                  Height="30"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Stretch"
+                  Margin="0,32,65,35"
+                  Command="{Binding ShowPasswordCommand}"
+                  CommandParameter="{Binding ElementName=password}">
+            <Path Width="40" Height="30"
+            Fill="Black" Data="M12,9A3,3 0 0,1 15,12
+              A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9
+              M12,4.5C16.86,4.5 21.22,7.5 23,12C20.61,18.08 
+              13.75,21.06 7.67,18.67C4.62,17.47 2.2,15.06 1,12
+              C2.78,7.5 7.14,4.5 12,4.5M3.18,12C5.56,16.87 11.45,
+              18.89 16.32,16.5C18.28,15.54 19.86,13.96 20.82,12C18.44,
+              7.13 12.55,5.11 7.68,7.5C5.72,
+              8.46 4.14,10.04 3.18,12M9,22H7V24H9V22M13,
+              22H11V24H13V22M17,22H15V24H17V22Z" Margin="0,0,0,-4" VerticalAlignment="Top" />
+        </Button>
+
+        <Button Grid.Row="3" Grid.Column="1" 
+                Height="35" Width="150" 
                 BorderBrush="Transparent"
                 VerticalContentAlignment="Stretch"
-                HorizontalContentAlignment="Stretch">
-            <Border CornerRadius="10" BorderThickness="2">
+                HorizontalContentAlignment="Stretch"
+                Command="{Binding LoginCommand}"
+                CommandParameter="{Binding ElementName=password}">
+            <Border CornerRadius="5" BorderThickness="2">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                         <GradientStop Color="Gray" Offset="0"/>
@@ -52,18 +109,27 @@
                 </Border.Background>
                 <TextBlock Text="Login" Foreground="Black"
                            HorizontalAlignment="Center"
-                           FontWeight="Bold"
+                           FontWeight="DemiBold"
                            FontSize="20"
                            VerticalAlignment="Center"/>
             </Border>
         </Button>
 
-        <Button x:Name="btnCreateAccountDisplay" Click="BtnCreateAccountDisplay_Click"  
-                Grid.Row="4" Height="45" Width="450" 
+        <TextBlock Grid.Row="4" Text="If you dont have an account"
+                   FontSize="15" HorizontalAlignment="Left"
+                   Margin="70, 2,2,2"
+                   FontWeight="DemiBold"
+                   VerticalAlignment="Center"/>
+
+        <Button x:Name="btnCreateAccountDisplay"  
+                Grid.Row="4" Height="35" Width="210" 
                 BorderBrush="Transparent"
+                HorizontalAlignment="Right"
+                Margin="0,0,50,0"
                 VerticalContentAlignment="Stretch"
-                HorizontalContentAlignment="Stretch">
-            <Border CornerRadius="10" BorderThickness="2">
+                HorizontalContentAlignment="Stretch"
+                Command="{Binding OpenCreateAccountViewCommand}">
+            <Border CornerRadius="5" BorderThickness="2">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                         <GradientStop Color="Gray" Offset="0"/>
@@ -72,9 +138,9 @@
                 </Border.Background>
                 <TextBlock Text="Create Account" Foreground="Black"
                            HorizontalAlignment="Center"
-                           FontWeight="Bold"
+                           FontWeight="DemiBold"
                            FontSize="20"
-                           VerticalAlignment="Center"/>
+                           VerticalAlignment="Bottom" Margin="30,0"/>
             </Border>
 
         </Button>

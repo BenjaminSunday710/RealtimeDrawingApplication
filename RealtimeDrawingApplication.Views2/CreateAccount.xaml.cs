@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RealtimeDrawingApplication.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,13 @@ namespace RealtimeDrawingApplication.Views
         public CreateAccount()
         {
             InitializeComponent();
+            //DataContext = new CreateAccountViewModel(new CreateProject());
         }
+
+        //void btnClose_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.Close();
+        //}
+
     }
 }

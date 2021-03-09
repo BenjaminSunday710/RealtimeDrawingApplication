@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace RealtimeDrawingApplication.Infrastructure.NHibernateORM.DatabaseType
 {
-    class SqLiteSessionFactoryCreator:IDatabaseType
+    public class SqLiteSessionFactoryCreator:IDatabaseType
     {
         public ISessionFactory CreateSessionFactory()
         {

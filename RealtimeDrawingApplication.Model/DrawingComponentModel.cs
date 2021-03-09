@@ -1,9 +1,10 @@
-﻿using System.Windows.Media;
+﻿using RealtimeDrawingApplication.Common;
+using System.Windows.Media;
 
 namespace RealtimeDrawingApplication.Model
 {
     public enum ComponentType { Rectangle, Ellipse, Triangle, TextBox, Line}
-    public class DrawingComponent
+    public class DrawingComponentModel:IModel
     {
         public virtual int Id { get; set; }
         public virtual string Title { get; set; }
@@ -12,8 +13,10 @@ namespace RealtimeDrawingApplication.Model
         public virtual double Height { get; set; }
         public virtual double X { get; set; }
         public virtual double Y { get; set; }
+        public virtual double Angle { get; set; }
         public virtual string Fill { get; set; }
         public virtual string Border { get; set; }
-        public virtual ComponentType ComponentType { get; set; }
+        public virtual string ComponentType { get; set; }
+        public virtual ProjectModel Project { get; set; }
     }
 }

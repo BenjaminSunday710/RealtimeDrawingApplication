@@ -46,8 +46,7 @@ namespace RealtimeDrawingApplication.ViewModel
         {
             _password = passwordBox.Password;
             _user = DatabaseServices.UserModelService.DeserializeToProxy(_email);
-            _user.FullName = _user.FirstName + " " + _user.LastName;
-
+           
             if (_user == null)
             {
                 MessageBox.Show("Error! Couldn't find account with the provided information! Create an account","Error Message",MessageBoxButton.OK,MessageBoxImage.Error);
@@ -59,6 +58,7 @@ namespace RealtimeDrawingApplication.ViewModel
                 return;
             }
 
+            _user.FullName = _user.FirstName + " " + _user.LastName;
             _mainWindowView = CommonUtility.GetPage("ApplicationStartupWindow") as Window;
             _mainWindowView.DataContext = new MainWindowViewModel();
 

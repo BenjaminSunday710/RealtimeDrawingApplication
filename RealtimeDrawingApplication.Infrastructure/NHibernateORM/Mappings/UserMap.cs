@@ -17,6 +17,7 @@ namespace RealtimeDrawingApplication.Infrastructure.Mappings
             Map(x => x.LastName);
             Map(x => x.Email);
             Map(x => x.Password);
+            HasMany(x => x.ProjectSharedUsers).Inverse().Cascade.All();
         }
     }
 }

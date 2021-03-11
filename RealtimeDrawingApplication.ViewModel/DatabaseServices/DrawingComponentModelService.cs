@@ -1,4 +1,5 @@
 ﻿using RealtimeDrawingApplication.Model;
+using RealtimeDrawingApplication.ViewModel.DrawingViewModel;
 using RealtimeDrawingApplication.ViewModel.Proxies;
 using System;
 using System.Collections.Generic;
@@ -28,26 +29,34 @@ namespace RealtimeDrawingApplication.ViewModel.DatabaseServices
             Repository<DrawingComponentModel>.Database.Create(drawingComponent);
         }
 
+        public static DrawingComponentProxy Convert(DrawingComponentModel drawingComponentModel)
+        {
+            var item = new DrawingComponentProxy();
+
+            item.Angle = drawingComponentModel.Angle;
+            item.Border = drawingComponentModel.Border;
+            item.ComponentType = drawingComponentModel.ComponentType;
+            //item.ComponentEnum = Enum.Parse(ComponentEnum, dcm.Title);
+            item.BorderThickness = drawingComponentModel.BorderThickness;
+            item.Fill = drawingComponentModel.Fill;
+            item.Height = drawingComponentModel.Height;
+            item.Width = drawingComponentModel.Width;
+            item.X = drawingComponentModel.X;
+            item.Y = drawingComponentModel.Y;
+            item.Title = drawingComponentModel.Title;
+
+            return item;
+        }
+
         public static List<DrawingComponentProxy> DeserializeToProxy(string projectName)
         {
-            List<DrawingComponentProxy> drawingComponentProxies = new List<DrawingComponentProxy>();
             List<DrawingComponentModel> drawingComponents = Repository<DrawingComponentModel>.Database.GetDrawingComponents(projectName);
-            DrawingComponentProxy drawingComponentProxy = new DrawingComponentProxy();
+            List<DrawingComponentProxy> drawingComponentProxies = new List<DrawingComponentProxy>(drawingComponents.Count);
+            int maxLength = drawingComponents.Count;
 
             foreach (var drawingComponent in drawingComponents)
             {
-                drawingComponentProxy.Angle = drawingComponent.Angle;
-                drawingComponentProxy.Border = drawingComponent.Border;
-                drawingComponentProxy.BorderThickness = drawingComponent.BorderThickness;
-                drawingComponentProxy.ComponentType = drawingComponent.ComponentType;
-                drawingComponentProxy.Fill = drawingComponent.Fill;
-                drawingComponentProxy.Height = drawingComponent.Height;
-                drawingComponentProxy.Project = drawingComponent.Project;
-                drawingComponentProxy.Title = drawingComponent.Title;
-                drawingComponentProxy.Width = drawingComponent.Width;
-                drawingComponentProxy.X = drawingComponent.X;
-                drawingComponentProxy.Y = drawingComponent.Y;
-
+                var drawingComponentProxy = Convert(drawingComponent);
                 drawingComponentProxies.Add(drawingComponentProxy);
             }
 

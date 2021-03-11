@@ -53,17 +53,7 @@ namespace RealtimeDrawingApplication.ViewModel.DatabaseServices
             database.Delete(model);
         }
 
-        public string SerialisedObject(object model)
-        {
-            string serialisedString = Newtonsoft.Json.JsonConvert.SerializeObject(model);
-            return serialisedString;
-        }
-
-        public T DeserialisedObject(string serialisedString)
-        {
-            T model = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(serialisedString);
-            return model;
-        }
+       
 
     }
 }

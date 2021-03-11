@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using RealtimeDrawingApplication.ViewModel.Proxies;
+using System.Windows.Media;
+using RealtimeDrawingApplication.ViewModel.DataTransferProtocol;
+using RealtimeDrawingApplication.Model;
 
 namespace RealtimeDrawingApplication.ViewModel
 {
@@ -42,19 +45,21 @@ namespace RealtimeDrawingApplication.ViewModel
 
             _routedPagesModel = new PropertySharedUsersProjectWindowsDisplay(_routedPages);
 
-            _drawingSheet = new CustomCanvas();
+            DrawingSheet = new CustomCanvas();
 
             OpenMenuPaneControlCommand = new DelegateCommand(OpenMenuPaneControl);
 
-            //EventAggregator.GetEvent<SaveProjectEvent>().Subscribe(SaveDrawingComponents);
+            EventAggregator.GetEvent<SaveProjectEvent>().Subscribe(SaveDrawingComponents);
+            EventAggregator.GetEvent<ExportFileEvent>().Subscribe(ExportDrawingComponents);
+
         }
 
-        //private void SaveDrawingComponents()
-        //{
-        //    _drawingSheet.SaveDrawingComponents();
-        //}
+        private void SaveDrawingComponents(string projectName)
+        {
+            _drawingSheet.SaveDrawingComponents(projectName);
+        }
 
-        public CustomCanvas DrawingSheet { get => _drawingSheet; set => _drawingSheet = value; }
+        public CustomCanvas DrawingSheet { get => _drawingSheet; set { _drawingSheet = value; } }
         public DelegateCommand OpenMenuPaneControlCommand { get; set; }
         public IEventAggregator EventAggregator { get; set; }
         public Visibility IsVisible { get => _isVisible; set { _isVisible = value; RaisePropertyChanged(); } }
@@ -81,6 +86,20 @@ namespace RealtimeDrawingApplication.ViewModel
         void CloseMenuPaneControl()
         {
             IsVisible = Visibility.Collapsed;
+        }
+
+       
+
+        //void DrawComponents(List<DrawingComponentProxy> drawingComponents)
+        //{
+        //    _drawingSheet.DrawComponents(drawingComponents);  
+        //}
+
+        void ExportDrawingComponents(string projectName)
+        {
+            var drawingComponents = DatabaseServices.Repository<DrawingComponentModel>.Database.GetDrawingComponents(projectName);
+            var exportFile = Json<DrawingComponentModel>.SerialisedObject(drawingComponents);
+            FileHandlingServices.SaveFile(exportFile);
         }
     }
 

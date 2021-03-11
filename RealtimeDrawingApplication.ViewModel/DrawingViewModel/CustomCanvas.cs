@@ -13,6 +13,7 @@ using Prism.Ioc;
 using RealtimeDrawingApplication.Common;
 using System.Collections.ObjectModel;
 using RealtimeDrawingApplication.Model;
+using RealtimeDrawingApplication.ViewModel.DataTransferProtocol;
 
 namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
 {
@@ -32,8 +33,11 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
             EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
             EventAggregator.GetEvent<ResetPropertyEvent>().Subscribe(SetupViewProperties);
             EventAggregator.GetEvent<GetProjectInstanceEvent>().Subscribe(GetProjectInstance);
-            EventAggregator.GetEvent<SaveProjectEvent>().Subscribe(SaveDrawingComponents);
             EventAggregator.GetEvent<FetchDrawingComponentsEvent>().Subscribe(DrawComponents);
+            EventAggregator.GetEvent<ImportFileEvent>().Subscribe(DisplayImportedDrawings);
+            //EventAggregator.GetEvent<SaveProjectEvent>().Subscribe(SaveDrawingComponents);
+
+
         }
 
         public ObservableCollection<string> ColourList = new Colour().ColourList;
@@ -137,13 +141,14 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         void GetProjectInstance(string projectName)
         {
             _currentProject = DatabaseServices.Repository<ProjectModel>.Database.GetProject(projectName);
-            this.Children.Clear();
+           this.Children.Clear();
         }
 
-        //It is save Project that will trigger this action
         public void SaveDrawingComponents(string projectName)
         {
-            if (projectName == null)
+            _currentProject = DatabaseServices.Repository<ProjectModel>.Database.GetProject(projectName);
+
+            if (_currentProject == null)
             {
                 MessageBox.Show("Project cannot be saved! Create Project","Notification",MessageBoxButton.OK,MessageBoxImage.Information);
                 return;
@@ -169,13 +174,34 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
             MessageBox.Show("Project Saved", "Notification", MessageBoxButton.OK, MessageBoxImage.Hand);
         }
 
-        void DrawComponents(List<DrawingComponentProxy> drawingComponents)
+        public void DrawComponents(List<DrawingComponentProxy> drawingComponents)
         {
+            ComponentEnum componentType = ComponentEnum.Ellipse;
             this.Children.Clear();
             
             foreach (var drawingComponent in drawingComponents)
             {
-                var fetchedDBComponent = drawingComponent as IComponentProperties;
+                switch(drawingComponent.Title)
+                {
+                    case "Triangle":
+                        componentType = ComponentEnum.Triangle;
+                        break;
+                    case "Ellipse":
+                        componentType = ComponentEnum.Ellipse;
+                        break;
+                    case "Rectangle":
+                        componentType = ComponentEnum.Rectangle;
+                        break;
+                    case "Line":
+                        componentType = ComponentEnum.Line;
+                        break;
+                    case "TextBlock":
+                        componentType = ComponentEnum.TextBox;
+                        break;
+                }
+                var component = DrawingComponentService.GetDefaultShapeGeometry(componentType);
+                var fetchedDBComponent = new ShapeComponent(component, componentType);
+                //var fetchedDBComponent = component as IComponentProperties;
                 fetchedDBComponent.X = drawingComponent.X;
                 fetchedDBComponent.Y = drawingComponent.Y;
                 fetchedDBComponent.Angle = drawingComponent.Angle;
@@ -186,8 +212,25 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
                 fetchedDBComponent.ShapeBorder = new SolidColorBrush((Color)ColorConverter.ConvertFromString(drawingComponent.Border));
                 fetchedDBComponent.BorderThickness = drawingComponent.BorderThickness;
 
-                this.Children.Add(fetchedDBComponent as FrameworkElement);
+                var fetchedComponent = fetchedDBComponent.GetComponent() as FrameworkElement;
+                
+                SetLeft(fetchedComponent, fetchedDBComponent.X);
+                SetTop(fetchedComponent, fetchedDBComponent.Y);
+                Children.Add(fetchedComponent);
+                
             }
+        }
+
+        void DisplayImportedDrawings()
+        {
+            var importedFile = FileHandlingServices.OpenFile();
+            if (importedFile == string.Empty)
+            {
+                MessageBox.Show("Imported File is empty");
+            }
+            var models = Json<DrawingComponentModel>.DeserialisedObject(importedFile);
+            var modelProxies = DatabaseServices.DrawingComponentModelService.DeserializeToProxy(models);
+            DrawComponents(modelProxies);
         }
 
         protected override void OnDrop(DragEventArgs e)

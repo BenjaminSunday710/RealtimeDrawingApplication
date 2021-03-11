@@ -69,7 +69,7 @@ namespace RealtimeDrawingApplication.ViewModel
                 
                 MessageBox.Show("Account Created");
                 _mainWindowView.ShowDialog();
-                CloseCreateAccountView();
+                _createAccountView.Close();
             }
         }
 

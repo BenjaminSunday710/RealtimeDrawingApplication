@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RealtimeDrawingApplication.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="200">
+             d:DesignHeight="750" d:DesignWidth="200">
     <UserControl.Resources>
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="2,0,0,25"/>
@@ -18,57 +18,177 @@
         </Style>
     </UserControl.Resources>
 
-    <StackPanel VerticalAlignment="Stretch"
+    <DockPanel VerticalAlignment="Stretch"
                     Background="LightGoldenrodYellow"
                     HorizontalAlignment="Stretch">
-        
         <TextBlock Text="{Binding UserName, FallbackValue=User Name}" 
                         x:Name="tblUserName"
                         HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        DockPanel.Dock="Top"
                         Margin="2,0,0,25"
                         TextDecorations="Underline"/>
-
-            <TextBlock Text="{Binding UserEmail,FallbackValue=User Email}" 
+        <TextBlock Text="{Binding UserEmail,FallbackValue=User Email}" 
                         x:Name="tblUserEmail"
                         HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        DockPanel.Dock="Top"
                         Margin="2,0,0,25"
                         TextDecorations="Underline"/>
 
-            <Button Content="Create Project"
+        <Button Content="Create Project"
                     Style="{StaticResource ButtonStyle}"
-                     Command="{Binding CreateProjectCommand}"/>
-            <Button Content="Share Project"
+                    Command="{Binding CreateProjectCommand}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    DockPanel.Dock="Top"/>
+        <Button Content="Share Project"
                     Style="{StaticResource ButtonStyle}"
-                     Command="{Binding ShareProjectCommand}"/>
-            <Button Content="Open Project"
+                    Command="{Binding ShareProjectCommand}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    DockPanel.Dock="Top"/>
+        <Button Content="Open Project"
                     Style="{StaticResource ButtonStyle}"
-                     Command="{Binding OpenProjectCommand}"/>
-            <Button Content="Save Project"
+                    Command="{Binding OpenProjectCommand}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    DockPanel.Dock="Top"/>
+        <Button Content="Save Project"
                     Style="{StaticResource ButtonStyle}"
-                     Command="{Binding SaveProjectCommand}"/>
-            <Button Content="Delete Project"
+                    Command="{Binding SaveProjectCommand}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    DockPanel.Dock="Top"/>
+        <Button Content="Update Project"
                     Style="{StaticResource ButtonStyle}"
-                     Command="{Binding DeleteProjectCommand}"/>
-            <Button Content="Import "
+                    Command="{Binding SaveProjectCommand}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    DockPanel.Dock="Top"/>
+        <Button Content="Delete Project"
                     Style="{StaticResource ButtonStyle}"
-                     Command="{Binding ImportProjectCommand}"/>
-            <Button Content="Export"
-                    Style="{StaticResource ButtonStyle}"
-                     Command="{Binding ExportProjectCommand}"/>
-            <Button Content="Close"
+                    Command="{Binding DeleteProjectCommand}"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    DockPanel.Dock="Top"/>
+        <Button Style="{StaticResource ButtonStyle}"
+                    Command="{Binding ImportProjectCommand}"
+                    HorizontalContentAlignment="Stretch"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    DockPanel.Dock="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Import"
+                           FontSize="15"
+                           FontWeight="DemiBold" HorizontalAlignment="Left" Width="176"/>
+                <Path Data="M0,0L7,7L0,14"
+                      Grid.Column="1"
+                      Stroke="Black"
+                      StrokeThickness="3" 
+                      VerticalAlignment="Bottom"
+                      Margin="0,2"
+                      >
+                </Path>
+
+                <Popup IsOpen="{Binding ImportPopUpIsOpen}"
+                    Placement="Right"
+                    StaysOpen="True"
+                    Width="150">
+                    <Border BorderThickness="2"
+                            BorderBrush="PaleGoldenrod">
+                        <StackPanel Background="White">
+                            <Button Content="Json"
+                                Command="{Binding ImportAsJsonCommand}"
+                                Padding="4,0,0,0"
+                                HorizontalContentAlignment="Left"
+                                Background="White"
+                                BorderBrush="Transparent"
+                                Margin="2,2,3,3"/>
+                            
+                            <Button Content="xml"
+                                Command="{Binding ImportAsXmlCommand}"
+                                HorizontalContentAlignment="Left"
+                                Padding="4,0,0,0"
+                                Background="White"
+                                BorderBrush="Transparent"
+                                Margin="2,2,3,0"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+            </Grid>
+
+        </Button>
+
+
+        <Button  Style="{StaticResource ButtonStyle}"
+                 Command="{Binding ExportProjectCommand}"
+                 HorizontalAlignment="Stretch"
+                 HorizontalContentAlignment="Stretch"
+                 VerticalAlignment="Top"
+                 DockPanel.Dock="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Export"
+                           FontSize="15"
+                           FontWeight="DemiBold"/>
+                <Path Data="M0,0L7,7L0,14"
+                      Grid.Column="1"
+                      Stroke="Black"
+                      StrokeThickness="3" 
+                      VerticalAlignment="Bottom"
+                      Margin="0,2"
+                      >
+                </Path>
+                <Popup IsOpen="{Binding ExportPopUpIsOpen}"
+                    Placement="Right"
+                    StaysOpen="True"
+                    AllowsTransparency="False"
+                    Width="150">
+                    <Border BorderBrush="PaleGoldenrod"
+                            BorderThickness="2">
+                        <StackPanel Orientation="Vertical"
+                        Background="White">
+                            <Button Content="Json"
+                        Command="{Binding ExportAsJsonCommand}"
+                        HorizontalContentAlignment="Left"
+                        Padding="4,0,0,0"
+                        Background="White"
+                        BorderBrush="Transparent"
+                        Margin="2,2,3,3"/>
+                            <Button Content="xml"
+                        Command="{Binding ExportAsXmlCommand}"
+                        HorizontalContentAlignment="Left"
+                        Padding="4,0,0,0"
+                        Background="White"
+                        BorderBrush="Transparent"
+                        Margin="2,2,3,3"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+            </Grid>
+        </Button>
+        
+        <Button Content="Close"
                     Command="{Binding CloseCommand}"
                     BorderBrush="Transparent"
-                    FontWeight="DemiBold"
+                    FontWeight="Bold"
                     Background="LightGoldenrodYellow"
                     Foreground="Red"
                     HorizontalContentAlignment="Left"
                     Margin="2,0,0,0"
                     FontSize="14"
                     VerticalAlignment="Bottom"
+                    HorizontalAlignment="Stretch"
+                    DockPanel.Dock="Bottom"
                     />
-        </StackPanel>
-
-
-    
-
+       
+    </DockPanel>
 </UserControl>

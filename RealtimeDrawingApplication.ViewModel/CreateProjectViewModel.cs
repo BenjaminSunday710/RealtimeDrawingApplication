@@ -18,12 +18,10 @@ namespace RealtimeDrawingApplication.ViewModel
 {
     public class CreateProjectViewModel:BindableBase
     {
-        //private static ObservableCollection<ProjectProxy> _projectListItems;
         private ProjectProxy _projectProxy;
         private string _userEmail;
         private string _name;
         private Window _createProjectWindowView;
-        //private Window _mainWindowView;
 
         public CreateProjectViewModel(Window createProjectWindow, string userEmail)
         {
@@ -32,14 +30,7 @@ namespace RealtimeDrawingApplication.ViewModel
             CloseProjectViewCommand = new DelegateCommand(CloseProjectView);
             _userEmail = userEmail;
 
-            //EventAggregator.GetEvent<CreateProjectEvent>().Subscribe(InitialiseProject);
-
             EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
-            //EventAggregator.GetEvent<ShowCurrentUserDetailsEvent>().Subscribe(GetUserInstance);
-
-
-
-            //_mainWindowView = CommonUtility.GetPage("ApplicationStartupWindow") as Window;
         }
 
         public string Name { get => _name; set { _name = value; RaisePropertyChanged(); } }
@@ -48,18 +39,6 @@ namespace RealtimeDrawingApplication.ViewModel
         public string SharedUserEmail { get => _userEmail; set => _userEmail = value; }
         public DelegateCommand CreateProjectCommand { get; set; }
         public DelegateCommand CloseProjectViewCommand { get; set; }
-        //public ProjectInstanceEventModel CurrentProjectInstance { get; set; } = new ProjectInstanceEventModel();
-
-        //private void GetUserInstance(UserInstanceEventModel currentUser)
-        //{
-        //    _userEmail = currentUser.Email;
-        //}
-
-        //void InitialiseProject(CreateProjectViewModel projectInstance)
-        //{
-        //    //_projectWindowView.DataContext = projectInstance;
-           
-        //}
 
         void CreateProject()
         {
@@ -84,8 +63,4 @@ namespace RealtimeDrawingApplication.ViewModel
     }
 
     public class GetProjectInstanceEvent : PubSubEvent<string> { }
-    public class ProjectInstanceEventModel
-    {
-        public string Name { get; set; }
-    }
 }

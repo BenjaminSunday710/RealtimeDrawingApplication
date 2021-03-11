@@ -26,25 +26,10 @@ namespace RealtimeDrawingApplication.Views2
         public ApplicationStartupWindow()
         {
             InitializeComponent();
-            //PopulateRoutedPages();
-            //DataContext = new MainWindowViewModel(_routedPages);
+           
         }
 
-        //private Dictionary<string, FrameworkElement> _routedPages;
-
-        //void PopulateRoutedPages()
-        //{
-        //    _routedPages = new Dictionary<string, FrameworkElement>();
-        //    _routedPages.Add(nameof(PropertyWindowControl), new PropertyWindowControl());
-        //    _routedPages.Add(nameof(ProjectWindow), new ProjectWindow());
-        //    _routedPages.Add(nameof(SharedUserWindowControl), new SharedUserWindowControl());
-        //    _routedPages.Add(nameof(SharedProjectWindow),new SharedProjectWindow());
-        //    _routedPages.Add(nameof(CreateAccount), new CreateAccount());
-        //    _routedPages.Add(nameof(CreateProject), new CreateProject());
-        //    _routedPages.Add(nameof(LogInPageWindow), new LogInPageWindow());
-        //    _routedPages.Add(nameof(MenuPaneControl), new MenuPaneControl());
-        //}
-
+        
         private void Path_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             FrameworkElement component = null;

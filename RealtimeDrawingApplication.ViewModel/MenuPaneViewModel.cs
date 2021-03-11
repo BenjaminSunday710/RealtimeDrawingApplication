@@ -14,7 +14,7 @@ using System.Windows.Controls;
 
 namespace RealtimeDrawingApplication.ViewModel
 {
-    public class MenuPaneViewModel:BindableBase
+    public class MenuPaneViewModel : BindableBase
     {
         private Window _createProjectWindow;
         private Window _sharedProjectWindow;
@@ -22,7 +22,8 @@ namespace RealtimeDrawingApplication.ViewModel
         private string _userName;
         private string _userEmail;
         private string _projectName;
-       
+        private bool _exportPopUpIsOpen;
+        private bool _importPopUpIsOpen;
 
         public MenuPaneViewModel()
         {
@@ -34,6 +35,10 @@ namespace RealtimeDrawingApplication.ViewModel
             DeleteProjectCommand = new DelegateCommand(DeleteProject);
             ExportProjectCommand = new DelegateCommand(Export);
             ImportProjectCommand = new DelegateCommand(Import);
+            ImportAsJsonCommand = new DelegateCommand(ImportAsJson);
+            ExportAsJsonCommand = new DelegateCommand(ExportAsJson);
+            ImportAsXmlCommand = new DelegateCommand(ImportAsXml);
+            ExportAsXmlCommand = new DelegateCommand(ExportAsXml);
             CloseCommand = new DelegateCommand(Close);
             EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
             EventAggregator.GetEvent<ShowCurrentUserDetailsEvent>().Subscribe(DisplayCurrentUser);
@@ -49,9 +54,22 @@ namespace RealtimeDrawingApplication.ViewModel
         public DelegateCommand DeleteProjectCommand { get; set; }
         public DelegateCommand ExportProjectCommand { get; set; }
         public DelegateCommand ImportProjectCommand { get; set; }
+        public DelegateCommand ExportAsJsonCommand { get; set; }
+        public DelegateCommand ImportAsJsonCommand { get; set; }
+        public DelegateCommand ExportAsXmlCommand { get; set; }
+        public DelegateCommand ImportAsXmlCommand { get; set; }
         public DelegateCommand CloseCommand { get; set; }
         public string UserName { get => _userName; set { _userName = value; RaisePropertyChanged(); } }
         public string UserEmail { get => _userEmail; set { _userEmail = value; RaisePropertyChanged(); } }
+        public bool ExportPopUpIsOpen { get => _exportPopUpIsOpen; set { _exportPopUpIsOpen = value; RaisePropertyChanged(); } }
+        public bool ImportPopUpIsOpen
+        {
+            get => _importPopUpIsOpen; set
+            {
+                _importPopUpIsOpen = value;
+                RaisePropertyChanged();
+            }
+        }
 
         void DisplayCurrentUser(UserProxy currentUser)
         {
@@ -67,7 +85,7 @@ namespace RealtimeDrawingApplication.ViewModel
         void CreateProject()
         {
             _createProjectWindow = CommonUtility.GetPage("CreateProject") as Window;
-            _createProjectWindow.DataContext = new CreateProjectViewModel(_createProjectWindow,_userEmail);
+            _createProjectWindow.DataContext = new CreateProjectViewModel(_createProjectWindow, _userEmail);
             _createProjectWindow.ShowDialog();
         }
 
@@ -95,12 +113,12 @@ namespace RealtimeDrawingApplication.ViewModel
 
         void Export()
         {
-            //Convert the Drawing components to string using Json and Xml and write it to a file
+            ExportPopUpIsOpen = !ExportPopUpIsOpen;
         }
 
         void Import()
         {
-            //Read Drawing components from a file and convert it to drawing component model
+            ImportPopUpIsOpen = !_importPopUpIsOpen;
         }
 
         private void Close()
@@ -108,10 +126,30 @@ namespace RealtimeDrawingApplication.ViewModel
             EventAggregator.GetEvent<CloseMenuPaneEvent>().Publish();
         }
 
+        private void ImportAsJson()
+        {
+            EventAggregator.GetEvent<ImportFileEvent>().Publish();
+        }
+
+        private void ExportAsJson()
+        {
+            EventAggregator.GetEvent<ExportFileEvent>().Publish(_projectName);
+        }
+
+        private void ImportAsXml()
+        {
+
+        }
+
+        private void ExportAsXml()
+        {
+
+        }
     }
 
     public class SaveProjectEvent : PubSubEvent<string> { }
-    //public class CreateProjectEvent : PubSubEvent<CreateProjectViewModel> { }
+    public class ImportFileEvent : PubSubEvent { }
+    public class ExportFileEvent : PubSubEvent<string> { }
     public class DeleteProjectEvent : PubSubEvent { }
     public class CloseMenuPaneEvent : PubSubEvent { }
 }

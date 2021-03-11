@@ -14,6 +14,6 @@ namespace RealtimeDrawingApplication.Model
         public virtual string LastName { get; set; }
         public virtual string Email { get; set; }
         public virtual string Password { get; set; }
-       // public virtual IList<ProjectSharedUsers> ProjectSharedUsers { get; set; }
+        public virtual IList<ProjectSharedUsersModel> ProjectSharedUsers { get; set; }
     }
 }

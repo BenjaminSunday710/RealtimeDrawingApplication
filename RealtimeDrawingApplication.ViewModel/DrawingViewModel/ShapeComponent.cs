@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 
 namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
 {
-    public class ShapeComponent : Grid,IComponentProperties, INotifyPropertyChanged
+    public class ShapeComponent : Grid, IComponentProperties, INotifyPropertyChanged
     {
         private double _x;
         private double _y;
@@ -59,35 +59,35 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
                 border.BorderThickness = new Thickness(1);
                 Shape.Children.Add(new Border
                 {
-                    HorizontalAlignment=HorizontalAlignment.Left,
-                    VerticalAlignment=VerticalAlignment.Top,
-                    Width=5,
-                    Height=5,
-                    Background=Brushes.Purple
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Width = 5,
+                    Height = 5,
+                    Background = Brushes.Purple
                 });
                 Shape.Children.Add(new Border
                 {
-                    HorizontalAlignment=HorizontalAlignment.Right,
-                    VerticalAlignment=VerticalAlignment.Top,
-                    Width=5,
-                    Height=5,
-                    Background=Brushes.Purple
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Width = 5,
+                    Height = 5,
+                    Background = Brushes.Purple
                 });
                 Shape.Children.Add(new Border
                 {
-                    HorizontalAlignment=HorizontalAlignment.Left,
-                    VerticalAlignment=VerticalAlignment.Bottom,
-                    Width=5,
-                    Height=5,
-                    Background=Brushes.Purple
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Bottom,
+                    Width = 5,
+                    Height = 5,
+                    Background = Brushes.Purple
                 });
                 Shape.Children.Add(new Border
                 {
-                    HorizontalAlignment=HorizontalAlignment.Right,
-                    VerticalAlignment=VerticalAlignment.Bottom,
-                    Width=5,
-                    Height=5,
-                    Background=Brushes.Purple
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    VerticalAlignment = VerticalAlignment.Bottom,
+                    Width = 5,
+                    Height = 5,
+                    Background = Brushes.Purple
                 });
             }
             return Shape;
@@ -101,12 +101,12 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         //public double Width { get; set; }
         //public double Height { get; set; }
         public ComponentEnum ComponentType { get; set; }
-        public SolidColorBrush ShapeBorder { get => _shapeBorder; set => _shapeBorder = value; }
-        public SolidColorBrush ShapeFill { get => _shapeFill; set => _shapeFill = value; }
+        public SolidColorBrush ShapeBorder { get => _shapeBorder; set { _shapeBorder = value; OnPropertyChanged(); } }
+        public SolidColorBrush ShapeFill { get => _shapeFill; set{_shapeFill = value; OnPropertyChanged(); } }
         public double X { get => _x; set { _x = value; OnPropertyChanged(); } }
         public double Y { get => _y; set { _y = value; OnPropertyChanged(); } }
         public double Angle { get => _angle; set { _angle = value; OnPropertyChanged(); } }
-        public double BorderThickness { get => _borderThickness; set => _borderThickness = value; }
+        public double BorderThickness { get => _borderThickness; set { _borderThickness = value; OnPropertyChanged(); } }
         public Guid Id { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName = "")

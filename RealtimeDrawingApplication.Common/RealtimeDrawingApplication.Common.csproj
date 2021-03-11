@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Colour.cs" />
     <Compile Include="CommonUtility.cs" />
+    <Compile Include="FileHandlingServices.cs" />
     <Compile Include="GenericServiceLocator.cs" />
     <Compile Include="IModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

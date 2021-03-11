@@ -38,6 +38,7 @@ namespace RealtimeDrawingApplication.ViewModel
 
             if (drawingComponents != null)
             {
+                EventAggregator.GetEvent<GetProjectInstanceEvent>().Publish(SelectedProject.Name);
                 EventAggregator.GetEvent<FetchDrawingComponentsEvent>().Publish(drawingComponents);
             }
 

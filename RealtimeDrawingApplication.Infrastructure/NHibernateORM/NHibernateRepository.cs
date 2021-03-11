@@ -109,7 +109,8 @@ namespace RealtimeDrawingApplication.Infrastructure.NHibernateORM
             using (var session=SessionFactory.OpenSession())
             {
                 var project = session.Query<ProjectModel>().FirstOrDefault(x => x.Name == projectName);
-                drawingComponents = session.Query<DrawingComponentModel>().Where(x => x.Project == project).ToList();
+                //int projectId=
+                drawingComponents = session.Query<DrawingComponentModel>().Where(x => x.Project.Id == project.Id).ToList();
             }
 
             return drawingComponents;

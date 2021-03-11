@@ -1,4 +1,5 @@
-﻿using RealtimeDrawingApplication.Common;
+﻿using Newtonsoft.Json;
+using RealtimeDrawingApplication.Common;
 using System.Windows.Media;
 
 namespace RealtimeDrawingApplication.Model
@@ -17,6 +18,7 @@ namespace RealtimeDrawingApplication.Model
         public virtual string Fill { get; set; }
         public virtual string Border { get; set; }
         public virtual string ComponentType { get; set; }
+        [JsonIgnore]
         public virtual ProjectModel Project { get; set; }
     }
 }

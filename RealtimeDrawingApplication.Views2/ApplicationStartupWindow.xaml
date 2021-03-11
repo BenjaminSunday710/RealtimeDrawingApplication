@@ -93,11 +93,7 @@
                     </TextBlock>
                 </StackPanel>
             </DockPanel>
-            <ContentControl Content="{Binding MenuPaneControl}"
-                            Grid.RowSpan="2"
-                            Visibility="{Binding IsVisible}"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Stretch"/>
+            
 
             <DockPanel Grid.Column="2" 
   
@@ -137,6 +133,12 @@
                             Background="PaleGoldenrod"
                             Visibility="Visible">
             </ContentControl>
+            <ContentControl Content="{Binding MenuPaneControl}"
+                            Grid.RowSpan="2"
+                            Grid.ColumnSpan="3"
+                            Visibility="{Binding IsVisible}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Stretch"/>
 
             <!--<drawingviewmodel:CustomCanvas  Grid.Row="1"
                                              Grid.Column="1"

@@ -3,6 +3,7 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Mvvm;
 using RealtimeDrawingApplication.Common;
+using RealtimeDrawingApplication.ViewModel.DataTransferProtocol;
 using RealtimeDrawingApplication.ViewModel.Proxies;
 using System;
 using System.Collections.Generic;
@@ -62,14 +63,7 @@ namespace RealtimeDrawingApplication.ViewModel
         public string UserName { get => _userName; set { _userName = value; RaisePropertyChanged(); } }
         public string UserEmail { get => _userEmail; set { _userEmail = value; RaisePropertyChanged(); } }
         public bool ExportPopUpIsOpen { get => _exportPopUpIsOpen; set { _exportPopUpIsOpen = value; RaisePropertyChanged(); } }
-        public bool ImportPopUpIsOpen
-        {
-            get => _importPopUpIsOpen; set
-            {
-                _importPopUpIsOpen = value;
-                RaisePropertyChanged();
-            }
-        }
+        public bool ImportPopUpIsOpen { get => _importPopUpIsOpen; set { _importPopUpIsOpen = value; RaisePropertyChanged(); } }
 
         void DisplayCurrentUser(UserProxy currentUser)
         {
@@ -128,28 +122,27 @@ namespace RealtimeDrawingApplication.ViewModel
 
         private void ImportAsJson()
         {
-            EventAggregator.GetEvent<ImportFileEvent>().Publish();
+            EventAggregator.GetEvent<ImportFileEvent>().Publish("Json");
         }
 
         private void ExportAsJson()
         {
-            EventAggregator.GetEvent<ExportFileEvent>().Publish(_projectName);
+            DataTransferServices.SerialiseObjectToJson(_projectName);
         }
 
         private void ImportAsXml()
         {
-
+            EventAggregator.GetEvent<ImportFileEvent>().Publish("Xml");
         }
 
         private void ExportAsXml()
         {
-
+            DataTransferServices.SerializedObjectToXml(_projectName);
         }
     }
 
     public class SaveProjectEvent : PubSubEvent<string> { }
-    public class ImportFileEvent : PubSubEvent { }
-    public class ExportFileEvent : PubSubEvent<string> { }
+    public class ImportFileEvent : PubSubEvent<string> { }
     public class DeleteProjectEvent : PubSubEvent { }
     public class CloseMenuPaneEvent : PubSubEvent { }
 }

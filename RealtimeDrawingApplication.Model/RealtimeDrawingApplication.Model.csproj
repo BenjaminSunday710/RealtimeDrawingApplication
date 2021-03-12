@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DrawingComponentModel.cs" />
+    <Compile Include="DrawingComponentModelCore.cs" />
     <Compile Include="ProjectModel.cs" />
     <Compile Include="ProjectSharedUsersModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

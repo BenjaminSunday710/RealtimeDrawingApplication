@@ -40,8 +40,13 @@
             </TextBlock>
 
             <DockPanel   Grid.Row="1"
-                       Background="LightGoldenrodYellow" 
                        VerticalAlignment="Stretch">
+                <DockPanel.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                        <GradientStop Color="WhiteSmoke" Offset="0"/>
+                        <GradientStop Color="DarkGray" Offset="1"/>
+                    </LinearGradientBrush>
+                </DockPanel.Background>
                 <StackPanel VerticalAlignment="Stretch">
                     <Button Background="LightGoldenrodYellow"
                             VerticalContentAlignment="Stretch"
@@ -137,6 +142,7 @@
                             Grid.RowSpan="2"
                             Grid.ColumnSpan="3"
                             Visibility="{Binding IsVisible}"
+                            Background="WhiteSmoke"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Stretch"/>
 
@@ -147,8 +153,15 @@
 
 
             <DockPanel Grid.Column="2" Grid.Row="1" 
-                       Background="LightGoldenrodYellow" 
+                      
                        VerticalAlignment="Stretch">
+                <DockPanel.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="DarkGray" Offset="1"/>
+                        <GradientStop Color="LightGray" Offset="0.317"/>
+                        <GradientStop Color="DarkGray" Offset="0.558"/>
+                    </LinearGradientBrush>
+                </DockPanel.Background>
                 <StackPanel Orientation="Horizontal"
                         DockPanel.Dock="Top"
                         HorizontalAlignment="Center" Margin="0,0">

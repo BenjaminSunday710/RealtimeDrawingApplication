@@ -16,11 +16,12 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
     {
         private double _x;
         private double _y;
-        private double _angle;
+        private double _angle = 180;
         private bool _showBorder;
         private SolidColorBrush _shapeFill = Brushes.Red;
         private SolidColorBrush _shapeBorder = Brushes.Blue;
         private double _borderThickness = 0.1;
+        private RotateTransform rotateTransform;
 
         public ShapeComponent(Geometry geometry, ComponentEnum componentEnum)
         {
@@ -31,6 +32,8 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
             Width = 60;
             Shape = this;
             Title = componentEnum.ToString();
+            ComponentType = ComponentEnum;
+            rotateTransform = new RotateTransform(_angle);
         }
 
         public ShapeComponent Shape { get; set; }

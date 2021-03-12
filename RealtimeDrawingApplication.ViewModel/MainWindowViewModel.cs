@@ -50,8 +50,6 @@ namespace RealtimeDrawingApplication.ViewModel
             OpenMenuPaneControlCommand = new DelegateCommand(OpenMenuPaneControl);
 
             EventAggregator.GetEvent<SaveProjectEvent>().Subscribe(SaveDrawingComponents);
-            EventAggregator.GetEvent<ExportFileEvent>().Subscribe(ExportDrawingComponents);
-
         }
 
         private void SaveDrawingComponents(string projectName)
@@ -88,19 +86,6 @@ namespace RealtimeDrawingApplication.ViewModel
             IsVisible = Visibility.Collapsed;
         }
 
-       
-
-        //void DrawComponents(List<DrawingComponentProxy> drawingComponents)
-        //{
-        //    _drawingSheet.DrawComponents(drawingComponents);  
-        //}
-
-        void ExportDrawingComponents(string projectName)
-        {
-            var drawingComponents = DatabaseServices.Repository<DrawingComponentModel>.Database.GetDrawingComponents(projectName);
-            var exportFile = Json<DrawingComponentModel>.SerialisedObject(drawingComponents);
-            FileHandlingServices.SaveFile(exportFile);
-        }
     }
 
     public class ShowCurrentUserDetailsEvent : PubSubEvent<UserProxy> { }

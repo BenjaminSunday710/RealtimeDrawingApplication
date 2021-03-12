@@ -221,16 +221,24 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
             }
         }
 
-        void DisplayImportedDrawings()
+        void DisplayImportedDrawings(string FileType)
         {
-            var importedFile = FileHandlingServices.OpenFile();
-            if (importedFile == string.Empty)
+            List<DrawingComponentProxy> importedDrawingComponents = new List<DrawingComponentProxy>();
+
+            switch(FileType)
             {
-                MessageBox.Show("Imported File is empty");
+                case "Json":
+                    importedDrawingComponents = DataTransferServices.DeserialiseObjectFromJson();
+                    break;
+                case "Xml":
+                    importedDrawingComponents = DataTransferServices.DeserializeObjectFromXml();
+                    break;
+                default:
+                    importedDrawingComponents = null;
+                    break;
             }
-            var models = Json<DrawingComponentModel>.DeserialisedObject(importedFile);
-            var modelProxies = DatabaseServices.DrawingComponentModelService.DeserializeToProxy(models);
-            DrawComponents(modelProxies);
+
+            DrawComponents(importedDrawingComponents);
         }
 
         protected override void OnDrop(DragEventArgs e)

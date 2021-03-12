@@ -13,14 +13,19 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="DemiBold"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="Background" Value="LightGoldenrodYellow"/>
+            <Setter Property="Background" Value="LightGray"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
         </Style>
     </UserControl.Resources>
 
     <DockPanel VerticalAlignment="Stretch"
-                    Background="LightGoldenrodYellow"
                     HorizontalAlignment="Stretch">
+        <DockPanel.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                <GradientStop Color="Gray" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </DockPanel.Background>
         <TextBlock Text="{Binding UserName, FallbackValue=User Name}" 
                         x:Name="tblUserName"
                         HorizontalAlignment="Left"
@@ -97,7 +102,7 @@
 
                 <Popup IsOpen="{Binding ImportPopUpIsOpen}"
                     Placement="Right"
-                    StaysOpen="True"
+                    StaysOpen="False"
                     Width="150">
                     <Border BorderThickness="2"
                             BorderBrush="PaleGoldenrod">
@@ -149,8 +154,8 @@
                 </Path>
                 <Popup IsOpen="{Binding ExportPopUpIsOpen}"
                     Placement="Right"
-                    StaysOpen="True"
-                    AllowsTransparency="False"
+                    StaysOpen="false"
+                    AllowsTransparency="true"
                     Width="150">
                     <Border BorderBrush="PaleGoldenrod"
                             BorderThickness="2">
@@ -180,7 +185,7 @@
                     Command="{Binding CloseCommand}"
                     BorderBrush="Transparent"
                     FontWeight="Bold"
-                    Background="LightGoldenrodYellow"
+                    Background="LightGray"
                     Foreground="Red"
                     HorizontalContentAlignment="Left"
                     Margin="2,0,0,0"

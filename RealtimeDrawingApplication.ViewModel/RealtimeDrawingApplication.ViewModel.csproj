@@ -66,7 +66,7 @@
     <Compile Include="DatabaseServices\ProjectSharedUsersModelService.cs" />
     <Compile Include="DatabaseServices\Repository.cs" />
     <Compile Include="DatabaseServices\UserModelService.cs" />
-    <Compile Include="DataTransferProtocol\Json.cs" />
+    <Compile Include="DataTransferProtocol\DataTransferServices.cs" />
     <Compile Include="DrawingViewModel\CustomCanvas.cs" />
     <Compile Include="DrawingViewModel\DrawingComponentService.cs" />
     <Compile Include="DrawingViewModel\IComponentProperties.cs" />

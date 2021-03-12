@@ -21,19 +21,18 @@
                  HorizontalAlignment="Center"
                  VerticalContentAlignment="Center"
                  HorizontalContentAlignment="Left"
-                 Padding="10"
                  Text="{Binding SharedUserEmail}"/>
-        <Button Height="30" Width="150"
+        <Button Height="32" Width="150"
                 VerticalContentAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
                 HorizontalAlignment="Center"
                 BorderBrush="Transparent"
                 Margin="0,10"
                 Command="{Binding ShareCommand}">
-            <Border CornerRadius="5" 
-                    Background="PaleGoldenrod"
+            <Border CornerRadius="10" 
+                    Background="DarkGray"
                     BorderThickness="1"
-                    BorderBrush="Green">
+                    BorderBrush="Transparent">
                 <TextBlock Text="Share"
                            FontSize="20"
                            FontWeight="DemiBold"

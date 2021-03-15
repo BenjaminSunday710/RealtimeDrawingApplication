@@ -48,6 +48,7 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
             shape.Fill = ShapeFill;
             shape.Stroke = ShapeBorder;
             shape.StrokeThickness = BorderThickness;
+            shape.RenderTransform = new RotateTransform(Angle);
             // Features: The height and width is limiting
             //the shape changes to zero;
             shape.Height = Height - 10;
@@ -101,8 +102,6 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         public Geometry Geometry { get; set; }
         public ComponentEnum ComponentEnum { get; }
         public string Title { get; set; }
-        //public double Width { get; set; }
-        //public double Height { get; set; }
         public ComponentEnum ComponentType { get; set; }
         public SolidColorBrush ShapeBorder { get => _shapeBorder; set { _shapeBorder = value; OnPropertyChanged(); } }
         public SolidColorBrush ShapeFill { get => _shapeFill; set{_shapeFill = value; OnPropertyChanged(); } }

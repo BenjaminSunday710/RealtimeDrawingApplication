@@ -10,6 +10,7 @@ namespace RealtimeDrawingApplication.ViewModel.DatabaseServices
 {
     public class ProjectModelService
     {
+        private static Repository<ProjectModel> database = Repository<ProjectModel>.GetRepository;
         public static void SaveToDatabase(ProjectProxy projectProxy)
         {
             ProjectModel project = new ProjectModel();
@@ -17,12 +18,14 @@ namespace RealtimeDrawingApplication.ViewModel.DatabaseServices
             project.ProjectCreator = projectProxy.ProjectCreator;
             project.ProjectSharedUsers = projectProxy.ProjectSharedUsers;
             project.DrawingComponents = projectProxy.DrawingComponents;
-            Repository<ProjectModel>.Database.Create(project);
+            database.Create(project);
+            //Repository<ProjectModel>.Database.Create(project);
         }
 
         public static ProjectProxy DeserializeToProxy(string name)
         {
-            ProjectModel project = Repository<ProjectModel>.Database.GetProject(name);
+            //ProjectModel project = Repository<ProjectModel>.Database.GetProject(name);
+            ProjectModel project = database.GetProject(name);
             ProjectProxy projectProxy = new ProjectProxy();
             if (project != null)
             {
@@ -49,7 +52,8 @@ namespace RealtimeDrawingApplication.ViewModel.DatabaseServices
 
         public static List<ProjectSharedUsersModel> GetSharedUsers(string projectName)
         {
-            var sharedUsers = Repository<ProjectSharedUsersModel>.Database.GetProjectSharedUsers(projectName);
+            var sharedUsers = database.GetProjectSharedUsers(projectName);
+            //var sharedUsers = Repository<ProjectSharedUsersModel>.Database.GetProjectSharedUsers(projectName);
             return sharedUsers;
         }
     }

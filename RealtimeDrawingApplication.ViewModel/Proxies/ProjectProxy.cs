@@ -16,7 +16,7 @@ namespace RealtimeDrawingApplication.ViewModel.Proxies
         private UserModel _projectCreator;
         private IList<DrawingComponentModel> _drawingComponents;
         private IList<ProjectSharedUsersModel> _projectSharedUsers;
-        private static Repository<ProjectModel> database = new Repository<ProjectModel>();
+        //private static Repository<ProjectModel> database = new Repository<ProjectModel>();
 
         public ProjectProxy()
         {

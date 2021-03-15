@@ -16,10 +16,12 @@ namespace RealtimeDrawingApplication.ViewModel
         private string _lastName;
         private string _email;
         private string _password;
-        private string _verifyPassword;
+        private string _confirmPassword;
         private UserProxy _userProxy;
         private Window _mainWindowView;
         private Window _createAccountView;
+        private Visibility _isPasswordVisible;
+        private Visibility _isConfirmedPasswordVisible;
 
 
         public CreateAccountViewModel()
@@ -28,24 +30,53 @@ namespace RealtimeDrawingApplication.ViewModel
             _createAccountView = CommonUtility.GetPage("CreateAccount") as Window;
             EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
             CreateAccountCommand = new DelegateCommand<PasswordBox>(e => CreateAccount(e));
+            ShowPasswordCommand = new DelegateCommand<PasswordBox>(e => ShowPassword(e));
+            ShowConfirmPasswordCommand = new DelegateCommand<PasswordBox>(e => ShowConfirmPassword(e));
+            CloseCommand = new DelegateCommand(CloseCreateAccountView);
         }
 
         public string FirstName { get => _firstName; set { _firstName = value; RaisePropertyChanged(); } }
         public string Email { get => _email; set { _email = value; RaisePropertyChanged(); } }
         public string Password { get => _password; set { _password = value; RaisePropertyChanged(); } }
-        public string VerifyPassword { get => _verifyPassword; set { _verifyPassword = value; RaisePropertyChanged(); ValidatePassword(); } }
+        public string ConfirmPassword { get => _confirmPassword; set { _confirmPassword = value; RaisePropertyChanged(); ValidatePassword(); } }
         public DelegateCommand<PasswordBox> CreateAccountCommand { get; set; }
-        public DelegateCommand ShowPassword { get; set; }
+        public DelegateCommand<PasswordBox> ShowPasswordCommand { get; set; }
+        public DelegateCommand<PasswordBox> ShowConfirmPasswordCommand { get; set; }
+        public DelegateCommand CloseCommand { get; set; }
         public string LastName { get => _lastName; set { _lastName = value; RaisePropertyChanged(); } }
         public IEventAggregator EventAggregator { get; set; }
+        public Visibility IsPasswordVisible { get => _isPasswordVisible; set { _isPasswordVisible = value; RaisePropertyChanged(); } }
+        public Visibility IsConfirmedPasswordVisible { get => _isConfirmedPasswordVisible; set { _isConfirmedPasswordVisible = value; RaisePropertyChanged(); } }
 
         public void ValidatePassword()
         {
-            if (!string.Equals(_password, _verifyPassword))
+            if (!string.Equals(_password, _confirmPassword))
             {
                 MessageBox.Show("Password Verification Failed! Verified password do not match the provided password", "Error Message", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+        }
+
+        public void ShowPassword(PasswordBox passwordBox)
+        {
+            if (IsPasswordVisible == Visibility.Visible)
+            {
+                IsPasswordVisible = Visibility.Collapsed;
+                return;
+            }
+            IsPasswordVisible = Visibility.Visible;
+            Password = passwordBox.Password;
+        }
+
+        public void ShowConfirmPassword(PasswordBox confirmPasswordBox)
+        {
+            if (IsConfirmedPasswordVisible == Visibility.Visible)
+            {
+                IsConfirmedPasswordVisible = Visibility.Collapsed;
+                return;
+            }
+            IsConfirmedPasswordVisible = Visibility.Visible;
+            ConfirmPassword = confirmPasswordBox.Password;
         }
 
         public void CreateAccount(PasswordBox passwordBox)
@@ -62,20 +93,12 @@ namespace RealtimeDrawingApplication.ViewModel
 
             if (isSavedSucessful)
             {
-                _mainWindowView.DataContext = new MainWindowViewModel();
+                _mainWindowView.DataContext = new MainWindowViewModel(_userProxy);
 
-                if (_mainWindowView.IsInitialized)
-                    PublishCurrentUserDetails();
-                
                 MessageBox.Show("Account Created");
                 _createAccountView.Close();
                 _mainWindowView.ShowDialog();
             }
-        }
-
-        void PublishCurrentUserDetails()
-        {
-            EventAggregator.GetEvent<GetUserInstanceEvent>().Publish(_userProxy);
         }
 
         void CloseCreateAccountView()

@@ -60,14 +60,8 @@ namespace RealtimeDrawingApplication.ViewModel
 
             _user.FullName = _user.FirstName + " " + _user.LastName;
             _mainWindowView = CommonUtility.GetPage("ApplicationStartupWindow") as Window;
-            _mainWindowView.DataContext = new MainWindowViewModel();
-
-            if (_mainWindowView.IsInitialized)
-            {
-                EventAggregator.GetEvent<GetUserInstanceEvent>().Publish(_user);
-
-                _mainWindowView.ShowDialog();
-            }
+            _mainWindowView.DataContext = new MainWindowViewModel(_user);
+            _mainWindowView.ShowDialog();
         }
 
         void ShowPassword(PasswordBox passwordBox)
@@ -85,12 +79,7 @@ namespace RealtimeDrawingApplication.ViewModel
         {
             _createAccountView = CommonUtility.GetPage("CreateAccount") as Window;
             _createAccountView.DataContext = new CreateAccountViewModel();
-
-            if (_createAccountView.IsInitialized)
-            {
-                //_loginView.Close();
-                _createAccountView.ShowDialog();
-            }
+            _createAccountView.ShowDialog();
         }
     }
 

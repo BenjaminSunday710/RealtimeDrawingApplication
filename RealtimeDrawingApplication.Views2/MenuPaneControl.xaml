@@ -13,8 +13,8 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="DemiBold"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="Background" Value="LightGray"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Background" Value="Transparent"/>
         </Style>
     </UserControl.Resources>
 
@@ -23,7 +23,7 @@
         <DockPanel.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                 <GradientStop Color="Gray" Offset="0"/>
-                <GradientStop Color="White" Offset="1"/>
+                <GradientStop Color="LightGray" Offset="1"/>
             </LinearGradientBrush>
         </DockPanel.Background>
         <TextBlock Text="{Binding UserName, FallbackValue=User Name}" 
@@ -31,10 +31,12 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         DockPanel.Dock="Top"
+                        Foreground="Aquamarine"
                         Margin="2,0,0,25"
                         TextDecorations="Underline"/>
         <TextBlock Text="{Binding UserEmail,FallbackValue=User Email}" 
                         x:Name="tblUserEmail"
+                        Foreground="Aquamarine"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         DockPanel.Dock="Top"
@@ -67,7 +69,7 @@
                     DockPanel.Dock="Top"/>
         <Button Content="Update Project"
                     Style="{StaticResource ButtonStyle}"
-                    Command="{Binding SaveProjectCommand}"
+                    Command="{Binding UpdateProjectCommand}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
                     DockPanel.Dock="Top"/>
@@ -96,6 +98,7 @@
                       Stroke="Black"
                       StrokeThickness="3" 
                       VerticalAlignment="Bottom"
+                      HorizontalAlignment="Right"
                       Margin="0,2"
                       >
                 </Path>
@@ -149,7 +152,8 @@
                       Stroke="Black"
                       StrokeThickness="3" 
                       VerticalAlignment="Bottom"
-                      Margin="0,2"
+                      HorizontalAlignment="Right"
+                      Margin="0,1"
                       >
                 </Path>
                 <Popup IsOpen="{Binding ExportPopUpIsOpen}"
@@ -185,11 +189,11 @@
                     Command="{Binding CloseCommand}"
                     BorderBrush="Transparent"
                     FontWeight="Bold"
-                    Background="LightGray"
                     Foreground="Red"
+                    Background="Transparent"
                     HorizontalContentAlignment="Left"
                     Margin="2,0,0,0"
-                    FontSize="14"
+                    FontSize="15"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Stretch"
                     DockPanel.Dock="Bottom"

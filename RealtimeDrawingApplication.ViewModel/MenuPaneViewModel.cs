@@ -26,13 +26,16 @@ namespace RealtimeDrawingApplication.ViewModel
         private bool _exportPopUpIsOpen;
         private bool _importPopUpIsOpen;
 
-        public MenuPaneViewModel()
+        public MenuPaneViewModel(UserProxy currentUser)
         {
+            _userEmail = currentUser.Email;
+            _userName = currentUser.FullName;
             _menupaneControl = CommonUtility.GetPage("MenuPaneControl") as UserControl;
             CreateProjectCommand = new DelegateCommand(CreateProject);
             ShareProjectCommand = new DelegateCommand(ShareProject);
             OpenProjectCommand = new DelegateCommand(OpenProject);
             SaveProjectCommand = new DelegateCommand(SaveProject);
+            UpdateProjectCommand = new DelegateCommand(UpdateProject);
             DeleteProjectCommand = new DelegateCommand(DeleteProject);
             ExportProjectCommand = new DelegateCommand(Export);
             ImportProjectCommand = new DelegateCommand(Import);
@@ -42,8 +45,7 @@ namespace RealtimeDrawingApplication.ViewModel
             ExportAsXmlCommand = new DelegateCommand(ExportAsXml);
             CloseCommand = new DelegateCommand(Close);
             EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
-            EventAggregator.GetEvent<ShowCurrentUserDetailsEvent>().Subscribe(DisplayCurrentUser);
-            EventAggregator.GetEvent<OpenProjectShareUsersEvent>().Subscribe(ShareProject);
+            EventAggregator.GetEvent<OpenShareProjectWindowEvent>().Subscribe(ShareProject);
             EventAggregator.GetEvent<GetProjectInstanceEvent>().Subscribe(SetCurrentProject);
         }
 
@@ -52,6 +54,7 @@ namespace RealtimeDrawingApplication.ViewModel
         public DelegateCommand ShareProjectCommand { get; set; }
         public DelegateCommand OpenProjectCommand { get; set; }
         public DelegateCommand SaveProjectCommand { get; set; }
+        public DelegateCommand UpdateProjectCommand { get; set; }
         public DelegateCommand DeleteProjectCommand { get; set; }
         public DelegateCommand ExportProjectCommand { get; set; }
         public DelegateCommand ImportProjectCommand { get; set; }
@@ -64,12 +67,6 @@ namespace RealtimeDrawingApplication.ViewModel
         public string UserEmail { get => _userEmail; set { _userEmail = value; RaisePropertyChanged(); } }
         public bool ExportPopUpIsOpen { get => _exportPopUpIsOpen; set { _exportPopUpIsOpen = value; RaisePropertyChanged(); } }
         public bool ImportPopUpIsOpen { get => _importPopUpIsOpen; set { _importPopUpIsOpen = value; RaisePropertyChanged(); } }
-
-        void DisplayCurrentUser(UserProxy currentUser)
-        {
-            UserEmail = currentUser.Email;
-            UserName = currentUser.FullName;
-        }
 
         void SetCurrentProject(string currentProject)
         {
@@ -92,7 +89,7 @@ namespace RealtimeDrawingApplication.ViewModel
 
         void OpenProject()
         {
-            EventAggregator.GetEvent<FetchProjectsEvent>().Publish(_userEmail);
+            EventAggregator.GetEvent<OpenProjectWindowEvent>().Publish();      
         }
 
         void SaveProject()
@@ -100,9 +97,14 @@ namespace RealtimeDrawingApplication.ViewModel
             EventAggregator.GetEvent<SaveProjectEvent>().Publish(_projectName);
         }
 
+        void UpdateProject()
+        {
+            EventAggregator.GetEvent<UpdateProjectEvent>().Publish(_projectName);
+        }
+
         void DeleteProject()
         {
-            EventAggregator.GetEvent<DeleteProjectEvent>().Publish();
+            EventAggregator.GetEvent<DeleteProjectEvent>().Publish(_projectName);
         }
 
         void Export()
@@ -143,6 +145,8 @@ namespace RealtimeDrawingApplication.ViewModel
 
     public class SaveProjectEvent : PubSubEvent<string> { }
     public class ImportFileEvent : PubSubEvent<string> { }
-    public class DeleteProjectEvent : PubSubEvent { }
+    public class DeleteProjectEvent : PubSubEvent<string> { }
     public class CloseMenuPaneEvent : PubSubEvent { }
+    public class UpdateProjectEvent : PubSubEvent<string> { }
+    public class OpenProjectWindowEvent : PubSubEvent { }
 }

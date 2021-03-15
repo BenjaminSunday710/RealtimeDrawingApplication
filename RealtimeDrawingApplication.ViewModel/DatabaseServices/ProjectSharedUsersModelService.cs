@@ -10,7 +10,14 @@ namespace RealtimeDrawingApplication.ViewModel.DatabaseServices
 {
     public class ProjectSharedUsersModelService
     {
+        private static Repository<ProjectSharedUsersModel> database = Repository<ProjectSharedUsersModel>.GetRepository;
         public static void SaveToDatabase(ProjectSharedUserProxy projectSharedUsersProxy)
+        {
+            //Repository<ProjectSharedUsersModel>.Database.Create(projectSharedUser);
+            database.Create(SerializeToProjectSharedUsersModel(projectSharedUsersProxy));
+        }
+
+        public static ProjectSharedUsersModel SerializeToProjectSharedUsersModel(ProjectSharedUserProxy projectSharedUsersProxy)
         {
             ProjectSharedUsersModel projectSharedUser = new ProjectSharedUsersModel();
             projectSharedUser.Project = projectSharedUsersProxy.Project;
@@ -18,13 +25,14 @@ namespace RealtimeDrawingApplication.ViewModel.DatabaseServices
             projectSharedUser.IsEditable = projectSharedUsersProxy.IsEditable;
             projectSharedUser.IsAllowed = projectSharedUsersProxy.IsAllowed;
 
-            Repository<ProjectSharedUsersModel>.Database.Create(projectSharedUser);
+            return projectSharedUser;
         }
 
         public static List<ProjectSharedUserProxy> DeserializeToProxy(string projectName)
         {
-            List<ProjectSharedUsersModel> sharedUsers = Repository<ProjectSharedUsersModel>.Database.GetProjectSharedUsers(projectName);
-            List<ProjectSharedUserProxy> sharedUsersProxies = new List<ProjectSharedUserProxy>();
+            //List<ProjectSharedUsersModel> sharedUsers = Repository<ProjectSharedUsersModel>.Database.GetProjectSharedUsers(projectName);
+            List<ProjectSharedUsersModel> sharedUsers = database.GetProjectSharedUsers(projectName);
+            List <ProjectSharedUserProxy> sharedUsersProxies = new List<ProjectSharedUserProxy>();
             ProjectSharedUserProxy sharedUserProxy = new ProjectSharedUserProxy();
            
             if (sharedUsers != null)
@@ -54,6 +62,11 @@ namespace RealtimeDrawingApplication.ViewModel.DatabaseServices
                 sharedUserProxy.IsEditable = sharedUser.IsEditable;
             }
             return sharedUserProxy;
+        }
+
+        public static void SerializeToModel()
+        {
+
         }
     }
 }

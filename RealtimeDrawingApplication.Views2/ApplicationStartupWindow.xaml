@@ -21,7 +21,6 @@
     </Window.Resources>
     
     <Grid>
-
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
@@ -32,11 +31,15 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="0.2*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Column="1" Text="Project Title"
+            <Border Background="Silver"/>
+
+            <TextBlock Grid.Column="1" 
+                       Text="{Binding ActiveProject, FallbackValue=Project Title}"
                        VerticalAlignment="Center"
                        FontSize="25"
-                       Margin="15,0,0,0"
-                       FontWeight="DemiBold">
+                       Padding="5"
+                       FontWeight="DemiBold"
+                       Background="LightGray">
             </TextBlock>
 
             <DockPanel   Grid.Row="1"
@@ -98,17 +101,15 @@
                     </TextBlock>
                 </StackPanel>
             </DockPanel>
-            
 
             <DockPanel Grid.Column="2" 
-  
-                   Background="White" 
+                   Background="Gray" 
                    HorizontalAlignment="Stretch"
-                   DockPanel.Dock="Left"
-                   Margin="5">
+                   DockPanel.Dock="Left">
                 <Path
                   HorizontalAlignment="Right" 
                   DockPanel.Dock="Right" 
+                    Margin="5"
                   Data="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12
                   C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5
                   C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15
@@ -146,11 +147,6 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Stretch"/>
 
-            <!--<drawingviewmodel:CustomCanvas  Grid.Row="1"
-                                             Grid.Column="1"
-                                    Background="WhiteSmoke">
-            </drawingviewmodel:CustomCanvas>-->
-
 
             <DockPanel Grid.Column="2" Grid.Row="1" 
                       
@@ -173,7 +169,6 @@
                        VerticalAlignment="Top"/>
                     <Button  BorderBrush="Transparent"
                          x:Name="DisplayPropertyWindowMenu"
-                         Background="LightGoldenrodYellow"
                          Click="DisplayPropertyWindowMenu_Click"
                          VerticalAlignment="Top"
                          >
@@ -189,16 +184,18 @@
                     <Popup x:Name="PropertyWindowPopUp"
                            Placement="Mouse"
                            LostFocus="PropertyWindowPopUp_LostFocus">
-                        <StackPanel Orientation="Vertical"
+                        <Border BorderThickness="2"
+                                BorderBrush="LightSlateGray">
+                            <StackPanel Orientation="Vertical"
                                     Background="White">
-                            <RadioButton Content="Project Window"
+                                <RadioButton Content="Project Window"
                                          IsChecked="{Binding RoutedPagesModel.IsProjectsWindow}"
                                     HorizontalContentAlignment="Left"
                                     Padding="4,0,0,0"
                                     Background="White"
                                     BorderBrush="Transparent"
                                     Margin="2,2,0,0"/>
-                            <RadioButton
+                                <RadioButton
                                 Content="Property Window"
                                 IsChecked="{Binding RoutedPagesModel.IsPropertyWindow}"
                                     Background="White"
@@ -206,14 +203,15 @@
                                     Padding="4,0,0,0"
                                     BorderBrush="Transparent"
                                     HorizontalContentAlignment="Left"/>
-                            <RadioButton Content="Shared User Window"
+                                <RadioButton Content="Shared User Window"
                                     IsChecked="{Binding RoutedPagesModel.IsProjectSharedUserWindow}"
                                     Background="White"
                                     Margin="2,2,0,5"
                                     Padding="4,0,0,0"
                                     BorderBrush="Transparent"
                                     HorizontalContentAlignment="Left"/>
-                        </StackPanel>
+                            </StackPanel>
+                        </Border>
                     </Popup>
                 </StackPanel>
                 
@@ -221,12 +219,5 @@
                                 HorizontalContentAlignment="Center"/>
             </DockPanel>
         </Grid>
-
-        <!--<local3:MenuPaneControl
-           Width="150"
-            x:Name="MenuPane"
-            Visibility="Collapsed"  
-           HorizontalAlignment="Left"/>-->
-
     </Grid>
 </Window>

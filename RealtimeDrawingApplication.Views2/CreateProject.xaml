@@ -25,9 +25,10 @@
             <Setter Property="Height" Value="27"/>
             <Setter Property="Foreground" Value="Black"/>
         </Style>
+       
     </Window.Resources>
 
-    <Grid Background="PaleGoldenrod">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="auto"/>
@@ -37,8 +38,21 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <DockPanel Grid.ColumnSpan="2" 
-                    Background="LightGoldenrodYellow">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                <GradientStop Color="LightGray" Offset="0.1467"/>
+                <GradientStop Color="DarkGray" Offset="0.745"/>
+                <GradientStop Color="LightGray" Offset="0.3435"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <DockPanel Grid.ColumnSpan="2">
+            <DockPanel.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="DarkGray" Offset="0.45"/>
+                    <GradientStop Color="Gray" Offset="0.546"/>
+                    <GradientStop Color="LightGray" Offset="0.746"/>
+                </LinearGradientBrush>
+            </DockPanel.Background>
 
             <TextBlock Text="Create Project"
                        HorizontalAlignment="Center"
@@ -54,7 +68,7 @@
                     BorderBrush="Transparent"
                     VerticalContentAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
-                    HorizontalAlignment="Right">
+                    HorizontalAlignment="Right" Style="{DynamicResource ButtonStyle1}">
                 <Path Fill="Red" 
                   Data="M19,3H16.3H7.7H5A2,2 0 0,0 3,5V7.7
                   V16.4V19A2,2 0 0,0 5,21H7.7H16.4H19A2,2 0 0,0 21,19V16.3
@@ -65,8 +79,8 @@
                   Stretch="Fill"
                  />
             </Button>
-           
-            
+
+
         </DockPanel>
 
         <TextBlock Text="Project Name" Grid.Row="1"
@@ -84,7 +98,7 @@
              BorderBrush="Transparent"
              Margin="10,20"
              Command="{Binding CreateProjectCommand}">
-            <Border CornerRadius="10" BorderThickness="0">
+            <Border CornerRadius="10" >
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                         <GradientStop Color="Gray" Offset="0"/>

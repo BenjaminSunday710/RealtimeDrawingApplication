@@ -12,7 +12,7 @@ namespace RealtimeDrawingApplication.ViewModel.Proxies
 {
     public class UserProxy : BindableBase
     {
-        private static Repository<UserModel> database = new Repository<UserModel>();
+        //private static Repository<UserModel> database = new Repository<UserModel>();
         private string _firstName;
         private string _lastName;
         private string _email;

@@ -8,8 +8,15 @@
         Title="Login Page" Height="300" Width="650"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None">
-    <Grid Background="LightGray"
-          ShowGridLines="False">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                <GradientStop Color="LightGray" Offset="0.4467"/>
+                <GradientStop Color="DarkGray" Offset="0.7532"/>
+                <GradientStop Color="WhiteSmoke" Offset="0.6435"/>
+                <GradientStop Color="Gray" Offset="0.5435"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="40"/>
@@ -91,15 +98,19 @@
                    Grid.Row="3"
                    Height="30"
                    Width="350"
+                   TextAlignment="Center"
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Right"
                    Margin="0,0,60,0"
+                   FontSize="14"
                    Visibility="{Binding IsVisible}"
                    Text="{Binding Password}"/>
 
         <Button Grid.Row="4" 
                 Grid.ColumnSpan="3" 
-                Height="35" Width="150" 
+                Height="35" 
+                Width="150" 
+                Margin="0,0,0,2"
                 BorderBrush="Transparent"
                 VerticalContentAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
@@ -123,9 +134,10 @@
         <TextBlock Grid.Row="5" 
                    Grid.ColumnSpan="5"
                    HorizontalAlignment="Center"
-                   Text="If you dont have an account"
-                   FontSize="15"
+                   Text="If you do not have an account"
+                   FontSize="13"
                    FontWeight="DemiBold"
+                   Foreground="Blue"
                    VerticalAlignment="Center"/>
 
         <Button x:Name="btnCreateAccountDisplay" 
@@ -133,7 +145,7 @@
                 Grid.Row="6" Height="35" Width="210" 
                 BorderBrush="Transparent"
                 HorizontalAlignment="Center"
-                Margin="0,0,0,0"
+                Margin="0,3,0,0"
                 VerticalContentAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
                 Command="{Binding OpenCreateAccountViewCommand}">
@@ -148,7 +160,8 @@
                            HorizontalAlignment="Center"
                            FontWeight="DemiBold"
                            FontSize="20"
-                           VerticalAlignment="Bottom" Margin="30,0"/>
+                           VerticalAlignment="Bottom" 
+                           Margin="30,0"/>
             </Border>
 
         </Button>

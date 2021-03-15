@@ -17,6 +17,48 @@ using RealtimeDrawingApplication.ViewModel.DataTransferProtocol;
 using RealtimeDrawingApplication.Model;
 
 namespace RealtimeDrawingApplication.ViewModel
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
     public class MainWindowViewModel : BindableBase
     {
@@ -25,21 +67,24 @@ namespace RealtimeDrawingApplication.ViewModel
         PropertySharedUsersProjectWindowsDisplay _routedPagesModel;
         private string _userEmail;
         private string _userName;
+        private string _activeProject;
         private Visibility _isVisible = Visibility.Collapsed;
         private Dictionary<string, FrameworkElement> _routedPages;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(UserProxy currentUser)
         {
+            _userEmail = currentUser.Email;
+            _userName = currentUser.FullName;
+
             _routedPages = new Dictionary<string, FrameworkElement>();
             _routedPages.Add("PropertyWindowControl", CommonUtility.GetPage("PropertyWindowControl") as FrameworkElement);
             _routedPages.Add("ProjectWindow", CommonUtility.GetPage("ProjectWindow") as FrameworkElement);
             _routedPages.Add("ProjectSharedUserWindowControl", CommonUtility.GetPage("ProjectSharedUserWindowControl") as FrameworkElement);
 
             EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
-            EventAggregator.GetEvent<GetUserInstanceEvent>().Subscribe(SetCurrentUser);
 
             _menuPaneControl = CommonUtility.GetPage("MenuPaneControl") as UserControl;
-            _menuPaneControl.DataContext = new MenuPaneViewModel();
+            _menuPaneControl.DataContext = new MenuPaneViewModel(currentUser);
 
             EventAggregator.GetEvent<CloseMenuPaneEvent>().Subscribe(CloseMenuPaneControl);
 
@@ -50,6 +95,29 @@ namespace RealtimeDrawingApplication.ViewModel
             OpenMenuPaneControlCommand = new DelegateCommand(OpenMenuPaneControl);
 
             EventAggregator.GetEvent<SaveProjectEvent>().Subscribe(SaveDrawingComponents);
+
+            EventAggregator.GetEvent<FetchProjectsEvent>().Publish(_userEmail);
+
+            EventAggregator.GetEvent<GetProjectInstanceEvent>().Subscribe(SetActiveProject);
+        }
+
+        public CustomCanvas DrawingSheet { get => _drawingSheet; set { _drawingSheet = value; } }
+        public DelegateCommand OpenMenuPaneControlCommand { get; set; }
+        public IEventAggregator EventAggregator { get; set; }
+        public Visibility IsVisible { get => _isVisible; set { _isVisible = value; RaisePropertyChanged(); } }
+        public PropertySharedUsersProjectWindowsDisplay RoutedPagesModel { get => _routedPagesModel; set { _routedPagesModel = value; RaisePropertyChanged(); } }
+        public string ActiveProject { get => _activeProject; set { _activeProject = value; RaisePropertyChanged(); } }
+
+        void OpenMenuPaneControl()
+        {
+            _menuPaneControl.Visibility = Visibility.Visible;
+            //IsVisible = Visibility.Visible;
+        }
+
+        void CloseMenuPaneControl()
+        {
+            _menuPaneControl.Visibility = Visibility.Collapsed;
+            //IsVisible = Visibility.Collapsed;
         }
 
         private void SaveDrawingComponents(string projectName)
@@ -57,36 +125,10 @@ namespace RealtimeDrawingApplication.ViewModel
             _drawingSheet.SaveDrawingComponents(projectName);
         }
 
-        public CustomCanvas DrawingSheet { get => _drawingSheet; set { _drawingSheet = value; } }
-        public DelegateCommand OpenMenuPaneControlCommand { get; set; }
-        public IEventAggregator EventAggregator { get; set; }
-        public Visibility IsVisible { get => _isVisible; set { _isVisible = value; RaisePropertyChanged(); } }
-        public UserControl MenuPaneControl { get => _menuPaneControl; set { _menuPaneControl = value; RaisePropertyChanged(); } }
-
-        public PropertySharedUsersProjectWindowsDisplay RoutedPagesModel { get => _routedPagesModel; set { _routedPagesModel = value; RaisePropertyChanged(); } }
-        public UserProxy CurrentUser { get; set; } = new UserProxy();
-
-        void OpenMenuPaneControl()
+        private void SetActiveProject(string projectName)
         {
-            CurrentUser.Email = _userEmail;
-            CurrentUser.FullName = _userName;
-            EventAggregator.GetEvent<ShowCurrentUserDetailsEvent>().Publish(CurrentUser);
-
-            IsVisible = Visibility.Visible;
-        }
-
-        void SetCurrentUser(UserProxy currentUser)
-        {
-            _userEmail = currentUser.Email;
-            _userName = currentUser.FullName;
-        }
-
-        void CloseMenuPaneControl()
-        {
-            IsVisible = Visibility.Collapsed;
+            _activeProject = projectName;
         }
 
     }
-
-    public class ShowCurrentUserDetailsEvent : PubSubEvent<UserProxy> { }
 }

@@ -15,6 +15,8 @@ namespace RealtimeDrawingApplication.ViewModel.DatabaseServices
 {
     public class DrawingComponentModelService
     {
+        private static Repository<DrawingComponentModel> database = Repository<DrawingComponentModel>.GetRepository;
+
         public static void SaveToDatabase(DrawingComponentProxy drawingComponentProxy)
         {
             DrawingComponentModel drawingComponent = new DrawingComponentModel();
@@ -30,7 +32,23 @@ namespace RealtimeDrawingApplication.ViewModel.DatabaseServices
             drawingComponent.Project = drawingComponentProxy.Project;
             drawingComponent.Title = drawingComponentProxy.Title;
 
-            Repository<DrawingComponentModel>.Database.Create(drawingComponent);
+            database.Create(drawingComponent);
+        }
+
+        public static void UpdateDrawingComponentModel(string projectName,List<DrawingComponentProxy> drawingComponents)
+        {
+            //var components = Repository<DrawingComponentModel>.Database.GetDrawingComponents(projectName);
+            var components = database.GetDrawingComponents(projectName);
+            foreach (var component in components)
+            {
+                database.Delete(component);
+                //Repository<DrawingComponentModel>.Database.Delete(component);
+            }
+            foreach (var drawingComponent in drawingComponents)
+            {
+                SaveToDatabase(drawingComponent);
+            }
+            MessageBox.Show("Project Updated", "Notification", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private static DrawingComponentProxy Convert(DrawingComponentModel drawingComponentModel)
@@ -54,8 +72,9 @@ namespace RealtimeDrawingApplication.ViewModel.DatabaseServices
 
         public static List<DrawingComponentProxy> DeserializeToProxy(string projectName)
         {
-            List<DrawingComponentModel> drawingComponents = Repository<DrawingComponentModel>.Database.GetDrawingComponents(projectName);
-            List<DrawingComponentProxy> drawingComponentProxies = new List<DrawingComponentProxy>(drawingComponents.Count);
+            List<DrawingComponentModel> drawingComponents = database.GetDrawingComponents(projectName);
+           //List<DrawingComponentModel> drawingComponents = Repository<DrawingComponentModel>.Database.GetDrawingComponents(projectName);
+           List <DrawingComponentProxy> drawingComponentProxies = new List<DrawingComponentProxy>(drawingComponents.Count);
            
             foreach (var drawingComponent in drawingComponents)
             {

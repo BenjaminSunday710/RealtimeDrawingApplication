@@ -5,24 +5,78 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RealtimeDrawingApplication.Views"
         mc:Ignorable="d"
-        Title="Shared Project Window" Height="253.704" Width="450"
+        Height="253.704" Width="450"
+        WindowStyle="None"
         WindowStartupLocation="CenterScreen">
-    <StackPanel>
-        
-        <TextBlock Text="Shared User Email" FontSize="20"
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                <GradientStop Color="LightGray" Offset="0.1467"/>
+                <GradientStop Color="DarkGray" Offset="0.745"/>
+                <GradientStop Color="LightGray" Offset="0.3435"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <DockPanel>
+            <DockPanel.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="DarkGray" Offset="0.45"/>
+                    <GradientStop Color="Gray" Offset="0.546"/>
+                    <GradientStop Color="LightGray" Offset="0.746"/>
+                </LinearGradientBrush>
+            </DockPanel.Background>
+            <TextBlock Text="Share Project"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" 
+                       FontSize="20"
+                       Margin="30,0,0,0"
+                       FontWeight="DemiBold" 
+                       Grid.ColumnSpan="2"/>
+
+            <Button Width="32" Height="32"
+                    Command="{Binding CloseProjectViewCommand}"
+                    Margin="0,5,5,4" 
+                    BorderBrush="Transparent"
+                    VerticalContentAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    HorizontalAlignment="Right">
+                <Path Fill="Red" 
+                  Data="M19,3H16.3H7.7H5A2,2 0 0,0 3,5V7.7
+                  V16.4V19A2,2 0 0,0 5,21H7.7H16.4H19A2,2 0 0,0 21,19V16.3
+                  V7.7V5A2,2 0 0,0 19,3M15.6,17L12,13.4L8.4,17L7,15.6
+                  L10.6,12L7,8.4L8.4,7L12,10.6L15.6,7L17,8.4L13.4,12
+                  L17,15.6L15.6,17Z" 
+                  RenderTransformOrigin="0.949,0.895"
+                  Stretch="Fill"
+                 />
+            </Button>
+        </DockPanel>
+        <TextBlock Grid.Row="1"
+                Text="Shared User Email" 
+                   FontSize="14"
                    FontWeight="DemiBold" 
                    VerticalAlignment="Center" 
                    HorizontalAlignment="Center"
-                   Margin="5,15"/>
-        <TextBox VerticalAlignment="Center" 
+                   Margin="5"/>
+
+        <TextBox Grid.Row="2"
+            VerticalAlignment="Center" 
                  Width="300"
-                 Height="30"
+                 Height="25"
                  Margin="0,10"
                  HorizontalAlignment="Center"
                  VerticalContentAlignment="Center"
                  HorizontalContentAlignment="Left"
                  Text="{Binding SharedUserEmail}"/>
-        <Button Height="32" Width="150"
+        <Button Grid.Row="3"
+            Height="32" Width="150"
                 VerticalContentAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
                 HorizontalAlignment="Center"
@@ -30,9 +84,14 @@
                 Margin="0,10"
                 Command="{Binding ShareCommand}">
             <Border CornerRadius="10" 
-                    Background="DarkGray"
                     BorderThickness="1"
                     BorderBrush="Transparent">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                        <GradientStop Color="Gray" Offset="0"/>
+                        <GradientStop Color="LightGoldenrodYellow" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
                 <TextBlock Text="Share"
                            FontSize="20"
                            FontWeight="DemiBold"
@@ -41,5 +100,5 @@
                            VerticalAlignment="Center"/>
             </Border>
         </Button>
-    </StackPanel>
+    </Grid>
 </Window>

@@ -24,7 +24,7 @@ namespace RealtimeDrawingApplication.Views
         public ProjectWindow()
         {
             InitializeComponent();
-            DataContext = new ProjectViewModel();
+            DataContext = new ProjectWindowViewModel();
         }
     }
 }

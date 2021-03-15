@@ -22,7 +22,8 @@ namespace RealtimeDrawingApplication.ViewModel.Proxies
         private string _componentType;
         private ProjectModel _project;
         private ComponentEnum _componentEnum;
-        private static Repository<DrawingComponentModel> database = new Repository<DrawingComponentModel>();
+        Repository<DrawingComponentModel> database = Repository<DrawingComponentModel>.GetRepository;
+        //private static Repository<DrawingComponentModel> database = new Repository<DrawingComponentModel>();
 
         public DrawingComponentProxy() { }
 

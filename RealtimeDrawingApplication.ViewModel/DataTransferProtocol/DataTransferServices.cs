@@ -15,9 +15,11 @@ namespace RealtimeDrawingApplication.ViewModel.DataTransferProtocol
 {
     public class DataTransferServices
     {
+        private static Repository<DrawingComponentModel> database = Repository<DrawingComponentModel>.GetRepository;
         public static void SerializedObjectToXml(string projectName)
         {
-            var model = Repository<DrawingComponentModel>.Database.GetDrawingComponents(projectName);
+            var model = database.GetDrawingComponents(projectName);
+            //var model = Repository<DrawingComponentModel>.Database.GetDrawingComponents(projectName);
             SaveFileDialog save = new SaveFileDialog()
             {
                 Title = "Save File",
@@ -58,7 +60,8 @@ namespace RealtimeDrawingApplication.ViewModel.DataTransferProtocol
 
         public static void SerialiseObjectToJson(string projectName)
         {
-            var drawingComponents = DatabaseServices.Repository<DrawingComponentModel>.Database.GetDrawingComponents(projectName);
+            var drawingComponents = database.GetDrawingComponents(projectName);
+            // var drawingComponents = DatabaseServices.Repository<DrawingComponentModel>.Database.GetDrawingComponents(projectName);
             SaveFileDialog save = new SaveFileDialog()
             {
                 Title = "Save File",
@@ -74,6 +77,7 @@ namespace RealtimeDrawingApplication.ViewModel.DataTransferProtocol
                     streamWriter.Write(serialisedString);
                 }
             }
+
         }
 
         public static List<DrawingComponentProxy> DeserialiseObjectFromJson()

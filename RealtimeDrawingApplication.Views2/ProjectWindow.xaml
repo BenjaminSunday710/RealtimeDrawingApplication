@@ -17,7 +17,7 @@
             </StackPanel.Background>
             <ListBox ItemsSource="{Binding ProjectList}"
                      SelectedItem="{Binding SelectedProject}"
-                     Margin="3,0,5,0">
+                     Margin="3,2,7,0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">

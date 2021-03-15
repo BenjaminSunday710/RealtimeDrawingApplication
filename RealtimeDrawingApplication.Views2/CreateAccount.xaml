@@ -29,8 +29,9 @@
             <Setter Property="Height" Value="25"/>
         </Style>
     </Window.Resources>
-    <Grid Background="PaleGoldenrod">
+    <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -44,8 +45,23 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <DockPanel Grid.ColumnSpan="2" Height="60"
-            Background="LightGoldenrodYellow">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                <GradientStop Color="LightGray" Offset="0.1467"/>
+                <GradientStop Color="DarkGray" Offset="0.745"/>
+                <GradientStop Color="Gray" Offset="0.3435"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <DockPanel Grid.ColumnSpan="2" Height="60">
+            <DockPanel.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                    <GradientStop Color="DarkGray" Offset="0.65"/>
+                    <GradientStop Color="DimGray" Offset="0.546"/>
+                    <GradientStop Color="LightGray" Offset="0.246"/>
+                    <GradientStop Color="Gray" Offset="0.746"/>
+                </LinearGradientBrush>
+            </DockPanel.Background>
+
             <TextBlock Text="Create Account" Grid.ColumnSpan="2" 
                        FontSize="25" HorizontalAlignment="Center"
                        FontWeight="Bold" Height="60"
@@ -62,7 +78,8 @@
                    Style="{StaticResource TextBlockStyle}"/>
         <TextBlock Text="Password" Grid.Row="4"  
                    Style="{StaticResource TextBlockStyle}"/>
-        <TextBlock Text="Confirm Password" Grid.Row="5"  
+        <TextBlock Text="Confirm Password" 
+                   Grid.Row="6"  
                    Style="{StaticResource TextBlockStyle}"/>
 
         <TextBox Grid.Column="1" Grid.Row="1"
@@ -75,7 +92,8 @@
         <TextBox Grid.Column="1" Grid.Row="3" 
                   Text="{Binding Email}"
                  Style="{StaticResource TextboxStyle}"/>
-        <PasswordBox Grid.Column="1" Grid.Row="4" 
+        <PasswordBox Grid.Column="1" 
+                     Grid.Row="4" 
                      Margin="20,0,0,0" 
                      Height="35"
                      Width="350"
@@ -83,24 +101,61 @@
                      VerticalContentAlignment="Center"
                      HorizontalAlignment="Left"
                      x:Name="PasswordBox"/>
-        <PasswordBox Grid.Column="1" Grid.Row="5"
+        <TextBlock Grid.Row="5"
+                   Grid.Column="1"
+                   Visibility="{Binding IsPasswordVisible}"
+                    Width="350"
+                   TextAlignment="Center"
+                   Text="{Binding Password}"/>
+        <PasswordBox Grid.Column="1" Grid.Row="6"
                      Margin="20,0,0,0"
                      Height="35"
                      VerticalAlignment="Center"
+                     VerticalContentAlignment="Center"
                      Width="350"
-                     HorizontalAlignment="Left"/>
+                     HorizontalAlignment="Left"
+                     x:Name="ConfirmPasswordBox"/>
+        <TextBlock Grid.Row="7"
+                   Grid.Column="1"
+                   Visibility="{Binding IsConfirmedPasswordVisible}"
+                    Width="350"
+                   TextAlignment="Center"
+                   Text="{Binding ConfirmPassword}"/>
+        <Button  Grid.Column="1" 
+                 Grid.Row="4"
+                 Width="40"
+                 Height="30"
+                 Command="{Binding ShowPasswordCommand}"
+                 CommandParameter="{Binding ElementName=PasswordBox}"
+                 HorizontalAlignment="Right"
+                 VerticalAlignment="Center"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Stretch"
+                 Margin="0,0,80,0">
+            <Path Width="40" Height="30"
+            Fill="Black" Data="M12,9A3,3 0 0,1 15,12
+              A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9
+              M12,4.5C16.86,4.5 21.22,7.5 23,12C20.61,18.08 
+              13.75,21.06 7.67,18.67C4.62,17.47 2.2,15.06 1,12
+              C2.78,7.5 7.14,4.5 12,4.5M3.18,12C5.56,16.87 11.45,
+              18.89 16.32,16.5C18.28,15.54 19.86,13.96 20.82,12C18.44,
+              7.13 12.55,5.11 7.68,7.5C5.72,
+              8.46 4.14,10.04 3.18,12M9,22H7V24H9V22M13,
+              22H11V24H13V22M17,22H15V24H17V22Z" />
+        </Button>
         
-        <Button  Grid.Column="1" Grid.Row="4"
-                  Width="40" Height="30"
+        <Button  Grid.Column="1" 
+                 Grid.Row="6"
+                  Width="40" 
+                 Height="30"
+                 Command="{Binding ShowConfirmPasswordCommand}"
+                 CommandParameter="{Binding ElementName=ConfirmPasswordBox}"
                   HorizontalAlignment="Right"
                   VerticalAlignment="Center"
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Stretch"
-                 Margin="0,0,50,0">
+                 Margin="0,0,80,0">
             <Path Width="40" Height="30"
-             
-             
-             
             Fill="Black" Data="M12,9A3,3 0 0,1 15,12
               A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9
               M12,4.5C16.86,4.5 21.22,7.5 23,12C20.61,18.08 
@@ -113,7 +168,7 @@
 
         </Button>
 
-        <Button Grid.Row="6" Grid.Column="1"
+        <Button Grid.Row="8" Grid.Column="1"
                 VerticalAlignment="Center"
                 HorizontalAlignment="left"
                 Margin="10,5,0,10" VerticalContentAlignment="Stretch"
@@ -141,10 +196,13 @@
             </Border>
         </Button>
 
-        <Button Grid.Row="6" Grid.Column="2"
+        <Button Grid.Row="8" 
+                Grid.Column="2"
+                Command="{Binding CloseCommand}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
-                Margin="0,5,30,10" VerticalContentAlignment="Stretch"
+                Margin="0,5,100,10" 
+                VerticalContentAlignment="Stretch"
                 HorizontalContentAlignment="Stretch" 
                 FontSize="18" Foreground="Red"
                 BorderBrush="Transparent"
@@ -167,11 +225,6 @@
                            VerticalAlignment="Center"/>
             </Border>
         </Button>
-
-
-
-
-
     </Grid>
         
 </Window>

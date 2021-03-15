@@ -2,6 +2,7 @@
 using Prism.Ioc;
 using RealtimeDrawingApplication.Common;
 using RealtimeDrawingApplication.Model;
+using RealtimeDrawingApplication.ViewModel.DatabaseServices;
 using RealtimeDrawingApplication.ViewModel.Proxies;
 using System;
 using System.Collections.Generic;
@@ -13,17 +14,19 @@ using System.Threading.Tasks;
 
 namespace RealtimeDrawingApplication.ViewModel
 {
-    public class ProjectViewModel:INotifyPropertyChanged
+    public class ProjectWindowViewModel:INotifyPropertyChanged
     {
         private ObservableCollection<ProjectProxy> _projectList;
         private ProjectProxy _selectedProject;
+        private static Repository<ProjectModel> database = Repository<ProjectModel>.GetRepository;
 
-        public ProjectViewModel()
+        public ProjectWindowViewModel()
         {
             _projectList = new ObservableCollection<ProjectProxy>();
             EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
             EventAggregator.GetEvent<LoadProjectListEvent>().Subscribe(LoadProjectList);
             EventAggregator.GetEvent<FetchProjectsEvent>().Subscribe(FetchProjects);
+            EventAggregator.GetEvent<DeleteProjectEvent>().Subscribe(DeleteProject);
         }
 
         public ObservableCollection<ProjectProxy> ProjectList { get => _projectList; set => _projectList = value; }
@@ -61,6 +64,13 @@ namespace RealtimeDrawingApplication.ViewModel
                     LoadProjectList(DatabaseServices.ProjectModelService.DeserializeToProxy(project));
                 }
             }
+        }
+
+        void DeleteProject(string projectName)
+        {
+            var project = database.GetProject(projectName);
+            _projectList.Remove(DatabaseServices.ProjectModelService.DeserializeToProxy(project));
+            database.Delete(project);
         }
     }
 

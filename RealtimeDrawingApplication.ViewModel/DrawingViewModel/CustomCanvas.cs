@@ -14,6 +14,7 @@ using RealtimeDrawingApplication.Common;
 using System.Collections.ObjectModel;
 using RealtimeDrawingApplication.Model;
 using RealtimeDrawingApplication.ViewModel.DataTransferProtocol;
+using RealtimeDrawingApplication.ViewModel.DatabaseServices;
 
 namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
 {
@@ -23,6 +24,7 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         private double yValue;
         private DrawingComponentProxy _drawingComponentProxy;
         private ProjectModel _currentProject;
+        private static Repository<ProjectModel> database = Repository<ProjectModel>.GetRepository;
 
         public IEventAggregator EventAggregator { get; set; }
 
@@ -35,13 +37,11 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
             EventAggregator.GetEvent<GetProjectInstanceEvent>().Subscribe(GetProjectInstance);
             EventAggregator.GetEvent<FetchDrawingComponentsEvent>().Subscribe(DrawComponents);
             EventAggregator.GetEvent<ImportFileEvent>().Subscribe(DisplayImportedDrawings);
-            //EventAggregator.GetEvent<SaveProjectEvent>().Subscribe(SaveDrawingComponents);
-
+            EventAggregator.GetEvent<UpdateProjectEvent>().Subscribe(UpdateDrawingComponents);
 
         }
 
         public ObservableCollection<string> ColourList = new Colour().ColourList;
-
         //public ObservableCollection<Colour> ColourListItems => new ObservableCollection<Colour>{
         //        new Colour {Name="Red", BrushValue=Brushes.Red },
         //        new Colour {Name="Green", BrushValue=Brushes.Green },
@@ -140,13 +140,13 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
 
         void GetProjectInstance(string projectName)
         {
-            _currentProject = DatabaseServices.Repository<ProjectModel>.Database.GetProject(projectName);
+            _currentProject = database.GetProject(projectName);
            this.Children.Clear();
         }
 
         public void SaveDrawingComponents(string projectName)
         {
-            _currentProject = DatabaseServices.Repository<ProjectModel>.Database.GetProject(projectName);
+            _currentProject =database.GetProject(projectName);
 
             if (_currentProject == null)
             {
@@ -171,7 +171,39 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
 
                 DatabaseServices.DrawingComponentModelService.SaveToDatabase(_drawingComponentProxy);
             }
-            MessageBox.Show("Project Saved", "Notification", MessageBoxButton.OK, MessageBoxImage.Hand);
+            MessageBox.Show("Project Saved", "Notification", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        public void UpdateDrawingComponents(string projectName )
+        {
+            _currentProject = database.GetProject(projectName);
+
+            if (_currentProject == null)
+            {
+                MessageBox.Show("Project cannot be saved! Create Project", "Notification", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            List<DrawingComponentProxy> drawingComponentProxies = new List<DrawingComponentProxy>();
+
+            foreach (var item in this.Children)
+            {
+                _drawingComponentProxy = new DrawingComponentProxy();
+                var getItem = (IComponentProperties)item;
+                _drawingComponentProxy.X = getItem.X;
+                _drawingComponentProxy.Y = getItem.Y;
+                _drawingComponentProxy.Angle = getItem.Angle;
+                _drawingComponentProxy.Title = getItem.Title;
+                _drawingComponentProxy.Height = getItem.Height;
+                _drawingComponentProxy.Width = getItem.Width;
+                _drawingComponentProxy.Border = getItem.ShapeBorder.ToString();
+                _drawingComponentProxy.Fill = getItem.ShapeFill.ToString();
+                _drawingComponentProxy.ComponentType = getItem.ComponentType.ToString();
+                _drawingComponentProxy.Project = _currentProject;
+
+                drawingComponentProxies.Add(_drawingComponentProxy);
+            }
+            DrawingComponentModelService.UpdateDrawingComponentModel(projectName, drawingComponentProxies);
         }
 
         public void DrawComponents(List<DrawingComponentProxy> drawingComponents)

@@ -1,4 +1,7 @@
-﻿using Prism.Mvvm;
+﻿using Prism.Events;
+using Prism.Ioc;
+using Prism.Mvvm;
+using RealtimeDrawingApplication.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,23 +25,18 @@ namespace RealtimeDrawingApplication.ViewModel
             _routedPages = routedPages;
             currentContent = _routedPages["PropertyWindowControl"];
             WindowTitle = "Property Window";
+
+            EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
+            EventAggregator.GetEvent<OpenProjectWindowEvent>().Subscribe(OpenProjectWindow);
         }
 
         //public Dictionary<string, FrameworkElement> RoutedPages { get; }
         public bool IsPropertyWindow { get => _isPropertyWindow; set { _isPropertyWindow = value; UpdateLayoutControl(); RaisePropertyChanged(); } }
         public bool IsProjectSharedUserWindow { get => _isProjectSharedUserWindow; set { _isProjectSharedUserWindow = value; UpdateLayoutControl(); RaisePropertyChanged(); } }
         public bool IsProjectsWindow { get => _isProjectsWindow; set { _isProjectsWindow = value; UpdateLayoutControl(); RaisePropertyChanged(); } }
-        public FrameworkElement CurrentContent
-        {
-            get { return currentContent; }
-            set { currentContent = value; RaisePropertyChanged(); }
-        }
-
-        public string WindowTitle
-        {
-            get { return _windowTitle; }
-            set { _windowTitle = value; RaisePropertyChanged(); }
-        }
+        public FrameworkElement CurrentContent{get => currentContent; set { currentContent = value; RaisePropertyChanged(); } }
+        public string WindowTitle{ get => _windowTitle; set { _windowTitle = value; RaisePropertyChanged(); } }
+        public IEventAggregator EventAggregator { get; set; }
 
         private void UpdateLayoutControl()
         {
@@ -68,6 +66,12 @@ namespace RealtimeDrawingApplication.ViewModel
                     WindowTitle = "Property Window";
                 }
             }
+        }
+
+        void OpenProjectWindow()
+        {
+            CurrentContent = _routedPages["ProjectWindow"];
+            WindowTitle = "Project Window";
         }
     }
 }

@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using RealtimeDrawingApplication.ViewModel.DatabaseServices;
 
 namespace RealtimeDrawingApplication.ViewModel
 {
@@ -25,6 +26,7 @@ namespace RealtimeDrawingApplication.ViewModel
         private UserModel _sharedUser;
         private Window _sharedProjectWindowView;
         private ProjectSharedUserProxy _projectSharedUserProxy;
+        private Repository<ProjectSharedUsersModel> database = Repository<ProjectSharedUsersModel>.GetRepository;
 
         public SharedProjectViewModel(Window sharedProjectWindow, string projectName)
         {
@@ -40,11 +42,11 @@ namespace RealtimeDrawingApplication.ViewModel
         public string SharedUserEmail { get => _sharedUserEmail; set { _sharedUserEmail = value; RaisePropertyChanged(); } }
         public DelegateCommand ShareCommand { get; set; }
         public bool IsAllowed { get => _isAllowed; set { _isAllowed = value; RaisePropertyChanged(); } }
-        public ProjectSharedUsersEventModel ProjectSharedUsers { get; set; } = new ProjectSharedUsersEventModel();
+        public LoadProjectSharedUsersEventModel ProjectSharedUsers { get; set; } = new LoadProjectSharedUsersEventModel();
 
         void GetProjectInstance()
         {
-            _sharedProject = DatabaseServices.Repository<ProjectModel>.Database.GetProject(_projectName);
+            _sharedProject = database.GetProject(_projectName);
 
             if (_sharedProject == null)
             {
@@ -56,7 +58,7 @@ namespace RealtimeDrawingApplication.ViewModel
         private void Share()
         {
             _projectSharedUserProxy = new ProjectSharedUserProxy();
-            _sharedUser = DatabaseServices.Repository<UserModel>.Database.GetUser(_sharedUserEmail);
+            _sharedUser = database.GetUser(_sharedUserEmail);
 
             if (_sharedUser == null)
             {
@@ -74,7 +76,7 @@ namespace RealtimeDrawingApplication.ViewModel
         {
             ProjectSharedUsers.SharedUserEmail = _sharedUserEmail;
             ProjectSharedUsers.ProjectName = _sharedProject;
-            EventAggregator.GetEvent<SetProjectShareUsersEvent>().Publish(ProjectSharedUsers);
+            EventAggregator.GetEvent<LoadProjectShareUsersListEvent>().Publish(ProjectSharedUsers);
         }
 
         void SaveSharedUser()

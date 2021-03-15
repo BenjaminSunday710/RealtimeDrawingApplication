@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using RealtimeDrawingApplication.ViewModel.DrawingViewModel;
+using RealtimeDrawingApplication.ViewModel.DatabaseServices;
 
 namespace RealtimeDrawingApplication.ViewModel
 {
@@ -22,6 +23,7 @@ namespace RealtimeDrawingApplication.ViewModel
         private string _userEmail;
         private string _name;
         private Window _createProjectWindowView;
+        private static Repository<ProjectModel> database = Repository<ProjectModel>.GetRepository;
 
         public CreateProjectViewModel(Window createProjectWindow, string userEmail)
         {
@@ -44,7 +46,7 @@ namespace RealtimeDrawingApplication.ViewModel
         {
             _projectProxy = new ProjectProxy();
             _projectProxy.Name = _name;
-            _projectProxy.ProjectCreator = DatabaseServices.Repository<UserModel>.Database.GetUser(_userEmail);
+            _projectProxy.ProjectCreator = database.GetUser(_userEmail);
 
             EventAggregator.GetEvent<GetProjectInstanceEvent>().Publish(_name);
 

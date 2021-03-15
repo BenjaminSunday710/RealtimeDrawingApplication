@@ -6,67 +6,92 @@
              xmlns:local="clr-namespace:Application.Views"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="200">
-    <StackPanel>
-        <StackPanel.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="0.8*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                 <GradientStop Color="DarkGray" Offset="1"/>
                 <GradientStop Color="LightGray" Offset="0.317"/>
                 <GradientStop Color="DarkGray" Offset="0.558"/>
             </LinearGradientBrush>
-        </StackPanel.Background>
+        </Grid.Background>
         <Button BorderBrush="Transparent"
                 Command="{Binding OpenShareProjectWindowCommand}"
                 HorizontalAlignment="Center"
                 VerticalContentAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
-                Background="LightGoldenrodYellow"
+                Background="Silver"
                 Margin="5,10,10,10" 
-                Width="145"
-                Height="40">
+                Width="80"
+                Height="30">
             <Border Padding="5"
-                BorderBrush="black"
+                BorderBrush="Gray"
                 BorderThickness="1"
                 CornerRadius="5">
 
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Left">
                     <Path Fill="DarkGreen"
-                  Margin="5,0"
-              Data="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,
-              0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
-                    <TextBlock Text="Add Shared User"
+                        Margin="2,0"
+                        Stretch="Uniform"
+                        Data="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,
+                           0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+                    <TextBlock Text="Add"
                        FontSize="13"
-                       VerticalAlignment="Center"/>
+                       VerticalAlignment="Center"
+                               Margin="0,0,0,2"/>
                 </StackPanel>
             </Border>
         </Button>
 
-
-        <ListBox Margin="10"
+        <Button BorderBrush="Transparent"
+                Grid.Column="1"
+                Command="{Binding RemoveSharedUserCommand}"
+                HorizontalAlignment="Center"
+                VerticalContentAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                Background="Silver"
+                Margin="5,10,10,10" 
+                Width="80"
+                Height="30">
+            <Border Padding="5"
+                BorderBrush="Gray"
+                BorderThickness="1"
+                CornerRadius="5">
+                <TextBlock Text="Remove"
+                            FontSize="13"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"/>
+            </Border>
+        </Button>
+        
+        <StackPanel Grid.Row="1"
+                     Grid.ColumnSpan="2">
+            <ListBox Margin="10"
             ItemsSource="{Binding ProjectSharedUsersList}"
-                 SelectedItem="">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox IsChecked="{Binding IsEditable}"
-                                  Margin="5"/>
-                        <TextBlock Text="{Binding Email}"
+                 SelectedItem="{Binding SelectedSharedUser}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox IsChecked="{Binding IsEditable}"
+                                  Margin="5"
+                                  BorderBrush="DarkGreen"
+                                  BorderThickness="2"/>
+                            <TextBlock Text="{Binding Email}"
                              Margin="5,4"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+       
 
-        <!--<CheckBox Content="Igben Nehemiah" 
-                  FontSize="14"
-                  IsChecked="True"
-                  Margin="15,5,0,15"/>
-        <CheckBox Content="Egbe Endurance" 
-                  FontSize="14"
-                  IsChecked="True"
-                  Margin="15,0,0,15"/>
-        <CheckBox Content="Sunday Benjamin" 
-                  FontSize="14"
-                  IsChecked="True"
-                  Margin="15,0,0,15"/>-->
-    </StackPanel>
+    </Grid>
 </UserControl>

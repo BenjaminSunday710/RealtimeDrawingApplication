@@ -109,7 +109,6 @@ namespace RealtimeDrawingApplication.Infrastructure.NHibernateORM
             using (var session=SessionFactory.OpenSession())
             {
                 var project = session.Query<ProjectModel>().FirstOrDefault(x => x.Name == projectName);
-                //int projectId=
                 drawingComponents = session.Query<DrawingComponentModel>().Where(x => x.Project.Id == project.Id).ToList();
             }
 
@@ -140,6 +139,17 @@ namespace RealtimeDrawingApplication.Infrastructure.NHibernateORM
             }
 
             return projects;
+        }
+
+        public ProjectSharedUsersModel GetProjectSharedUser(string userEmail)
+        {
+            ProjectSharedUsersModel projectSharedUser;
+            using (var session = SessionFactory.OpenSession())
+            {
+                var user = session.Query<UserModel>().FirstOrDefault(x => x.Email == userEmail);
+                projectSharedUser = session.Query<ProjectSharedUsersModel>().FirstOrDefault(x => x.SharedUser == user);
+            }
+            return projectSharedUser;
         }
     }
 }

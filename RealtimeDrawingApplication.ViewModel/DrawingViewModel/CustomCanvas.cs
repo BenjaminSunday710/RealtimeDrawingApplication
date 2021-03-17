@@ -323,9 +323,6 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             SelectedComponent = e.Source as FrameworkElement;
-            var mousePosition = e.GetPosition(SelectedComponent);
-            mousePosition.X = 0.5 * SelectedComponent.Width;
-            mousePosition.Y = 0.5 * SelectedComponent.Height;
             SelectedComponent.MouseLeftButtonUp += SelectedComponent_MouseLeftButtonUp;   
             if (GetParent(SelectedComponent) is IComponentProperties component)
             {
@@ -341,6 +338,7 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
             }
             base.OnMouseLeftButtonDown(e);
 
+            CloseMenuPaneOnClick();
         }
 
         private void SelectedComponent_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -394,6 +392,12 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         {
             this.Children.Clear();
         }
+
+        private void CloseMenuPaneOnClick()
+        {
+            EventAggregator.GetEvent<CloseMenuPaneEvent>().Publish();
+        }
+        
     }
 
     public class ResetPropertyEvent : PubSubEvent<PropertyWindowEventModel> { }

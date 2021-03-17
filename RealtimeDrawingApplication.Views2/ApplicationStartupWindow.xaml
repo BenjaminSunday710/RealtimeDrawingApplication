@@ -26,8 +26,8 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="0.36*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -190,7 +190,7 @@
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Background="PaleGoldenrod"
-                            Visibility="Visible" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" Margin="0,45,155,0" Grid.RowSpan="2">
+                            Visibility="Visible" RenderTransformOrigin="0.5,0.5" Margin="0,45,0,0" Grid.RowSpan="2">
                 <ContentControl.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -231,18 +231,19 @@
                 </DockPanel.Background>
                 <StackPanel Orientation="Horizontal"
                         DockPanel.Dock="Top"
-                        HorizontalAlignment="Center" Margin="0,0">
+                        HorizontalAlignment="Center" >
+                   
                     <TextBlock Text="{Binding RoutedPagesModel.WindowTitle}" 
                        FontSize="18" FontWeight="DemiBold" 
                        Margin="0,0,1,0"
                        Padding="5,0"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Top"/>
+                    
                     <Button  BorderBrush="Transparent"
                          x:Name="DisplayPropertyWindowMenu"
                          Click="DisplayPropertyWindowMenu_Click"
-                         VerticalAlignment="Top"
-                         >
+                         VerticalAlignment="Top">
                         <Path Fill="Black" 
                           Data="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10 L7.41,8.58Z"
                         VerticalAlignment="Center"

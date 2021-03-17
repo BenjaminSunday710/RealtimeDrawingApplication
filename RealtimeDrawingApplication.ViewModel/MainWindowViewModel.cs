@@ -85,7 +85,8 @@ namespace RealtimeDrawingApplication.ViewModel
 
         void CloseMenuPaneControl()
         {
-            IsVisible = false;
+            if(IsVisible)
+                IsVisible = false;
         }
 
         private void SaveDrawingComponents(string projectName)

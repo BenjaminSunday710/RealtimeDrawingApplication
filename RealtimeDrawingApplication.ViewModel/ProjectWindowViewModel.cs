@@ -12,6 +12,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
+using System.Windows;
 
 namespace RealtimeDrawingApplication.ViewModel
 {
@@ -30,7 +32,7 @@ namespace RealtimeDrawingApplication.ViewModel
             EventAggregator.GetEvent<DeleteProjectEvent>().Subscribe(DeleteProject);
         }
 
-        public ObservableCollection<ProjectProxy> ProjectList { get => _projectList; set => _projectList = value; }
+        public ObservableCollection<ProjectProxy> ProjectList { get => _projectList; set { _projectList = value; OnPropertyChanged(); } }
         public IEventAggregator EventAggregator { get; set; }
         public ProjectProxy SelectedProject { get => _selectedProject; set { _selectedProject = value; OnPropertyChanged(); } }
 
@@ -38,6 +40,9 @@ namespace RealtimeDrawingApplication.ViewModel
 
         protected void OnPropertyChanged()
         {
+            if (SelectedProject == null)
+                return;
+
             var drawingComponents = DatabaseServices.DrawingComponentModelService.DeserializeToProxy(SelectedProject.Name);
 
             if (drawingComponents != null)
@@ -74,9 +79,17 @@ namespace RealtimeDrawingApplication.ViewModel
                 return;
 
             var project = database.GetProject(projectName);
-            ProjectList.Remove(_selectedProject);
-            EventAggregator.GetEvent<ClearCanvasEvent>().Publish();
+
+            var response = MessageBox.Show("Project will be deleted permanently","Notification",MessageBoxButton.OKCancel,MessageBoxImage.Information);
+
+            if (response == MessageBoxResult.Cancel)
+                return;
+            
+            var item = ProjectList.FirstOrDefault(x => x.Name == project.Name);
+            ProjectList.Remove(item);
+
             database.Delete(project);
+            EventAggregator.GetEvent<ClearCanvasEvent>().Publish();
         }
     }
 

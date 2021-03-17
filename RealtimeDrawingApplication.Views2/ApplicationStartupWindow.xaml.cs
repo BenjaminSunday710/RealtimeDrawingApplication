@@ -56,28 +56,10 @@ namespace RealtimeDrawingApplication.Views2
 
             if (component != null)
             {
-                //e.MouseDevice.OverrideCursor = Cursors.Hand;
                 DataObject dataObject = new DataObject("toolboxitem", component);
                 DragDrop.DoDragDrop(component as FrameworkElement, dataObject, DragDropEffects.Copy);
             }
         }
-
-        //private void Path_MouseDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    MenuPane.Visibility = Visibility.Visible;
-        //}
-
-        //private void AddProjectIconBorder_MouseEnter(object sender, MouseEventArgs e)
-        //{
-        //    Border border = new Border();
-        //    border.Background = Brushes.Gray;
-        //}
-
-        //private void ShareProjectIconBorder_MouseEnter(object sender, MouseEventArgs e)
-        //{
-        //    Border border = new Border();
-        //    border.Background = Brushes.Gray;
-        //}
 
         private void DisplayPropertyWindowMenu_Click(object sender, RoutedEventArgs e)
         {
@@ -89,10 +71,5 @@ namespace RealtimeDrawingApplication.Views2
             PropertyWindowPopUp.StaysOpen = false;
         }
 
-        //private void LoadLoginPage_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    LogInPageWindow logInPageWindow = new LogInPageWindow();
-        //    logInPageWindow.ShowDialog();
-        //}
     }
 }

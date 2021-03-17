@@ -16,10 +16,17 @@ namespace RealtimeDrawingApplication.ViewModel.DataTransferProtocol
     public class DataTransferServices
     {
         private static Repository<DrawingComponentModel> database = Repository<DrawingComponentModel>.GetRepository;
+
         public static void SerializedObjectToXml(string projectName)
         {
+            if (projectName == null)
+            {
+                MessageBox.Show("Invalid Operation!! Cannot share empty project", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             var model = database.GetDrawingComponents(projectName);
-            //var model = Repository<DrawingComponentModel>.Database.GetDrawingComponents(projectName);
+
             SaveFileDialog save = new SaveFileDialog()
             {
                 Title = "Save File",
@@ -60,8 +67,13 @@ namespace RealtimeDrawingApplication.ViewModel.DataTransferProtocol
 
         public static void SerialiseObjectToJson(string projectName)
         {
+            if (projectName == null)
+            {
+                MessageBox.Show("Invalid Operation!! Cannot share empty project", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             var drawingComponents = database.GetDrawingComponents(projectName);
-            // var drawingComponents = DatabaseServices.Repository<DrawingComponentModel>.Database.GetDrawingComponents(projectName);
             SaveFileDialog save = new SaveFileDialog()
             {
                 Title = "Save File",

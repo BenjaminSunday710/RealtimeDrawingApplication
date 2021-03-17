@@ -70,7 +70,6 @@
     <Compile Include="DrawingViewModel\CustomCanvas.cs" />
     <Compile Include="DrawingViewModel\DrawingComponentService.cs" />
     <Compile Include="DrawingViewModel\IComponentProperties.cs" />
-    <Compile Include="DrawingViewModel\LineComponent.cs" />
     <Compile Include="DrawingViewModel\ShapeComponent.cs" />
     <Compile Include="DrawingViewModel\TextBoxComponent.cs" />
     <Compile Include="LoginViewModel.cs" />

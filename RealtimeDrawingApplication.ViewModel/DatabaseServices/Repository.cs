@@ -30,7 +30,6 @@ namespace RealtimeDrawingApplication.ViewModel.DatabaseServices
                 }
                 return _repository;
             }
-            private set { }
         }
 
         //public void CreateModel(T model)

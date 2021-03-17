@@ -23,18 +23,19 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Button BorderBrush="Transparent"
+                Style="{StaticResource GeneralButtonStyle}"
                 Command="{Binding OpenShareProjectWindowCommand}"
                 HorizontalAlignment="Center"
                 VerticalContentAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
-                Background="Silver"
                 Margin="5,10,10,10" 
                 Width="80"
                 Height="30">
-            <Border Padding="5"
+            <Border 
                 BorderBrush="Gray"
                 BorderThickness="1"
-                CornerRadius="5">
+                CornerRadius="3"
+                Background="Silver">
 
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Left">
@@ -52,23 +53,36 @@
         </Button>
 
         <Button BorderBrush="Transparent"
+                Style="{StaticResource GeneralButtonStyle}"
                 Grid.Column="1"
                 Command="{Binding RemoveSharedUserCommand}"
                 HorizontalAlignment="Center"
                 VerticalContentAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
-                Background="Silver"
                 Margin="5,10,10,10" 
                 Width="80"
                 Height="30">
-            <Border Padding="5"
+            <Border
                 BorderBrush="Gray"
+                Background="Silver"
                 BorderThickness="1"
-                CornerRadius="5">
-                <TextBlock Text="Remove"
+                CornerRadius="3">
+                <StackPanel Orientation="Horizontal">
+                    <Path Fill="Firebrick" Data="M12,2C8.14,
+                          2 5,5.14 5,9C5,14.25 12,22 12,
+                          22C12,22 19,14.25 19,9C19,5.14 
+                          15.86,2 12,2M9.59,5.17L12,7.58
+                          L14.41,5.17L15.83,6.58L13.41,9
+                          L15.83,11.41L14.41,12.83L12,10.41
+                          L9.59,12.83L8.17,11.41L10.59,9
+                          L8.17,6.58" 
+                          Stretch="Uniform"
+                          Margin="2,1,2,1"/>
+                    <TextBlock Text="Remove"
                             FontSize="13"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"/>
+                           HorizontalAlignment="Center"
+                               Margin="0,2"/>
+                </StackPanel>
             </Border>
         </Button>
         

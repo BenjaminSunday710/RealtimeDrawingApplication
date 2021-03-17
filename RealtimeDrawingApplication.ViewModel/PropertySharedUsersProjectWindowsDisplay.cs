@@ -28,6 +28,7 @@ namespace RealtimeDrawingApplication.ViewModel
 
             EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
             EventAggregator.GetEvent<OpenProjectWindowEvent>().Subscribe(OpenProjectWindow);
+            EventAggregator.GetEvent<OpenShareProjectWindowEvent>().Subscribe(OpenProjectSharedUserWindow);
         }
 
         //public Dictionary<string, FrameworkElement> RoutedPages { get; }
@@ -42,36 +43,45 @@ namespace RealtimeDrawingApplication.ViewModel
         {
             if (_isProjectsWindow)
             {
-                if (_routedPages.ContainsKey("ProjectWindow"))
-                {
-                    CurrentContent = _routedPages["ProjectWindow"];
-                    WindowTitle = "Project Window";
-                }
+                OpenProjectWindow();
             }
 
             else if (_isProjectSharedUserWindow)
             {
-                if (_routedPages.ContainsKey("ProjectSharedUserWindowControl"))
-                {
-                    CurrentContent = _routedPages["ProjectSharedUserWindowControl"];
-                    WindowTitle = "Shared User Window";
-                }
+                OpenProjectSharedUserWindow();
             }
 
             else
             {
-                if (_routedPages.ContainsKey("PropertyWindowControl"))
-                {
-                    CurrentContent = _routedPages["PropertyWindowControl"];
-                    WindowTitle = "Property Window";
-                }
+                OpenPropertyWindow();  
             }
         }
 
         void OpenProjectWindow()
         {
-            CurrentContent = _routedPages["ProjectWindow"];
-            WindowTitle = "Project Window";
+            if (_routedPages.ContainsKey("ProjectWindow"))
+            {
+                CurrentContent = _routedPages["ProjectWindow"];
+                WindowTitle = "Project Window";
+            }
+        }
+
+        void OpenProjectSharedUserWindow()
+        {
+            if (_routedPages.ContainsKey("ProjectSharedUserWindowControl"))
+            {
+                CurrentContent = _routedPages["ProjectSharedUserWindowControl"];
+                WindowTitle = "Shared User Window";
+            }
+        }
+
+        void OpenPropertyWindow()
+        {
+            if (_routedPages.ContainsKey("PropertyWindowControl"))
+            {
+                CurrentContent = _routedPages["PropertyWindowControl"];
+                WindowTitle = "Property Window";
+            }
         }
     }
 }

@@ -4,17 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RealtimeDrawingApplication.Views2"
+        xmlns:converter="clr-namespace:RealtimeDrawingApplication.Common.Converters;assembly=RealtimeDrawingApplication.Common"
         mc:Ignorable="d"
-        Title="Login Page" Height="300" Width="650"
+        Title="Login Page" Height="300" Width="550"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None">
+    <Window.Resources>
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                <GradientStop Color="LightGray" Offset="0.4467"/>
+                <GradientStop Color="LightGray" Offset="0.3467"/>
                 <GradientStop Color="DarkGray" Offset="0.7532"/>
-                <GradientStop Color="WhiteSmoke" Offset="0.6435"/>
-                <GradientStop Color="Gray" Offset="0.5435"/>
+                <GradientStop Color="LightGray" Offset="0.3435"/>
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
@@ -27,7 +30,6 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
@@ -79,9 +81,12 @@
                   VerticalAlignment="Center"
                   HorizontalContentAlignment="Center"
                   VerticalContentAlignment="Stretch"
+                  Style="{StaticResource GeneralButtonStyle}"
                   Command="{Binding ShowPasswordCommand}"
                   CommandParameter="{Binding ElementName=password}">
-                <Path Width="40" Height="30"
+                <Path Width="40" 
+                      Height="30"
+                      Stroke="Transparent"
                       Fill="Black" Data="M12,9A3,3 0 0,1 15,12
                           A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9
                           M12,4.5C16.86,4.5 21.22,7.5 23,12C20.61,18.08 
@@ -93,20 +98,23 @@
                           22H11V24H13V22M17,22H15V24H17V22Z" Margin="0,0,0,-4" VerticalAlignment="Top" />
             </Button>
         </StackPanel>
+        
         <TextBlock x:Name="tblShowPassword"
                    Grid.Column="1"
                    Grid.Row="3"
                    Height="30"
                    Width="350"
-                   TextAlignment="Center"
+                   TextAlignment="left"
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Right"
                    Margin="0,0,60,0"
                    FontSize="14"
-                   Visibility="{Binding IsVisible}"
+                   Visibility="{Binding IsVisible,
+                Converter={StaticResource BooleanToVisibilityConverter}}"
                    Text="{Binding Password}"/>
 
         <Button Grid.Row="4" 
+                Style="{StaticResource GeneralButtonStyle}"
                 Grid.ColumnSpan="3" 
                 Height="35" 
                 Width="150" 
@@ -140,7 +148,8 @@
                    Foreground="Blue"
                    VerticalAlignment="Center"/>
 
-        <Button x:Name="btnCreateAccountDisplay" 
+        <Button x:Name="btnCreateAccountDisplay"
+                Style="{StaticResource GeneralButtonStyle}"
                 Grid.ColumnSpan="4"
                 Grid.Row="6" Height="35" Width="210" 
                 BorderBrush="Transparent"

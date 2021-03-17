@@ -16,7 +16,7 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
     {
         private double _x;
         private double _y;
-        private double _angle = 180;
+        private double _angle = 0;
         private bool _showBorder;
         private SolidColorBrush _shapeFill = Brushes.Red;
         private SolidColorBrush _shapeBorder = Brushes.Blue;

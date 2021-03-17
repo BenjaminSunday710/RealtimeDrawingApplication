@@ -8,18 +8,20 @@
         xmlns:local2="clr-namespace:RealtimeDrawingApplication.Views2"
         xmlns:drawingviewmodel="clr-namespace:RealtimeDrawingApplication.ViewModel.DrawingViewModel;assembly=RealtimeDrawingApplication.ViewModel"
         xmlns:local3="clr-namespace:RealtimeDrawingApplication.Views"
+        xmlns:converter="clr-namespace:RealtimeDrawingApplication.Common.Converters;assembly=RealtimeDrawingApplication.Common"
         mc:Ignorable="d"
         Title="Realtime Drawing Application" Height="600" Width="800"
         WindowState="Maximized">
     <Window.Resources>
         <Style  x:Key="IconStyle" TargetType="Path">
             <Setter Property="Fill" Value="Black"/>
-            <Setter Property="Width" Value="35"/>
-            <Setter Property="Height" Value="35"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
             <Setter Property="Fill" Value="Black"/>
         </Style>
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
-    
+
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -31,15 +33,15 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="0.2*"/>
             </Grid.RowDefinitions>
-            <Border Background="Silver"/>
+            <Border Background="Gray"/>
 
             <TextBlock Grid.Column="1" 
                        Text="{Binding ActiveProject, FallbackValue=Project Title}"
-                       VerticalAlignment="Center"
-                       FontSize="25"
-                       Padding="5"
+                       VerticalAlignment="Stretch"
+                       FontSize="20"
+                       Padding="5,10"
                        FontWeight="DemiBold"
-                       Background="LightGray">
+                       Background="Gray">
             </TextBlock>
 
             <DockPanel   Grid.Row="1"
@@ -54,6 +56,7 @@
                     <Button Background="LightGoldenrodYellow"
                             VerticalContentAlignment="Stretch"
                             HorizontalContentAlignment="Stretch"
+                            Style="{StaticResource GeneralButtonStyle}"
                             Command="{Binding OpenMenuPaneControlCommand}"
                             Height="30"
                             Width="40"
@@ -106,43 +109,103 @@
                    Background="Gray" 
                    HorizontalAlignment="Stretch"
                    DockPanel.Dock="Left">
-                <Path
-                  HorizontalAlignment="Right" 
-                  DockPanel.Dock="Right" 
-                    Margin="5"
+
+                <Button VerticalContentAlignment="Center"
+                        Style="{StaticResource GeneralButtonStyle}"
+                        HorizontalContentAlignment="Center"
+                        HorizontalAlignment="Right" 
+                        DockPanel.Dock="Right" 
+                         Margin="10,9,10,7"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Command="{Binding SharePopupIsOpenCommand}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Path
                   Data="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12
                   C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5
                   C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15
                   C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91
                   C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z" Height="28" VerticalAlignment="Top"
-                    Style="{StaticResource IconStyle}">
-                </Path>
+                    Style="{StaticResource IconStyle}"
+                        Stretch="Uniform">
+                        </Path>
 
-                <Path Style="{StaticResource IconStyle}"
-                    HorizontalAlignment="Right" 
-                    DockPanel.Dock="Right"
-                    Margin="10,0,0,0"
+                        <Popup Width="150"
+                        IsOpen="{Binding IsOpen}"
+                        Placement="Left"
+                        StaysOpen="False">
+                            <Border BorderThickness="2"
+                            BorderBrush="PaleGoldenrod">
+                                <StackPanel Background="White">
+                                    <Button Content="Json"
+                                Command="{Binding ExportProjectAsJsonCommand}"
+                                Padding="4,0,0,0"
+                                HorizontalContentAlignment="Left"
+                                Background="White"
+                                BorderBrush="Transparent"
+                                Margin="2,2,3,3"/>
+
+                                    <Button Content="xml"
+                                Command="{Binding ExportProjectAsXmlCommand}"
+                                HorizontalContentAlignment="Left"
+                                Padding="4,0,0,0"
+                                Background="White"
+                                BorderBrush="Transparent"
+                                Margin="2,2,3,0"/>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+                    </Grid>
+
+                </Button>
+
+                <Button  HorizontalAlignment="Right" 
+                         DockPanel.Dock="Right"
+                         Margin="5"
+                         VerticalContentAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                         Background="Transparent"
+                         BorderBrush="Transparent"
+                         Style="{StaticResource GeneralButtonStyle}"
+                         Command="{Binding OpenAddShareUserWindowCommand}">
+                    <Path Style="{StaticResource IconStyle}"
                     Data="M15,4A4,4 0 0,0 11,8A4,4  0 0,0 15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4M15,5.9C16.16,5.9 17.1,6.84
                           17.1,8C17.1,9.16 16.16,10.1 15,10.1A2.1,2.1 0 0,1 12.9,8A2.1,2.1 0 0,1 15,5.9M4,
                           7V10H1V12H4V15H6V12H9V10H6V7H4M15,
                           13C12.33,13 7,14.33 7,17V20H23V17C23,
                           14.33 17.67,13 15,13M15,14.9C17.97,14.9
                           21.1,16.36 21.1,17V18.1H8.9V17C8.9,16.36
-                          12,14.9 15,14.9Z">
-                </Path>
+                          12,14.9 15,14.9Z"
+                          Stretch="Uniform">
+                    </Path>
+                </Button>
             </DockPanel>
 
-            <ContentControl Grid.Row="1" Grid.Column="1"
+            <ContentControl Grid.Column="1"
                             Content="{Binding DrawingSheet}"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             Background="PaleGoldenrod"
-                            Visibility="Visible">
+                            Visibility="Visible" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" Margin="0,45,155,0" Grid.RowSpan="2">
+                <ContentControl.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.138"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </ContentControl.RenderTransform>
             </ContentControl>
-            <ContentControl Content="{Binding MenuPaneControl}"
+
+            <ContentControl Content="{Binding MenupaneControl}"
                             Grid.RowSpan="2"
                             Grid.ColumnSpan="3"
-                            Visibility="{Binding IsVisible}"
+                            Visibility="{Binding IsVisible, 
+                            Converter={StaticResource BooleanToVisibilityConverter}}"
                             Background="WhiteSmoke"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Stretch"/>
@@ -150,7 +213,15 @@
 
             <DockPanel Grid.Column="2" Grid.Row="1" 
                       
-                       VerticalAlignment="Stretch">
+                       VerticalAlignment="Stretch" RenderTransformOrigin="0.5,0.5">
+                <DockPanel.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.221"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </DockPanel.RenderTransform>
                 <DockPanel.Background>
                     <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                         <GradientStop Color="DarkGray" Offset="1"/>
@@ -214,9 +285,10 @@
                         </Border>
                     </Popup>
                 </StackPanel>
-                
-                <ContentControl Content="{Binding RoutedPagesModel.CurrentContent}"
+                <ScrollViewer>
+                    <ContentControl Content="{Binding RoutedPagesModel.CurrentContent}"
                                 HorizontalContentAlignment="Center"/>
+                </ScrollViewer>
             </DockPanel>
         </Grid>
     </Grid>

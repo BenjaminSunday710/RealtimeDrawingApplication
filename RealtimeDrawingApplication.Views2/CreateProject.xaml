@@ -5,14 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RealtimeDrawingApplication.Views"
         mc:Ignorable="d"
-        Title="CreateProject" Height="300" Width="650"
-        WindowStyle="None">
+        Title="CreateProject" Height="300" Width="500"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="TextboxStyle" TargetType="TextBox">
             <Setter Property="Height" Value="35"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="Margin" Value="15"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
         <Style x:Key="TextBlockStyle" TargetType="TextBlock">
@@ -41,19 +44,11 @@
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                 <GradientStop Color="LightGray" Offset="0.1467"/>
-                <GradientStop Color="DarkGray" Offset="0.745"/>
-                <GradientStop Color="LightGray" Offset="0.3435"/>
+                <GradientStop Color="Silver" Offset="0.3435"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <DockPanel Grid.ColumnSpan="2">
-            <DockPanel.Background>
-                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                    <GradientStop Color="DarkGray" Offset="0.45"/>
-                    <GradientStop Color="Gray" Offset="0.546"/>
-                    <GradientStop Color="LightGray" Offset="0.746"/>
-                </LinearGradientBrush>
-            </DockPanel.Background>
-
+        <DockPanel Grid.ColumnSpan="2"
+                   Background="Gray">
             <TextBlock Text="Create Project"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center" 
@@ -68,7 +63,8 @@
                     BorderBrush="Transparent"
                     VerticalContentAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
-                    HorizontalAlignment="Right" Style="{DynamicResource ButtonStyle1}">
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource GeneralButtonStyle}">
                 <Path Fill="Red" 
                   Data="M19,3H16.3H7.7H5A2,2 0 0,0 3,5V7.7
                   V16.4V19A2,2 0 0,0 5,21H7.7H16.4H19A2,2 0 0,0 21,19V16.3
@@ -90,22 +86,22 @@
                  Style="{StaticResource TextboxStyle}"
                  Text="{Binding Name}"/>
 
-        <Button x:Name="btnCreateProject"  Grid.Row="2" Grid.Column="1"
-             Width="170"
-             Height="35"
+        <Button x:Name="btnCreateProject" 
+                Grid.Row="2" 
+                Grid.ColumnSpan="2"
+                Width="400"
+                Height="35"
+                HorizontalAlignment="Center"
              VerticalContentAlignment="Stretch"
              HorizontalContentAlignment="Stretch"
              BorderBrush="Transparent"
-             Margin="10,20"
+             Margin="0,20"
+             Style="{StaticResource GeneralButtonStyle}"
              Command="{Binding CreateProjectCommand}">
-            <Border CornerRadius="10" >
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                        <GradientStop Color="Gray" Offset="0"/>
-                        <GradientStop Color="LightGoldenrodYellow" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                <TextBlock Text="Save" 
+            <Border CornerRadius="5" 
+                    Background="Gray">
+                
+                <TextBlock Text="Create" 
                            HorizontalAlignment="Center"
                            FontWeight="DemiBold"
                            FontSize="25"

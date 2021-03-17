@@ -1,4 +1,7 @@
-﻿using RealtimeDrawingApplication.ViewModel;
+﻿using Prism.Events;
+using Prism.Ioc;
+using RealtimeDrawingApplication.Common;
+using RealtimeDrawingApplication.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +26,15 @@ namespace RealtimeDrawingApplication.Views
         public CreateAccount()
         {
             InitializeComponent();
-            //DataContext = new CreateAccountViewModel(new CreateProject());
+            EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
+            EventAggregator.GetEvent<CloseCreateAccountViewEvent>().Subscribe(CloseWindow);
         }
 
-        //void btnClose_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.Close();
-        //}
+        public IEventAggregator EventAggregator { get; set; }
 
+        void CloseWindow()
+        {
+            this.Close();
+        }
     }
 }

@@ -53,7 +53,7 @@ namespace RealtimeDrawingApplication.ViewModel
             EventAggregator.GetEvent<LoadProjectListEvent>().Publish(_projectProxy);
 
             DatabaseServices.ProjectModelService.SaveToDatabase(_projectProxy);
-            MessageBox.Show("Project Created Succesfully", "Notification Message", MessageBoxButton.OK, MessageBoxImage.Hand);
+            MessageBox.Show("Project Created Succesfully", "Notification Message", MessageBoxButton.OK, MessageBoxImage.Information);
 
             _createProjectWindowView.Close();
         }

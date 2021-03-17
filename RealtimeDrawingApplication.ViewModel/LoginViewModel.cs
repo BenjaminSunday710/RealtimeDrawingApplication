@@ -21,7 +21,7 @@ namespace RealtimeDrawingApplication.ViewModel
         private string _password;
         private Window _createAccountView;
         private Window _loginView;
-        Visibility _isVisible;
+        bool _isVisible;
         Window _mainWindowView;
         UserProxy _user;
 
@@ -40,7 +40,7 @@ namespace RealtimeDrawingApplication.ViewModel
         public IEventAggregator EventAggregator { get; set; }
         public string Email { get => _email; set{_email = value; RaisePropertyChanged(); } }
         public string Password { get => _password; set { _password = value; RaisePropertyChanged(); } }
-        public Visibility IsVisible { get => _isVisible; set { _isVisible = value; RaisePropertyChanged(); } }
+        public bool IsVisible { get => _isVisible; set { _isVisible = value; RaisePropertyChanged(); } }
 
         void Login(PasswordBox passwordBox)
         {
@@ -66,12 +66,12 @@ namespace RealtimeDrawingApplication.ViewModel
 
         void ShowPassword(PasswordBox passwordBox)
         {
-            if(IsVisible == Visibility.Visible)
+            if (IsVisible)
             {
-                IsVisible = Visibility.Collapsed;
+                IsVisible = false;
                 return;
             }
-            IsVisible = Visibility.Visible;
+            IsVisible = true;
             Password = passwordBox.Password;
         }
 

@@ -73,8 +73,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Colour.cs" />
     <Compile Include="CommonUtility.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="GenericServiceLocator.cs" />
     <Compile Include="IModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

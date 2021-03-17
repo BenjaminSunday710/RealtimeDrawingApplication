@@ -20,8 +20,8 @@ namespace RealtimeDrawingApplication.ViewModel
         private UserProxy _userProxy;
         private Window _mainWindowView;
         private Window _createAccountView;
-        private Visibility _isPasswordVisible;
-        private Visibility _isConfirmedPasswordVisible;
+        private bool _isPasswordVisible;
+        private bool _isConfirmedPasswordVisible;
 
 
         public CreateAccountViewModel()
@@ -33,6 +33,7 @@ namespace RealtimeDrawingApplication.ViewModel
             ShowPasswordCommand = new DelegateCommand<PasswordBox>(e => ShowPassword(e));
             ShowConfirmPasswordCommand = new DelegateCommand<PasswordBox>(e => ShowConfirmPassword(e));
             CloseCommand = new DelegateCommand(CloseCreateAccountView);
+            //EventAggregator.GetEvent<CloseLoginViewEvent>().Publish();
         }
 
         public string FirstName { get => _firstName; set { _firstName = value; RaisePropertyChanged(); } }
@@ -45,8 +46,8 @@ namespace RealtimeDrawingApplication.ViewModel
         public DelegateCommand CloseCommand { get; set; }
         public string LastName { get => _lastName; set { _lastName = value; RaisePropertyChanged(); } }
         public IEventAggregator EventAggregator { get; set; }
-        public Visibility IsPasswordVisible { get => _isPasswordVisible; set { _isPasswordVisible = value; RaisePropertyChanged(); } }
-        public Visibility IsConfirmedPasswordVisible { get => _isConfirmedPasswordVisible; set { _isConfirmedPasswordVisible = value; RaisePropertyChanged(); } }
+        public bool IsPasswordVisible { get => _isPasswordVisible; set { _isPasswordVisible = value; RaisePropertyChanged(); } }
+        public bool IsConfirmedPasswordVisible { get => _isConfirmedPasswordVisible; set { _isConfirmedPasswordVisible = value; RaisePropertyChanged(); } }
 
         public void ValidatePassword()
         {
@@ -59,23 +60,23 @@ namespace RealtimeDrawingApplication.ViewModel
 
         public void ShowPassword(PasswordBox passwordBox)
         {
-            if (IsPasswordVisible == Visibility.Visible)
+            if (IsPasswordVisible)
             {
-                IsPasswordVisible = Visibility.Collapsed;
+                IsPasswordVisible = false;
                 return;
             }
-            IsPasswordVisible = Visibility.Visible;
+            IsPasswordVisible = true;
             Password = passwordBox.Password;
         }
-
+       
         public void ShowConfirmPassword(PasswordBox confirmPasswordBox)
         {
-            if (IsConfirmedPasswordVisible == Visibility.Visible)
+            if (IsConfirmedPasswordVisible)
             {
-                IsConfirmedPasswordVisible = Visibility.Collapsed;
+                IsConfirmedPasswordVisible = false;
                 return;
             }
-            IsConfirmedPasswordVisible = Visibility.Visible;
+            IsConfirmedPasswordVisible = true;
             ConfirmPassword = confirmPasswordBox.Password;
         }
 
@@ -89,6 +90,12 @@ namespace RealtimeDrawingApplication.ViewModel
             _userProxy.FullName = _firstName + " " + _lastName;
             _userProxy.Password = _password;
 
+            if (_email==null || _firstName==null || _lastName==null || _password==null)
+            {
+                MessageBox.Show("Incomplete Details Provided! Complete the Form", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             bool isSavedSucessful = DatabaseServices.UserModelService.SaveToDatabase(_userProxy);
 
             if (isSavedSucessful)
@@ -96,17 +103,23 @@ namespace RealtimeDrawingApplication.ViewModel
                 _mainWindowView.DataContext = new MainWindowViewModel(_userProxy);
 
                 MessageBox.Show("Account Created");
-                _createAccountView.Close();
+                CloseCreateAccountView();
                 _mainWindowView.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Provided Email has been registered!, Sign in or use another Email to create an account", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
 
         void CloseCreateAccountView()
         {
-            _createAccountView.Close();
+            EventAggregator.GetEvent<CloseCreateAccountViewEvent>().Publish();
         }
 
     }
 
     public class GetUserInstanceEvent:PubSubEvent<UserProxy>{}
+    public class CloseCreateAccountViewEvent : PubSubEvent { }
 }

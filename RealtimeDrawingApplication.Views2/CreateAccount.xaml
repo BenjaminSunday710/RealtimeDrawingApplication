@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RealtimeDrawingApplication.Views"
+        xmlns:converter1="clr-namespace:RealtimeDrawingApplication.Common.Converters;assembly=RealtimeDrawingApplication.Common"
         mc:Ignorable="d"
         Height="520" Width="700"
         WindowState="Normal"
@@ -28,6 +29,7 @@
             <Setter Property="TextAlignment" Value="Center"/>
             <Setter Property="Height" Value="25"/>
         </Style>
+        <converter1:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -48,16 +50,12 @@
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                 <GradientStop Color="LightGray" Offset="0.1467"/>
-                <GradientStop Color="DarkGray" Offset="0.745"/>
-                <GradientStop Color="Gray" Offset="0.3435"/>
+                <GradientStop Color="Silver" Offset="0.745"/>
             </LinearGradientBrush>
         </Grid.Background>
         <DockPanel Grid.ColumnSpan="2" Height="60">
             <DockPanel.Background>
                 <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                    <GradientStop Color="DarkGray" Offset="0.65"/>
-                    <GradientStop Color="DimGray" Offset="0.546"/>
-                    <GradientStop Color="LightGray" Offset="0.246"/>
                     <GradientStop Color="Gray" Offset="0.746"/>
                 </LinearGradientBrush>
             </DockPanel.Background>
@@ -103,9 +101,12 @@
                      x:Name="PasswordBox"/>
         <TextBlock Grid.Row="5"
                    Grid.Column="1"
-                   Visibility="{Binding IsPasswordVisible}"
+                   Visibility="{Binding IsPasswordVisible,
+            Converter={StaticResource BooleanToVisibilityConverter}}"
                     Width="350"
-                   TextAlignment="Center"
+                   TextAlignment="Left"
+                   HorizontalAlignment="Left"
+                   Margin="20,0,0,0"
                    Text="{Binding Password}"/>
         <PasswordBox Grid.Column="1" Grid.Row="6"
                      Margin="20,0,0,0"
@@ -117,21 +118,25 @@
                      x:Name="ConfirmPasswordBox"/>
         <TextBlock Grid.Row="7"
                    Grid.Column="1"
-                   Visibility="{Binding IsConfirmedPasswordVisible}"
+                   Visibility="{Binding IsConfirmedPasswordVisible, 
+            Converter={StaticResource BooleanToVisibilityConverter}}"
                     Width="350"
-                   TextAlignment="Center"
+                    HorizontalAlignment="Left"
+                   Margin="20,0,0,0"
+                   TextAlignment="Left"
                    Text="{Binding ConfirmPassword}"/>
         <Button  Grid.Column="1" 
                  Grid.Row="4"
                  Width="40"
                  Height="30"
+                 Style="{StaticResource GeneralButtonStyle}"
                  Command="{Binding ShowPasswordCommand}"
                  CommandParameter="{Binding ElementName=PasswordBox}"
                  HorizontalAlignment="Right"
                  VerticalAlignment="Center"
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Stretch"
-                 Margin="0,0,80,0">
+                 Margin="0,0,75,0">
             <Path Width="40" Height="30"
             Fill="Black" Data="M12,9A3,3 0 0,1 15,12
               A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9
@@ -148,13 +153,14 @@
                  Grid.Row="6"
                   Width="40" 
                  Height="30"
+                 Style="{StaticResource GeneralButtonStyle}"
                  Command="{Binding ShowConfirmPasswordCommand}"
                  CommandParameter="{Binding ElementName=ConfirmPasswordBox}"
                   HorizontalAlignment="Right"
                   VerticalAlignment="Center"
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Stretch"
-                 Margin="0,0,80,0">
+                 Margin="0,0,75,0">
             <Path Width="40" Height="30"
             Fill="Black" Data="M12,9A3,3 0 0,1 15,12
               A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9
@@ -169,9 +175,11 @@
         </Button>
 
         <Button Grid.Row="8" Grid.Column="1"
+                Style="{StaticResource GeneralButtonStyle}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="left"
-                Margin="10,5,0,10" VerticalContentAlignment="Stretch"
+                Margin="10,5,0,10" 
+                VerticalContentAlignment="Stretch"
                 HorizontalContentAlignment="Stretch" 
                 FontSize="18" Foreground="Black"
                 BorderBrush="Transparent"
@@ -198,6 +206,7 @@
 
         <Button Grid.Row="8" 
                 Grid.Column="2"
+                Style="{StaticResource GeneralButtonStyle}"
                 Command="{Binding CloseCommand}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"

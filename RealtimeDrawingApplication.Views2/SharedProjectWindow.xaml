@@ -19,19 +19,11 @@
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
                 <GradientStop Color="LightGray" Offset="0.1467"/>
-                <GradientStop Color="DarkGray" Offset="0.745"/>
-                <GradientStop Color="LightGray" Offset="0.3435"/>
+                <GradientStop Color="Silver" Offset="0.3435"/>
             </LinearGradientBrush>
         </Grid.Background>
 
-        <DockPanel>
-            <DockPanel.Background>
-                <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
-                    <GradientStop Color="DarkGray" Offset="0.45"/>
-                    <GradientStop Color="Gray" Offset="0.546"/>
-                    <GradientStop Color="LightGray" Offset="0.746"/>
-                </LinearGradientBrush>
-            </DockPanel.Background>
+        <DockPanel Background="Gray">
             <TextBlock Text="Share Project"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center" 
@@ -41,7 +33,7 @@
                        Grid.ColumnSpan="2"/>
 
             <Button Width="32" Height="32"
-                    Command="{Binding CloseProjectViewCommand}"
+                    Command="{Binding  CloseCommand}"
                     Margin="0,5,5,4" 
                     BorderBrush="Transparent"
                     VerticalContentAlignment="Stretch"
@@ -82,8 +74,9 @@
                 HorizontalAlignment="Center"
                 BorderBrush="Transparent"
                 Margin="0,10"
+                Style="{StaticResource GeneralButtonStyle}"
                 Command="{Binding ShareCommand}">
-            <Border CornerRadius="10" 
+            <Border CornerRadius="5" 
                     BorderThickness="1"
                     BorderBrush="Transparent">
                 <Border.Background>
@@ -93,7 +86,7 @@
                     </LinearGradientBrush>
                 </Border.Background>
                 <TextBlock Text="Share"
-                           FontSize="20"
+                           FontSize="18"
                            FontWeight="DemiBold"
                            Foreground="Black"
                            HorizontalAlignment="Center"

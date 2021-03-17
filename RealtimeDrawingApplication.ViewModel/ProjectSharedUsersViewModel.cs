@@ -4,23 +4,20 @@ using Prism.Mvvm;
 using Prism.Ioc;
 using RealtimeDrawingApplication.Common;
 using RealtimeDrawingApplication.Model;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using RealtimeDrawingApplication.ViewModel.Proxies;
 using System.Windows;
 using RealtimeDrawingApplication.ViewModel.DatabaseServices;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace RealtimeDrawingApplication.ViewModel
 {
-    public class ProjectSharedUsersViewModel : BindableBase
+    public class ProjectSharedUsersViewModel : INotifyPropertyChanged
     {
         private ProjectProxy _projectProxy;
         private UserProxy _projectSharedUser;
-        private ProjectSharedUserProxy _projectSharedUserProxy;
+        //private ProjectSharedUserProxy _projectSharedUserProxy;
         private bool _isEditable;
         private ObservableCollection<UserProxy> _projectSharedUsersList;
         private UserProxy _selectedSharedUser;
@@ -36,14 +33,22 @@ namespace RealtimeDrawingApplication.ViewModel
             EventAggregator.GetEvent<LoadProjectShareUsersListEvent>().Subscribe(LoadProjectSharedUserList);
         }
 
-        public ProjectProxy Project { get => _projectProxy; set { _projectProxy = value; RaisePropertyChanged(); } }
-        public UserProxy ProjectSharedUser { get => _projectSharedUser; set { _projectSharedUser = value; RaisePropertyChanged(); } }
-        public bool IsEditable { get => _isEditable; set { _isEditable = value; Update();RaisePropertyChanged(); } }
+        //public ProjectProxy Project { get => _projectProxy; set { _projectProxy = value; RaisePropertyChanged(); } }
+        //public UserProxy ProjectSharedUser { get => _projectSharedUser; set =>_projectSharedUser=value; } 
+        public bool IsEditable { get => _isEditable; set { _isEditable = value; OnPropertyChanged(); } }
+        public UserProxy SelectedSharedUser { get => _selectedSharedUser; set { _selectedSharedUser = value; } }
+
         public ObservableCollection<UserProxy> ProjectSharedUsersList { get => _projectSharedUsersList; set => _projectSharedUsersList = value; }
         public IEventAggregator EventAggregator { get; set; }
         public DelegateCommand OpenShareProjectWindowCommand{ get; set; }
         public DelegateCommand RemoveSharedUserCommand { get; set; }
-        public UserProxy SelectedSharedUser { get => _selectedSharedUser; set { _selectedSharedUser = value; RaisePropertyChanged(); } }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        void OnPropertyChanged([CallerMemberName] string propertyName = " ")
+        {
+            if (IsEditable) Update();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         void LoadProjectSharedUserList(LoadProjectSharedUsersEventModel projectSharedUser)
         {
@@ -54,7 +59,7 @@ namespace RealtimeDrawingApplication.ViewModel
         void Update()
         {
             var projectSharedUserModel = database.GetProjectSharedUser(_projectSharedUser.Email);
-            _projectSharedUserProxy.IsEditable = true;
+            projectSharedUserModel.IsEditable = true;
             database.Update(projectSharedUserModel);
         }
 

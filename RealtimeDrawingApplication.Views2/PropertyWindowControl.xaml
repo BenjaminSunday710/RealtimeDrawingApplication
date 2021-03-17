@@ -112,7 +112,7 @@
 
         <TextBox Grid.Column="1" Grid.Row="3"
                  Width="130" Height="30"
-                 Text="{Binding Y}"
+                 Text="{Binding Angle}"
                 Style="{StaticResource TextboxStyle}"/>
 
         <TextBox Grid.Column="1" Grid.Row="4"  
@@ -130,7 +130,47 @@
                   Text="{Binding BorderThickness}"
                  Style="{StaticResource TextboxStyle}"/>
 
-        <Border Width="140" Height="32"
+        <ComboBox ItemsSource="{Binding Colours}" 
+                  VerticalContentAlignment="Center"
+                 SelectedValue="{Binding SelectedFillColour}"   
+                 SelectedValuePath="Value"
+                   Width="140" Height="30"
+                Grid.Column="1" Grid.Row="7"
+                  Background="White">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Fill="{Binding Value}" 
+                                   Height="18" Width="18"/>
+                        <TextBlock Text="{Binding Key}" 
+                                   VerticalAlignment="Center"
+                                   Margin="3,2,0,0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <ComboBox ItemsSource="{Binding Colours}" 
+                  VerticalContentAlignment="Center"
+                 SelectedValue="{Binding SelectedBorderFill}"   
+                 SelectedValuePath="Value"
+                 Width="140" Height="30"
+                Grid.Column="1" Grid.Row="8"
+                  Background="White">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Fill="{Binding Value}" 
+                                   Height="18" Width="18"/>
+                        <TextBlock Text="{Binding Key}" 
+                                   VerticalAlignment="Center"
+                                   Margin="3,2,0,0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <!--<Border Width="140" Height="32"
                 Grid.Column="1" Grid.Row="7"
                 BorderThickness="1"
                 BorderBrush="Black"
@@ -140,9 +180,9 @@
                     Orientation="Horizontal">
                 <Border Width="25" Height="24"
                         x:Name="FillColour"
-                    Background="{Binding Fill}"
+                        Background="{Binding SelectedFill}"
                         VerticalAlignment="Center"
-                    Margin="2,2,0.5,2"
+                        Margin="2,2,0.5,2"
                     />
                 <TextBlock 
                   Width="80" Height="25"
@@ -165,22 +205,34 @@
                         Height="25"
                         Width="22"/>
                 </Button>
-            </StackPanel>
-
-        </Border>
-        
-        <Popup IsOpen="{Binding IsOpenFill}"
+                <Popup IsOpen="{Binding IsOpenFill}"
                        Placement="MousePoint"
                        StaysOpen="True"
-                       PopupAnimation="Scroll">
-            <ListBox ItemsSource="{Binding ColourListItems}"
-                         SelectedItem="{Binding FillColourString}"
-                             Height="100" Width="130">
+                       PopupAnimation="Scroll"
+                       Height="40">
+                    <ListBox ItemsSource="{Binding Colours}"
+                      SelectedValue="{Binding SelectedBorderFill}"   
+                      SelectedValuePath="Value"
+                      Height="100" 
+                      Width="130">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Fill="{Binding Value}" 
+                                   Height="18" Width="18"/>
+                                    <TextBlock Text="{Binding Key}" 
+                                   VerticalAlignment="Center"
+                                   Margin="3,2,0,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Popup>
+            </StackPanel>
 
-            </ListBox>
-        </Popup>
-
-        <Border Width="140" Height="32"
+        </Border>-->
+        
+        <!--<Border Width="140" Height="32"
                 Grid.Column="1" Grid.Row="8"
                 BorderThickness="1"
                 BorderBrush="Black"
@@ -214,23 +266,30 @@
                         Height="25"
                         Width="23"/>
                 </Button>
-                
-               
 
                 <Popup IsOpen="{Binding IsOpen}"
                        Placement="MousePoint"
                        StaysOpen="True"
                        PopupAnimation="Scroll">
-                    <ListBox ItemsSource="{Binding ColourListItems}"
-                         SelectedItem="{Binding BorderFillString}"
-                             Height="100" Width="130">
-                       
+                    <ListBox ItemsSource="{Binding Colours}"
+                          SelectedValue="{Binding SelectedBorderFill}"   
+                          SelectedValuePath="Value"
+                          Width="140" Height="30"
+                          Grid.Column="1" Grid.Row="8">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Fill="{Binding Value}" 
+                                   Height="18" Width="18"/>
+                                    <TextBlock Text="{Binding Key}" 
+                                   VerticalAlignment="Center"
+                                   Margin="3,2,0,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                 </Popup>
-
-
-
             </StackPanel>
-        </Border>
+        </Border>-->
     </Grid>
 </UserControl>

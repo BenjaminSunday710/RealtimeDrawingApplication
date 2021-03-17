@@ -1,4 +1,6 @@
 ﻿using Application.Views;
+using Prism.Events;
+using Prism.Ioc;
 using RealtimeDrawingApplication.Common;
 using RealtimeDrawingApplication.ViewModel;
 using RealtimeDrawingApplication.Views;
@@ -30,8 +32,11 @@ namespace RealtimeDrawingApplication.Views2
             InitializeComponent();
             DataContext = new LoginViewModel();
             LoadAllWindows();
-            
+            EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
+            EventAggregator.GetEvent<CloseLoginViewEvent>().Subscribe(CloseWindow);
         }
+
+        public IEventAggregator EventAggregator { get; set; }
 
         void LoadAllWindows()
         {
@@ -45,6 +50,11 @@ namespace RealtimeDrawingApplication.Views2
             CommonUtility.RoutedPages.Add(nameof(MenuPaneControl), typeof(MenuPaneControl));
             CommonUtility.RoutedPages.Add(nameof(ApplicationStartupWindow), typeof(ApplicationStartupWindow));
            
+        }
+
+        void CloseWindow()
+        {
+           this.Close();
         }
     }
 }

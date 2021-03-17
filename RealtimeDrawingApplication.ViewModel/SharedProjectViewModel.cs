@@ -35,12 +35,14 @@ namespace RealtimeDrawingApplication.ViewModel
             _projectName = projectName;
 
             ShareCommand = new DelegateCommand(Share);
+            CloseCommand = new DelegateCommand(CloseSharedProjectWindow);
             EventAggregator = GenericServiceLocator.Container.Resolve<IEventAggregator>();
         }
 
         public IEventAggregator EventAggregator { get; set; }
         public string SharedUserEmail { get => _sharedUserEmail; set { _sharedUserEmail = value; RaisePropertyChanged(); } }
         public DelegateCommand ShareCommand { get; set; }
+        public DelegateCommand CloseCommand { get; set; }
         public bool IsAllowed { get => _isAllowed; set { _isAllowed = value; RaisePropertyChanged(); } }
         public LoadProjectSharedUsersEventModel ProjectSharedUsers { get; set; } = new LoadProjectSharedUsersEventModel();
 
@@ -65,10 +67,15 @@ namespace RealtimeDrawingApplication.ViewModel
                 MessageBox.Show("Unable to share!! Provided Email is not a registered Account", "Error Message", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            _isAllowed = true;
+
             GetProjectInstance();
+
+            if (_sharedProject == null) return;
+
+            _isAllowed = true;
             PublishSharedProject();
             SaveSharedUser();
+            EventAggregator.GetEvent<OpenSharedUserListEvent>().Publish();
             CloseSharedProjectWindow();
         }
 
@@ -95,4 +102,6 @@ namespace RealtimeDrawingApplication.ViewModel
             _sharedProjectWindowView.Close();
         }
     }
+
+    public class OpenSharedUserListEvent : PubSubEvent { }
 }

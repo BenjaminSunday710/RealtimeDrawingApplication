@@ -17,48 +17,6 @@ using RealtimeDrawingApplication.ViewModel.DataTransferProtocol;
 using RealtimeDrawingApplication.Model;
 
 namespace RealtimeDrawingApplication.ViewModel
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {
     public class MainWindowViewModel : BindableBase
     {
@@ -68,8 +26,9 @@ namespace RealtimeDrawingApplication.ViewModel
         private string _userEmail;
         private string _userName;
         private string _activeProject;
-        private Visibility _isVisible = Visibility.Collapsed;
+        private bool _isVisible;
         private Dictionary<string, FrameworkElement> _routedPages;
+        private bool _isOpen;
 
         public MainWindowViewModel(UserProxy currentUser)
         {
@@ -93,31 +52,40 @@ namespace RealtimeDrawingApplication.ViewModel
             DrawingSheet = new CustomCanvas();
 
             OpenMenuPaneControlCommand = new DelegateCommand(OpenMenuPaneControl);
+            OpenAddShareUserWindowCommand = new DelegateCommand(OpenAddShareUserWindow);
+            ExportProjectAsJsonCommand = new DelegateCommand(ExportProjectAsJson);
+            ExportProjectAsXmlCommand = new DelegateCommand(ExportProjectAsXml);
+            SharePopupIsOpenCommand = new DelegateCommand(SharePopupIsOpen);
 
             EventAggregator.GetEvent<SaveProjectEvent>().Subscribe(SaveDrawingComponents);
 
             EventAggregator.GetEvent<FetchProjectsEvent>().Publish(_userEmail);
 
             EventAggregator.GetEvent<GetProjectInstanceEvent>().Subscribe(SetActiveProject);
+            EventAggregator.GetEvent<CloseLoginViewEvent>().Publish();
         }
 
         public CustomCanvas DrawingSheet { get => _drawingSheet; set { _drawingSheet = value; } }
         public DelegateCommand OpenMenuPaneControlCommand { get; set; }
+        public DelegateCommand ExportProjectAsJsonCommand { get; set; }
+        public DelegateCommand ExportProjectAsXmlCommand { get; set; }
+        public DelegateCommand OpenAddShareUserWindowCommand { get; set; }
+        public DelegateCommand SharePopupIsOpenCommand { get; set; }
         public IEventAggregator EventAggregator { get; set; }
-        public Visibility IsVisible { get => _isVisible; set { _isVisible = value; RaisePropertyChanged(); } }
+        public bool IsVisible { get => _isVisible; set { _isVisible = value; RaisePropertyChanged(); } }
         public PropertySharedUsersProjectWindowsDisplay RoutedPagesModel { get => _routedPagesModel; set { _routedPagesModel = value; RaisePropertyChanged(); } }
         public string ActiveProject { get => _activeProject; set { _activeProject = value; RaisePropertyChanged(); } }
+        public UserControl MenupaneControl { get => _menuPaneControl; set { _menuPaneControl = value; RaisePropertyChanged(); } }
+        public bool IsOpen { get => _isOpen; set { _isOpen = value; RaisePropertyChanged(); } }
 
         void OpenMenuPaneControl()
         {
-            _menuPaneControl.Visibility = Visibility.Visible;
-            //IsVisible = Visibility.Visible;
+           IsVisible = true;
         }
 
         void CloseMenuPaneControl()
         {
-            _menuPaneControl.Visibility = Visibility.Collapsed;
-            //IsVisible = Visibility.Collapsed;
+            IsVisible = false;
         }
 
         private void SaveDrawingComponents(string projectName)
@@ -127,8 +95,34 @@ namespace RealtimeDrawingApplication.ViewModel
 
         private void SetActiveProject(string projectName)
         {
-            _activeProject = projectName;
+            ActiveProject = projectName;
         }
 
+        void ExportProjectAsJson()
+        {
+            DataTransferServices.SerialiseObjectToJson(_activeProject);
+        }
+
+        void ExportProjectAsXml()
+        {
+            DataTransferServices.SerializedObjectToXml(_activeProject);
+        }
+
+        void OpenAddShareUserWindow()
+        {
+            var sharedProjectWindow = CommonUtility.GetPage("SharedProjectWindow") as Window;
+            sharedProjectWindow.DataContext = new SharedProjectViewModel(sharedProjectWindow, _activeProject);
+            sharedProjectWindow.ShowDialog();
+        }
+
+        void SharePopupIsOpen()
+        {
+           IsOpen=!IsOpen;
+        }
+
+
+
     }
+
+    public class CloseLoginViewEvent : PubSubEvent { }
 }

@@ -12,7 +12,6 @@ namespace RealtimeDrawingApplication.ViewModel.Proxies
 {
     public class UserProxy : BindableBase
     {
-        //private static Repository<UserModel> database = new Repository<UserModel>();
         private string _firstName;
         private string _lastName;
         private string _email;
@@ -20,13 +19,8 @@ namespace RealtimeDrawingApplication.ViewModel.Proxies
         private IList<ProjectSharedUsersModel> _projectSharedUsers;
         private string _fullName;
 
-        //private UserModelService databaseService;
-
-        public UserProxy()
-        {
-
-        }
-
+        public UserProxy() { }
+        
         public string FirstName { get => _firstName; set { _firstName = value; RaisePropertyChanged(); } }
         public string Email { get => _email; set { _email = value; RaisePropertyChanged(); } }
         public string Password { get => _password; set { _password = value; RaisePropertyChanged(); } }

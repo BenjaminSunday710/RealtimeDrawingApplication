@@ -15,7 +15,7 @@ namespace RealtimeDrawingApplication.ViewModel
 {
     public class ProjectSharedUsersViewModel : INotifyPropertyChanged
     {
-        private ProjectProxy _projectProxy;
+        //private ProjectProxy _projectProxy;
         private UserProxy _projectSharedUser;
         //private ProjectSharedUserProxy _projectSharedUserProxy;
         private bool _isEditable;

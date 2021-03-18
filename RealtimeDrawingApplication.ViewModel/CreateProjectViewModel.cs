@@ -63,6 +63,4 @@ namespace RealtimeDrawingApplication.ViewModel
             _createProjectWindowView.Close();   
         }
     }
-
-    public class GetProjectInstanceEvent : PubSubEvent<string> { }
 }

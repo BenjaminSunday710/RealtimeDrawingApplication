@@ -22,6 +22,8 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         private SolidColorBrush _shapeBorder = Brushes.Blue;
         private double _borderThickness = 0.1;
         private RotateTransform rotateTransform;
+        //private double _height = 60;
+        //private double _width = 60;
 
         public ShapeComponent(Geometry geometry, ComponentEnum componentEnum)
         {
@@ -30,13 +32,28 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
             Id = Guid.NewGuid();
             Height = 60;
             Width = 60;
+            //Height = _height;
+            //Width = _width;
+            //Background = _shapeFill;
+            //Stroke = _shapeBorder;
+            //StrokeThickness = _borderThickness;
+            //ShapeFill = (SolidColorBrush) Fill;
+            //ShapeBorder = (SolidColorBrush)Stroke;
+
+
             Shape = this;
             Title = componentEnum.ToString();
             ComponentType = ComponentEnum;
             rotateTransform = new RotateTransform(_angle);
         }
 
-        public ShapeComponent Shape { get; set; }
+        //public Object GetComponent()
+        //{
+
+        //    return this;
+        //}
+
+       public ShapeComponent Shape { get; set; }
 
         public object GetComponent()
         {
@@ -49,14 +66,15 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
             shape.Stroke = ShapeBorder;
             shape.StrokeThickness = BorderThickness;
             shape.RenderTransform = new RotateTransform(Angle);
-            // Features: The height and width is limiting
-            //the shape changes to zero;
-            shape.Height = Height - 10;
-            shape.Width = Width - 10;
+       // Features: The height and width is limiting
+       //the shape changes to zero;
+            shape.Height = Height;
+            shape.Width = Width;
             shape.HorizontalAlignment = HorizontalAlignment.Center;
             shape.VerticalAlignment = VerticalAlignment.Center;
-            border.Child = shape;
-            Shape.Children.Add(border);
+            //Shape.Children.Add(shape);
+            //border.Child = shape;
+            Shape.Children.Add(shape);
             if (ShowBorder)
             {
                 border.BorderBrush = Brushes.Red;
@@ -109,17 +127,22 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         public double Y { get => _y; set { _y = value; OnPropertyChanged(); } }
         public double Angle { get => _angle; set { _angle = value; OnPropertyChanged(); } }
         public double BorderThickness { get => _borderThickness; set { _borderThickness = value; OnPropertyChanged(); } }
+        //public double ComponentHeight { get=>_height; set { _height = value; OnPropertyChanged(); } }
+        //public new double ComponentWidth { get => _width; set { _width = value; OnPropertyChanged(); } }
         public Guid Id { get; set; }
+
+        //protected override Geometry DefiningGeometry => Geometry;
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            UpdateDrawing();
+            //UpdateDrawing();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void UpdateDrawing()
-        {
+        //private void UpdateDrawing()
+        //{
 
-        }
+        //}
     }
 }

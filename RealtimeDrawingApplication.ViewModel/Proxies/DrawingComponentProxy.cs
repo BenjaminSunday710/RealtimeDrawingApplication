@@ -23,11 +23,8 @@ namespace RealtimeDrawingApplication.ViewModel.Proxies
         private ProjectModel _project;
         private ComponentEnum _componentEnum;
         Repository<DrawingComponentModel> database = Repository<DrawingComponentModel>.GetRepository;
-        //private static Repository<DrawingComponentModel> database = new Repository<DrawingComponentModel>();
 
         public DrawingComponentProxy() { }
-
-        
 
         public string Title { get => _title; set { _title = value;} }
         public double BorderThickness { get => _borderThickness; set { _borderThickness = value; } }

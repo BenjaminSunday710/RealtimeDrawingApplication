@@ -15,6 +15,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Reflection;
 
+
 namespace RealtimeDrawingApplication.ViewModel
 {
     public enum PropertyType { BorderFill, Fill, Width, Height, Title, BorderThickness, X, Y, BorderFillString, FillColourString, Angle }
@@ -103,9 +104,11 @@ namespace RealtimeDrawingApplication.ViewModel
                 {
                     case PropertyType.BorderFill:
                         BorderFill = (SolidColorBrush)propertyWindowEventModel.Value;
+                        SelectedBorderFill = BorderFill;
                         break;
                     case PropertyType.Fill:
                         Fill = (SolidColorBrush)propertyWindowEventModel.Value;
+                        SelectedFillColour = Fill;
                         break;
                     case PropertyType.Width:
                         Width = (double)propertyWindowEventModel.Value;

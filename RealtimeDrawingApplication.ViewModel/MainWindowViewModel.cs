@@ -120,10 +120,5 @@ namespace RealtimeDrawingApplication.ViewModel
         {
            IsOpen=!IsOpen;
         }
-
-
-
     }
-
-    public class CloseLoginViewEvent : PubSubEvent { }
 }

@@ -72,6 +72,19 @@
     <Compile Include="DrawingViewModel\IComponentProperties.cs" />
     <Compile Include="DrawingViewModel\ShapeComponent.cs" />
     <Compile Include="DrawingViewModel\TextBoxComponent.cs" />
+    <Compile Include="EventsAndEventsModel\CloseCreateAccountViewEvent.cs" />
+    <Compile Include="EventsAndEventsModel\CloseLoginViewEvent.cs" />
+    <Compile Include="EventsAndEventsModel\CloseMenuPaneEvent.cs" />
+    <Compile Include="EventsAndEventsModel\DeleteProjectEvent.cs" />
+    <Compile Include="EventsAndEventsModel\GetProjectInstanceEvent.cs" />
+    <Compile Include="EventsAndEventsModel\GetUserInstanceEvent.cs" />
+    <Compile Include="EventsAndEventsModel\ImportFileEvent.cs" />
+    <Compile Include="EventsAndEventsModel\OpenProjectWindowEvent.cs" />
+    <Compile Include="EventsAndEventsModel\PropertyWindowEventModel.cs" />
+    <Compile Include="EventsAndEventsModel\ResetPropertyEvent.cs" />
+    <Compile Include="EventsAndEventsModel\SaveProjectEvent.cs" />
+    <Compile Include="EventsAndEventsModel\SetPropertyEvent.cs" />
+    <Compile Include="EventsAndEventsModel\UpdateProjectEvent.cs" />
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="MenuPaneViewModel.cs" />
@@ -80,7 +93,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertySharedUsersProjectWindowsDisplay.cs" />
     <Compile Include="PropertyWindowControlViewModel.cs" />
-    <Compile Include="PropertyWindowEventModel.cs" />
     <Compile Include="Proxies\DrawingComponentProxy.cs" />
     <Compile Include="Proxies\ProjectProxy.cs" />
     <Compile Include="Proxies\ProjectSharedUserProxy.cs" />

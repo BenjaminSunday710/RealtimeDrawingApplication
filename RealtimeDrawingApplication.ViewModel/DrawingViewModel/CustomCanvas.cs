@@ -246,7 +246,8 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
             yValue = currentMousePosition.Y;
             Canvas.SetLeft(item, xValue);
             Canvas.SetTop(item, yValue);
-            Children.Add(item);
+            var _item = item as ShapeComponent;
+            Children.Add(_item);
 
             if (item is IComponentProperties component)
             {
@@ -334,6 +335,7 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
                 ResetPreviousComponent();
                 component.ShowBorder = true;
                 SelectedComponent = component.GetComponent() as FrameworkElement;
+                SelectedComponent = component.GetComponent() as FrameworkElement;
                 EventAggregator.GetEvent<SetPropertyEvent>().Publish(CurrentlySelectedItem);
             }
             base.OnMouseLeftButtonDown(e);
@@ -364,7 +366,7 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
 
         private void ResetPreviousComponent()
         {
-            FrameworkElement _component=null;
+            FrameworkElement _component = null;
             foreach (FrameworkElement item in Children)
             {
                 if (item is IComponentProperties component && component.ShowBorder)
@@ -373,18 +375,17 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
                     break;
                 }
             }
-            if (_component!=null)
+            if (_component != null)
             {
                 var __component = (_component as IComponentProperties);
-                __component.ShowBorder=false;
-                _component = __component.GetComponent() as FrameworkElement; 
+                __component.ShowBorder = false;
+                _component = __component.GetComponent() as FrameworkElement;
             }
         }
 
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             SelectedComponent = null;
-            //throw EventAggregator to set current
             base.OnMouseLeftButtonUp(e);
         }
 
@@ -399,10 +400,5 @@ namespace RealtimeDrawingApplication.ViewModel.DrawingViewModel
         }
         
     }
-
-    public class ResetPropertyEvent : PubSubEvent<PropertyWindowEventModel> { }
-   
-
-    public class SetPropertyEvent : PubSubEvent<PropertyWindowEventModel> { }
     
 }

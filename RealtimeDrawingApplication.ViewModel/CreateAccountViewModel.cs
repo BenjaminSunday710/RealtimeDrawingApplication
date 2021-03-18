@@ -119,7 +119,4 @@ namespace RealtimeDrawingApplication.ViewModel
         }
 
     }
-
-    public class GetUserInstanceEvent:PubSubEvent<UserProxy>{}
-    public class CloseCreateAccountViewEvent : PubSubEvent { }
 }

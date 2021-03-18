@@ -142,11 +142,4 @@ namespace RealtimeDrawingApplication.ViewModel
             DataTransferServices.SerializedObjectToXml(_projectName);
         }
     }
-
-    public class SaveProjectEvent : PubSubEvent<string> { }
-    public class ImportFileEvent : PubSubEvent<string> { }
-    public class DeleteProjectEvent : PubSubEvent<string> { }
-    public class CloseMenuPaneEvent : PubSubEvent { }
-    public class UpdateProjectEvent : PubSubEvent<string> { }
-    public class OpenProjectWindowEvent : PubSubEvent { }
 }
